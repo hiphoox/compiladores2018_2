@@ -1,9 +1,10 @@
 def m(file):
     lista = []
     provisional = []
+    sim = []
     for palabra in [item for item in open(file,"r").read().replace("\n","").split(" ") if item != ""]:
         for letra in palabra:
-            if letra in ['{', '}', '(', ')', ';']:
+            if letra in ['{', '}', '(', ')', ';','\.','#']:
                 lista.append(letra)
             else: 
                 provisional.append(letra)
