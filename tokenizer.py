@@ -1,4 +1,4 @@
-def tokenizer(file):
+def m(file):
     lista = []
     provisional = []
     for palabra in [item for item in open(file,"r").read().replace("\n","").split(" ") if item != ""]:
@@ -12,5 +12,5 @@ def tokenizer(file):
         provisional = []
     return lista
 
-print(tokenizer("tarea1.c"))
+print(m("tarea1.c"))
 
