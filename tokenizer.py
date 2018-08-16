@@ -1,11 +1,13 @@
-def m(file):
+def tokenizer(file):
     lista = []
     provisional = []
-    sim = []
     for palabra in [item for item in open(file,"r").read().replace("\n","").split(" ") if item != ""]:
         for letra in palabra:
             if letra in ['{', '}', '(', ')', ';','\.','#']:
-                lista.append(letra)
+                if len(provisional) != 0:
+                    lista.append("".join(provisional))
+                lista.append(letra) 
+                provisional=[]
             else: 
                 provisional.append(letra)
         if len(provisional) != 0:
@@ -13,5 +15,5 @@ def m(file):
         provisional = []
     return lista
 
-print(m("tarea1.c"))
+print(tokenizer("tarea1.c"))
 
