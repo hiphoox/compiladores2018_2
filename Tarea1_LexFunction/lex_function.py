@@ -10,7 +10,13 @@ def lex():
         for letter in l:
             word=word+letter
             word=word.strip("()\{\};")
-            if(word=="int" or word=="main" or word=="return"):
+            if(word=="int"):
+                tokens.append("INT<"+word+">")
+                word=""
+            elif(word=="main"):
+                tokens.append("ID<"+word+">")
+                word=""
+            elif(word=="return"):
                 tokens.append(word)
                 word=""
             elif(letter not in "int" and letter not in "return" and letter not in "main"):
