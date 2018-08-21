@@ -1,4 +1,4 @@
-def tokenizer(file,key):
+def tokenizer(file):
 	tokens = {'(':'Open parenthesis', ')': 'Close parenthesis', '{': 'Open brace', '}': 'Close brace', ';': 'Semicolon'}
 	#las key words se pueden leer de un archivo
 	key={'auto','break','case','char','const','continue','default','do','double','else','enum','extern','float',
@@ -11,5 +11,5 @@ def tokenizer(file,key):
             program = program.replace(y,'Keyword'+'<'+y+'>')
 	return [item+'' for item in program.split(" ") if len(item) != 0]
 
-print(tokenizer('tarea1.c','key.txt'))
+print(tokenizer('tarea1.c'))
 
