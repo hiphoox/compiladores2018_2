@@ -3,7 +3,7 @@ def tokenizer(file):
     provisional = []
     for palabra in [item for item in open(file,"r").read().replace("\n","").split(" ") if item != ""]:
         for letra in palabra:
-            if letra in ['{', '}', '(', ')', ';','\.','#']:
+            if letra in ['{', '}', '(', ')', ';','\.']:
                 if len(provisional) != 0:
                     lista.append("".join(provisional))
                 lista.append(letra) 
