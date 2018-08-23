@@ -3,19 +3,24 @@
 
 # In[ ]:
 
-tkn=[]
-def compilador():
-    archivo=open('C:/Users/Gerardo/Documents/Compiladores/return_2.txt','r')
-    for linea in archivo:
+tkns=[]
+def scanner():
+    f=open("return_2.c", "r")
+    for linea in f:
         palabra=""
-        for i in linea:
-            if i != " ":
-                j=str(i)
-                palabra += j
-            else:
-                tkn.append(palabra)
+        linea=linea.strip(" ").rstrip(" ")
+        for j in linea:
+            if j == "(" or j == ")" or j == "{" or j== "}" or j==";" or j=="2":
+                if palabra != "":
+                    tkns.append(palabra)
+                tkns.append(j)
                 palabra=""
-    archivo.close()        
-compilador()
-print (tkn)
+            elif j != " ":
+                palabra+=j
+            else:
+                tkns.append(palabra)
+                palabra=""
+    f.close()
+scanner()
+print(tkns)
 
