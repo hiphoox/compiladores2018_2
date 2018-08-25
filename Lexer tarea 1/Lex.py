@@ -12,17 +12,13 @@ class Token(Enum):
 
 def separar(renglon,token_list):
 	renglon = renglon.strip()
-	#print(renglon)
 	id = re.match('\\(*[A-Za-z][A-Za-z0-9_]*\\)*', renglon)
 	numero = re.match('[0-9]',renglon)
 	if (len(renglon)==0):
 	    return
 	if(id):
-	    if id.group(0) == "{":
-		    print("Hola Mundo")
-		else:
-			token_list.append([keyWords([id.group(0)]),id.group(0)])
-			separar(renglon.lstrip(id.group(0)),token_list)
+		token_list.append([keyWords([id.group(0)]),id.group(0)])
+		separar(renglon.lstrip(id.group(0)),token_list)
 	elif(numero):
 		token_list.append(['Int',numero.group(0)])
 		separar(renglon.lstrip(numero.group(0)),token_list)
