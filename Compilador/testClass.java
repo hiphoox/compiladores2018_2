@@ -11,12 +11,27 @@ public class testClass
 
 		cProgram=cProgram.trim();
 		String separatedChars[] = cProgram.split(" ");
-
+		Boolean bandera=false;
 		for (String caracter : separatedChars)
 				{
-
-					tokens.add(caracter);
-
+					for(char  simbolo : caracter.toCharArray())
+					{
+						if(Character.toString(simbolo).equals("("))
+						{
+							braceType openB = new braceType();
+							tokens.add(openB.openBrace);
+							bandera= true;
+						}
+						else if(Character.toString(simbolo).equals(")"))
+						{
+							braceType openB = new braceType();
+							tokens.add(openB.closeBrace);
+							bandera= true;
+						}
+					}
+				if(!bandera)
+					tokens.add(caracter);	
+				bandera=false;
 				}
 		return tokens;
 	}
