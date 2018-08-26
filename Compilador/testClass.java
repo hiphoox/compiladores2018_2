@@ -34,16 +34,11 @@ public class testClass
 }
 class braceType
 {
-	private String openBrace;
-	private String closeBrace;
-	private String openCurlyBrace;
-	private String closeCurlyBrace;
-	
+	public String openBrace="(";
+	public String closeBrace=")";
+	public String openCurlyBrace="{";
+	public String closeCurlyBrace="}";
 
-	public braceType(String brace)
-	{
-		//case para seleccionar el tipo
-	}	
 }
 
 class keyWord
