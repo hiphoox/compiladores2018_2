@@ -7,3 +7,9 @@ a_lista_rec s (String.length s)
 	let rec a_cadena chars =
 		match chars with
 		| [] -> "" | c::cs -> String.make 1 c ^ a_cadena cs
+module Tknzer : sig
+    type token = 
+        | OpenBrace | CloseBrace | OpenParen | CloseParen | Semicolon | IntKeyword | ReturnKeyword | Int of int | Id of string
+    val tknzer : string -> token list
+    val t_a_cadena: token -> string
+end =
