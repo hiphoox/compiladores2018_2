@@ -14,7 +14,7 @@ from enum import Enum
 def lex():
     tokens=[]
     word=""
-    l=open("invalid_case.c", "r").read().replace(" ","").replace("\n", "")
+    l=open("valid_return_2.c", "r").read().replace(" ","").replace("\n", "")
     for letter in l:
         word=word+letter
         word=word.strip("()\{\};")
