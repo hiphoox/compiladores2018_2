@@ -14,7 +14,7 @@ from enum import Enum
 def lex():
     tokens=[]
     word=""
-    l=open("invalid_nospace.c", "r").read().replace(" ","").replace("\n", "")
+    l=open("invalid_case.c", "r").read().replace(" ","").replace("\n", "")
     for letter in l:
         word=word+letter
         word=word.strip("()\{\};")
@@ -38,10 +38,6 @@ def lex():
                 tok=re.search(r'[\{ | \} | \( | \) | \;]',letter)
                 if tok:
                     tokens.append(tok.group(0))
-        else:
-            tokens=[]
-            print("Sintax error")
-            break
 
 
 #    for line in file:
@@ -61,8 +57,3 @@ def lex():
     print(tokens)
     return tokens
             
-    
-            
-        
-
-lex()
