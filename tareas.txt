@@ -15,3 +15,16 @@ Tarea #1.- Ventajas y desventajas de la notación infija, prefija y posfija.
 	las notaciones prefija y postfija evitan tokens inutiles, hay menos ambiguedad en los operadores puesto que se especifican desde el principio,
 	están estructuradas de forma que es más fácil llenar el arbol de tokens y más rápido.
 
+Tarea #2.- Representacion de números negativos en binario.
+	Para la representación de un número negativo en complemento a 2, el primer bit(más significativo) lo reservamos para el signo y el resto de bits se usan para representar:
+	Si es positivo, se pone tal cual.
+	Si es negativo, se pone el complemento a 2
+	Al número representado en binario se le agrega un dígito hasta la izquierda 0 si es positivo o 1 si es negativo, después se le saca el complemento a 2.
+	Link: https://automatizaciondigital.wordpress.com/numeros-binarios-con-signo/
+	Representación de negativos en ensamblador:
+	Hay 3 técnicas que se han usado para representar números enteros en la memoria del computador. Todos estos métodos usan el bit mas significativo como un bit de signo. Este bit es 0 si el número es positivo y 1 si es negativo.
+	MAGNITUD Y SIGNO: Representa los enteros como dos partes. La primera es el bit de signo y la segunda es la magnitud del entero. Así 56 sería representado como el byte 00111000 (el bit de signo está subrayado) y -56 sería 10111000. El mayor valor de un byte sería 01111111 o +127 y el menor valor sería 11111111 o -127. Para negar un valor, se cambia el bit del signo.
+	COMPLEMENTO A UNO: El complemento a uno de un número se encuentra invirtiendo cada bit en el número. Por ejemplo el complemento a uno de 00111000 (+56) es 11000111. En la notación de complemento a uno calcular el complemento a uno es equivalente a la negación. Así 11000111 es la representación de -56.
+	COMPLEMENTO A DOS: 1. Hallar el complemento a uno del número. 2. Sumar uno al resultado del paso 1.
+	Acá está un ejemplo usando 00111000 (56). Primero se calcula el complemento a uno: 11000111. Entonces se añade uno: 11000111 + 1 = 11001000
+	Link: https://www.clasesordenador.com/tutorial-de-ensamblador-basico/index.html
