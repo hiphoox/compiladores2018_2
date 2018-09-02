@@ -1,0 +1,17 @@
+Tarea #1.- Ventajas y desventajas de la notación infija, prefija y posfija.
+	La notación infija requiere los paréntesis para forzar que se lleve a cabo la adición antes de la multiplicación. 
+	Los operadores ya no son ambiguos con respecto a los operandos sobre los que actúan. 
+	Solamente la notación infija requiere los símbolos adicionales. 
+	El orden de las operaciones dentro de las expresiones prefijas y sufijas está completamente determinado por la posición del operador y nada más. De muchas maneras, esto hace que la notación infija sea la notación menos deseable de usar.
+	Link: http://interactivepython.org/runestone/static/pythoned/BasicDS/ExpresionesInfijasPrefijasYSufijas.html
+	Postfija ventajas: Código generado conciso. No hacen falta temporales. Algunas optimizaciones sencillas. Mantiene la estructura sintáctica. 
+	Postfija desventajas: Código dependiente de la posición. Solo efectiva si el ‘target’ es de pila. 
+	Link: http://webdiis.unizar.es/~neira/12048/generaciondecodigo.pdf
+	Prefija: No requiere de paréntesis para indicar el orden de precedencia de operadores ya que el es una operación.
+	Se evalúa de izquierda a derecha hasta que encontrémosle primer operador seguido inmediatamente de un par de operandos.
+	Se evalúa la expresión binaria y el resultado se cambia como un nuevo operando.
+	Link: http://upsg01.foroactivo.com/t199-notaciones-prefijainfija-y-posfija
+	En resumen la notación infija es la peor ya que agrega tokens innecesarios en el código lo cual significa tiempo que usa el compilador,
+	las notaciones prefija y postfija evitan tokens inutiles, hay menos ambiguedad en los operadores puesto que se especifican desde el principio,
+	están estructuradas de forma que es más fácil llenar el arbol de tokens y más rápido.
+
