@@ -1,8 +1,5 @@
 from tokenizer import tokenizer
-def parser(tokens):
-    def expresion(tokens):
-        a = [int(item) for item in tokens.split(',') if item.isdigit()]
-        return a
+def parser(tokens):    
+    return [item for item in tokens if item.isdigit()]
 
-
-parser(tokenizer('tarea1.c'))
+print(parser(tokenizer('tarea1.c')))

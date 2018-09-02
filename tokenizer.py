@@ -11,5 +11,5 @@ def tokenizer(file):
             program = program.replace(y,' Keyword'+'<'+y+'> ')
 	return [item+'' for item in program.split(" ") if len(item) != 0]
 
-print(tokenizer('tarea1.c'))
+tokenizer('tarea1.c')
 
