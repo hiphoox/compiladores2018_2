@@ -1,2 +1,34 @@
-Alumno: T�llez Salto Kevin
+Alumno: Tellez Salto Kevin
 Documento para tareas ajenas al compilador:
+
+1.-Comparacion notacion prefija y postfija en comparacion con la infija:
+"ventajas notacion postfija":
+-En las calculadoras RPN, el cálculo se realiza sin tener que apretar la tecla "="
+(aunque se requiere pulsar la tecla "Enter" para añadir cifras a la pila).
+-El proceso de apilación permite guardar resultados intermedios para un uso
+posterior. Esta característica permite que las calculadoras RPN computen
+expresiones de complejidad muy superior a la que alcanzan las calculadoras
+algebraicas.
+-Los cálculos se realizan secuencialmente según se van introduciendo operadores,
+ en vez de tener que esperar a escribir la expresión al completo.
+ Debido a esto, se cometen menos errores al procesar cálculos complejos.
+ -no se necesitan usar parentesis
+"ventajas notación prefija"
+-La notación de prefijo ha visto una amplia aplicación con las S-expressions de Lisp, donde son requeridos los paréntesis debido a los operadores aritméticos que tienen aridad variable. El lenguaje de programación Ambi usa la notación polaca para operaciones aritméticas y la construcción del programa. La posfija notación polaca inversa es usada en muchos lenguajes de programación basados en pila como PostScript, y es el principio de operación de ciertas calculadoras, notablemente las de Hewlett-Packard.
+Aunque sea obvio, es importante observar que el número de operandos en una expresión debe igualar al número de operadores más uno, de lo contrario la sentencia no tiene ningún sentido (asumiendo que solamente son usados operadores binarios en la expresión). Esto puede ser fácil de pasarlo por alto cuando se trata con expresiones más largas y más complicadas con varios operadores, así que se debe tener cuidado de comprobar con minuciosidad que una expresión tiene sentido al usar la notación de prefijo.
+2.- ¿Como representar numeros negaticos en binario?
+hay varias maneras: (las dos mas comunes son)
+Representación de "Magnitud con Signo"
+El bit mas significativo de un número binario se puede utilizar para representar
+el signo del número, usando los otros bits para representar su magnitud.
+Es una forma natural de representación de los enteros con signo,
+pero no es muy usada porque es incómodo en la aritmética,
+en comparación con otros sistemas como el complemento a 2.
+Tambien hay dos ceros, puesto que +0 y -0,
+tienen códigos diferentes.
+ejemplo:
+3=0011  y -3=1011
+
+"Complemento a 2":
+los enteros son el complemento del entero positivo mas uno.
+3=0011  -3= 1101
