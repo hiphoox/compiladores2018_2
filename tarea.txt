@@ -1,0 +1,15 @@
+¿Qué ventajas tiene la notación prefija y posfija(sufija) con respecto de la infija?
+
+Una de las ventajas con mayor importancia es que las notaciones prefija y sufija no son ambiguas para las computadoras 
+y por ende son más utilizadas para realizar operaciones aritméticas ya que la notación infija es muy ambigua y necesita 
+de paréntesis para indicar si una operación se quiere realizar primero por esta razón esta notación es la menos deseada 
+de utilizar. La notación prefija simplifica la lógica proposicional. El lenguaje de programación Ambi usa la notación 
+prefija para operaciones aritméticas la posfija es utilizada en lenguajes basados en pilas como PostScript y es utilizado 
+en operaciones de ciertas calculadoras ya que conceptualmente es más sencilla y menos dada a errores.
+
+Numeros binarios negativos.
+
+Para representar un número negativo en el sistema binario necesitamos el complemento a dos del binario.
+Para determinar el complemento a dos primero tenemos que agregar un cero en el bit mas significativo, este será nuestro
+bit de signo; cero represeta positivo y uno negativo, después negamos todos los bit's para porteriormente sumarle uno. De
+esta manera obtenemos la representación de un numero negativo en binario. 
