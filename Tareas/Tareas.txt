@@ -1,0 +1,29 @@
+1.- ¿Qúe ventajas tiene la notación prefija con respecto a la infija?
+    La expresión o notación prefija nos indica que el operador va antes de los
+    Operandos sus características principales son:
+        * Los operadores conservan el mismo orden que la notación infija
+        equivalente.
+        * No requiere de paréntesis para indicar el orden de precedencia de
+        operadores ya que él es una operación.
+        * Se evalúa de izquierda a derecha hasta que encuentra el primer operador
+        seguido inmediatamente de un par de operando.
+        * Se evalúa la expresión binaria y el resultado se cambia como un nuevo
+        operando. Se repite hasta que nos quede un solo resultado.
+        * El orden es operador, primer operando, segundo operando
+2.- ¿Qúe ventajas tiene la notación postfija con respecto a la infija?
+        * Como su nombre lo indica se refiere a que el operador ocupa la posición
+        después de los operandos sus características principales son:
+        * El orden de los operandos se conserva igual que la expresión infija
+        equivalente no utiliza paréntesis ya que no es una operación ambigua.
+        * La operación posfija no es exactamente lo inverso a la operación prefija
+        equivalente.
+        * El orden es primer operando, segundo operando, operando.
+        (A+B)*C AB+C*
+
+    ** La notación infija tiene el problema de que en expresiones con más de un
+        operador existe ambigüedad sobre cuál es el orden de evaluación. Por
+        ejemplo, la expresión 8/4/2 se puede interpretar como (8/4)/2 o bien 8/(4/2).
+        Las otras notaciones no sufren este problema.
+
+
+http://itpn.mx/recursosisc/7semestre/leguajesyautomatas2/Unidad%20II.pdf
