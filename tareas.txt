@@ -1,0 +1,24 @@
+Tarea 1: ¿Qué ventajas tiene la notación prefija contra la infija y posfija? ¿Qué es más fácil para el compilador?
+
+	-Dado que la notación infija nos indica que el operador de la operación a realizarse esta en medio de los operandos es necesario información extra
+	para el correcto orden de operación, como la jerarquía de operaciones y la asosiación mediante el uso de () para sobreponerse a la jerarquía e indicar
+	que operación se desea hacer primero.
+
+	Ahora, en la notación prefija se evaluan los operandos de izquierda a derecha actuando sobre ellos el operador más cercano. Sin embargo, usar notacion prefija
+	implica que es necesario esperar por la ejecución de operaciones que se encuentran más a la derecha, lo que implica definir un conjunto de reglas para que
+	el orden de operaciones deseado suceda.
+	
+	Finalmente, la notacion posfija nos permite evaluar operandos de izquierda a derecha con el operador a la derecha más cercano de ellos, esto implica que
+	al para seguir el orden de operación solo es necesario leer de izquierda a derecha la expresión. Tenemos por seguro que la operación necesaria ya habrá
+	sido computada.
+	
+	-En mi opinión, creo que para nosotros es más complicado diseñar un compilador que lea notaciones que no sean la infija ya que no estamos acostumbrados.Sin
+	embargo, considero que es evidente que el uso de notación posfija es sumamente natural para una computadora y por ende para el compilador. Ya que con el uso
+	de notación infija es necesario definir reglas de jerarquía así como el uso de paréntesis para la asosiación de operaciones. Agregando, con la notación prefija
+	es necesario esperar a la ejecuión de operaciones más a la derecha de la actual, esto implica terminar de leer la expresión una vez y posteriormente operar de
+	derecha a izquiera.
+	Ahora, para el compilador creo que la notación posfija sería la más adecuada porque, dicho lo anterior, es bastante claro que al momento de operar solo es
+	necesario recorrer la expresión de izquierda a derecha y operar con su operando más cercano a la derecha. Sabiendo que las operaciones necesarias ya se
+	habrán ejecutado. 
+
+	Link: http://www.cs.man.ac.uk/~pjj/cs212/fix.html
