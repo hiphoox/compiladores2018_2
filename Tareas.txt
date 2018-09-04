@@ -1,0 +1,27 @@
+Tarea 1
+4-Septiembre-2018
+Galván Bazán Raúl
+
+Notación infija (a+b): Los operadores son escritos entre los operandos. Es fácil de 
+entender para humanos, pero es más difícil de procesar para una computadora. Esta notación
+requiere información sobre las reglas de asociación y precedencia para no ser ambigua,
+además de que puede necesitar paréntesis.
+
+Notación prefija (+ a b): Operadores son escritos antes que los operandos. Los operadores
+son evaluados de izquierda a derecha y actúan en los dos valores más cercanos a su derecha.
+Si dichos valores requieren ser calculados entonces se cambia el orden en que los operadores
+deben ser evaludos.
+
+Notación postfija (a b +): Los operadores son escritos después de los operandos. el orden
+de evaluación de los operadores es de izquierda a derecha y estos actúan en los valores 
+inmediatos a su izquierda. Debido a este orden, si algún valor requiere ser calculado, al
+ir de izquierda a derecha se garantiza que dichos valores ya fueron obtenidos.
+
+En genereal se prefiere la notación postfija y prefija a la notación infija pues esta
+última puede requerir varios escaneos para que una operación pueda ser completamente evaluda.
+La notación prefija es útil para operadores que tienen un solo operando.
+La notación postfija puede ser fácilmente evaluada haciendo uso de una pila.
+
+REFERENCIAS
+http://www.cs.man.ac.uk/~pjj/cs212/fix.html
+https://www.geeksforgeeks.org/stack-set-2-infix-to-postfix/
