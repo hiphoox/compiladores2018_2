@@ -1,0 +1,31 @@
+		TAREAS
+
+	Tarea 1. Ventajas de notacion prefija con respecto a infija 
+
+Las notaciones son una forma especial en la que se pueden expresar una
+expresión matemática y puedan ser de 3 formas: infija, prefija y posfija. 
+Las caracteristicas son:
+Notación prefija: El orden es operador, primer operando, segundo.
+Notación infija: La notación habitual. El orden es primer operando,operador, segundo operando. 
+Notación postfija: El orden es primer operando, segundo operando, operador.
+
+
+Las ventajas es que en las notaiones prefija y posfija no son necesarios los parentesis
+y la prioridad de los operadores no es relevante.
+La expresion se puede evaluar realizando un recorrido de izquierda a derecha, apilando 
+los operandos y evaluando los operadores.
+Estos métodos son mas simples que los necesaros cuando se trabaja en notacion infija. 
+
+
+
+
+
+	Tarea 2. Representacion de numeros negativos en binario
+
+Los pasos son los siguientes:
+	1.El número en decimal se transforma en forma binaria. Ejemplo: (3)10 = (011)2
+	2.Se agrega un bit que contendrá el signo del número negativo. (0 si es positivo y 1 si es negativo). 
+		Ejemplo: (011)2 = 1011.
+	3.Se saca el complemento del número, dejando el bit del signo igual Ejemplo: 1011 = 1100.
+	4.Por último, se le suma un bit al número. Ejemplo: 1100 +1 = 1101.
+Así es como se representa un número negativo en binario.
