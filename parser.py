@@ -7,13 +7,15 @@ def expresion(tokens):
     return exp
 
 def statement(tokens):
-    sta = [item for item in tokens if item.split("<")[0]=="Keyword" ]
+    sta = [item for item in tokens if item[item.find('<')+1:item.find('>')]=="return" or item[item.find('<')+1:item.find('>')]==";"  ]
+    for i in sta:
+        tokens.remove(i)
+    sta.append(expresion(tokens))
     return sta
     
 
 def parser(tokens):
     ast=[]    
-    ast.append(expresion(tokens))
     ast.append(statement(tokens))
     print(tokens)
     return ast
