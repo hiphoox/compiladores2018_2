@@ -1,0 +1,32 @@
+1. ¿Por qué es mejor la notación prefija que la infija?
+R: La notación prefija nos dice que la operacion se escribirá primero el operador y después
+   los operadores. Entre las ventajas más destacables están:
+    a) Nos evita el uso de símbolos auxiliares como paréntesis, corchetes, etc...
+    b) Su escritura es lineal lo que la hace más fácil de leer sin ambigüedades.
+    c) Su escritura es más compacta.
+
+2. ¿Por qué es mejor la notación postfija que la infija?
+R: La notación postfija nos dice que la operacion se escribirá partiendo de escribir
+   primero los operadores y luego el operador entre ellos. Etre las ventajas más destacables están:
+    a) Calculos se realizan secuencialmente sin esperar a que se escriba la expresion completa lo que implica menos errores.
+    b) No es necesario el uso de paréntesis ya que se apilarán las operaciones por etapas.
+    c) El hecho de realizar lo anterior (apilar las operaciones) se puede retener un resultado intermedio para un uso posterior.
+    d) Al ser evaluada de forma lineal, ésta será más fácil de realizar para la computadora.
+  
+  Por lo que he investigado, las notaciones si son utilizadas en varios lugares destacando en calculadoras y computadoras
+  por la eficiencia de éstos y su falta de ambigüedad por lo que es dificil que una computadora saque un resultado erroneo.
+  La notación infija, aunque para los humanos se vea más "bonita" incluso nosotros llegamos a confundirnos por la jerarquía
+  de las operaciones. El hecho de hacer que la computadora trate de entender la notación infija llevará tiempo y, aunque se
+  lograra hacerlo, la computadora al realizar las operaciones requeriría de más ciclos de reloj.
+
+3. Representación de números negativos en binarios.
+R: El uso de signos nos permite representar números enteros negativos y positivos. Todos los métodos que hay para hacerlo
+   tienen en común que se reserva un bit para el signo (el más significativo) y los demás para representar el número.
+   El bit de signo si es '0' se dice que es positivo, si es '1' es negativo. 
+   
+   EJEMPLO:
+   - Representación del +7 -                  - Representación del -7 -
+    SIGNO | NUMERO EN BINARIO                  SIGNO | NUMERO EN BINARIO
+      0   |  1 1 1                               1   |  1 1 1
+   
+   Por lo tanto: +7 -> 0111.                  Por lo tanto: -7 -> 1111.
