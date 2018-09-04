@@ -1,0 +1,15 @@
+Introducción
+
+Notación Infija: es la forma más común que utilizamos para escribir expresiones matemáticas, estas notaciones se refieren a que el operador esta entre los operandos. 
+Notación Posfija: Como su nombre lo indica se refiere a que el operador ocupa la posición después de los operandos.
+Notación Prefija: nos indica que el operador va antes de los operandos.
+
+----VENTAJAS DE LA NOTACIÓN POSFIJA, PREFIJA Y INFIJA----
+Las ventajas de la notación en los compiladores es que trabajan al trabajar con la notación posfija el tiempo de compilación se tardara menos ya que desde un principio ya sabemos que operador estamos haciendo y esto nos ayuda a que ya esperamos algunos datos.
+Pero la prefija nos ayuda a ver la prioridad antes en las operaciones ya que nos da las operaciones internas y después las operaciones externas esto nos facilita a quitar la complejidad de los problemas.
+Aunque la infija es la que utilizamos diaria mente los humanos y ya estamos acostumbrados a ella así que hay menos posibilidades que nos equivoquemos.
+
+
+---¿Cómo representar un numero negativo en binario?
+El uso del signo permite representar números enteros negativos y positivos. Los tres métodos que se estudian en esta sección tienen en común que los enteros positivos se representan directamente por su valor en binario y que reservan el primer bit para indicar el signo del número, 0 para los positivos y 1 para los negativos. Las diferencias estriban en la forma de representar los enteros negativos, en la facilidad que ofrecen para la realización de las operaciones aritméticas básicas y en el rango de enteros que se pueden representar.
+Los tres métodos que se presentan son: signo y magnitud, complemento a uno y complemento a dos.
