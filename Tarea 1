@@ -1,0 +1,18 @@
+Ventajas de la notación prefija sobre la notación Infija.
+  Primeramente, se definirá que es cada una de las notaciones:
+	  Notación Prefija: Consiste en situar al operador antes que los operandos.
+      El orden de la operación dentro de esta notación es: Operador, primer operando, segundo operando.
+    Notación Infija: se escriben los operadores entre los operandos en que están actuando.
+    Algunas de las ventajas de la notación prefija a la infija son:
+      •	Generación de código: simple, no utiliza registros.
+      •	Optimización: es difícil de reordenar ya que hay que considerar el contenido de la pila.
+      •	Interpretación rápida: es muy fácil de interpretar ya que solo necesita una pila.
+      •	Transportable: si, ya que todos los procesadores implementan una pila.
+
+Representación de un número negativo en el sistema Binario.
+  Los pasos son los siguientes:
+    1.	El número en decimal se transforma en forma binaria. Ejemplo: (3)10 = (011)2
+    2.	Se agrega un bit que contendrá el signo del número negativo. (0 si es positivo y 1 si es negativo). Ejemplo: (011)2 = 1011.
+    3.	Se saca el complemento del número, dejando el bit del signo igual Ejemplo: 1011 = 1100.
+    4.	Por último, se le suma un bit al número. Ejemplo: 1100 +1 = 1101.
+Así es como se representa un número negativo en binario.
