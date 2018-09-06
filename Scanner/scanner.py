@@ -1,28 +1,29 @@
+'''Autor: Ramos Estrada Gerardo
+Descripcion: Este programa realiza la funcion de escanear un programa 
+en lenguaje C y obtener los tokens para mandarlos al parser'''
 import re
 
-asg={"int":"INT","rint":"INT", "main":"MAIN", "return":"RETURN", "(":"Opare", ")":"CPare", "{":"Obrace", "}":"Cbrace", ";":"SEMICOLON"}
-tkns=[]
-patron=re.compile('[(){};]')
-patron2=re.compile('\W+')
-patron3=re.compile('\d')
 def scanner():
-    f=open("return_2.c", "r")
-    for linea in f:
-        linea=linea.strip(" ").rstrip(" ")
+    tkns={"int":"INT","rint":"ID", "main":"MAIN", "return":"RETURN", "(":"Opare", ")":"CPare", "{":"Obrace", "}":"Cbrace", ";":"SEMICOLON"}
+    patron=re.compile('[(){};]')
+    patron2=re.compile('\W+')
+    patron3=re.compile('\d')
+    tokens=[]
+    archivo=open("return_2.c", "r")
+    for linea in archivo:
+        linea=linea.strip(" ")
         palabra=patron.findall(linea)
-        for i in palabra:
-            if asg.has_key(i):
-                tkns.append(asg[i])
+        for iterador in palabra:
+            if tkns.has_key(iterador):
+                tokens.append(tkns[iterador])
         palabra=patron2.split(linea)
-        for i in palabra:
-            if asg.has_key(i):
-                tkns.append(asg[i])
+        for iterador in palabra:
+            if tkns.has_key(iterador):
+                tokens.append(tkns[iterador])
         palabra=patron3.findall(linea)
         if len(palabra) != 0:
-            for i in palabra:
-                tkns.append(asg["rint"]+"<"+i+">")
-    f.close()
-            
-scanner()
-print(tkns)
+            for iterador in palabra:
+                tokens.append(tkns["rint"]+"<"+iterador+">")
+    archivo.close()
+    return tokens
 
