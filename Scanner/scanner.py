@@ -1,5 +1,5 @@
 '''Autor: Ramos Estrada Gerardo
-Descripcion: Este programa realiza la funcion de escanear un programa 
+Descripcion: Este programa realiza la función de escanear un programa 
 en lenguaje C y obtener los tokens para mandarlos al parser'''
 import re
 
