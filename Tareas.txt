@@ -14,4 +14,17 @@ identificar qué valores se quieren operar primero, independientemente de jerarq
 
 
 Tarea #2 ¿Cómo se representan los números negativos en binario y cómo se utiliza en ensamblador?
-
+En ensamblador, todos los números se representan por un determinado número de bits, ya sea en bytes, words, double words, etcétera. Para el caso específico de los números positivos, tenemos 2 a la n (n siendo el número de bits disponibles)
+posibilidades de guardar un valor en binario, por ejemplo, con 4 bits podemos llegar desde 0 (0000) hasta 15 (1111), sin
+embargo, para representar número negativos, tenemos que utilizar un 'bit de marca', que es el primero y el de mayor valor.
+¿Qué nos ofrece utilizar este bit para 'marcar' a los números? un modo de sacrificar alcance de enteros positivos para poder
+trabajar los enteros negativos, i.e., si un número presenta el primer bit encendido, es entonces un número negativo.
+Por ejemplo: 1000 es -0 y 0000 es +0. 1010 es -2 y 0010 es +2.
+Sí, ésto implica que tenemos un cero positivo y negativo.
+Ensamblador trabaja los negativos con el complemento de 1's, que consiste en invertir todos los 1's por 0's y viceversa. A
+la hora de restar, se le aplica el complemento de 1's al número a restar, se suma como cualquier número normal al otro dígito 
+y se termina sumando al resultado un 1. Ésto logra que se pueda hacer la operación de resta mediante sumas.
+Ejemplo: 0010 0101   1's   0010 0101  
+       - 0001 0100   ==> + 1110 1011   ==>  1 0001 0000 + 0000 0001   ==>  0001 0001
+       
+       Se traduce a 37 - 20 = 17
