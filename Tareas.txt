@@ -1,0 +1,17 @@
+Tarea #1 ¿Qué ventajas tiene la notación prefija, infija y postfija?
+Tanto notación prefija y postfija muestran ventajas sobre la infija porque es de mayor utilidad, digamos, para un parseador
+utilizar una notación prefija que se puede traducir fácilmente a un AST.
+Incluso para ejecuciones directas, éstas notaciones presentan ventajas, ya que no necesitas mas alla de una stack que guarda
+valores para despues operarlos (notacion postfija) o, al contrario, primero sabe qué operar y después se preocupa por obtener
+los argumentos.
+Hacer lo equivalente en una notación infija requiere de mayor procesamiento de datos y de un compilador que tarda más en inter-
+pretar un mismo código (además de que el código del mismo se vuelve mayormente complejo de elaborar -> mantener).
+Otra ventaja de las notaciones pre y postfijas a la infija es la nula ambiguedad que presentan, ejemplificando:
++ * 5 4 8 arroja un único valor como resultado
+su equivalente en infijo sería (5 * 4) + 8, en donde ya se requirio utilizar herramientas como lo son los paréntesis para
+identificar qué valores se quieren operar primero, independientemente de jerarquía de operaciones.
+5 4 * 8 + presenta la misma nulidad en ambiguedad que la notación prefija. 
+
+
+Tarea #2 ¿Cómo se representan los números negativos en binario y cómo se utiliza en ensamblador?
+
