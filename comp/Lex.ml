@@ -1,13 +1,18 @@
+(*requiere escribir str.cma para compilar, se escribe ocamlc str.cma -o nombre nombre.ml*)
+open Parse
+
 let a_lista s = 
     let rec a_lista_rec substr substr_len =
         match substr with
         | "" -> [] | _ -> (String.get substr 0)::a_lista_rec (String.sub substr 1 (substr_len - 1)) (substr_len - 1)
     in
-a_lista_rec s (String.length s)
-	let rec a_cadena chars =
-		match chars with
-		| [] -> "" | c::cs -> String.make 1 c ^ a_cadena cs
-module Tknzer : sig
+        a_lista_rec s (String.length s)
+		
+let rec a_cadena chars =
+    match chars with
+    | [] -> "" | c::cs -> String.make 1 c ^ a_cadena cs
+
+module Lex : sig
     type token = 
         | OpenBrace
         | CloseBrace
@@ -19,7 +24,7 @@ module Tknzer : sig
         | Int of int
         | Id of string
 	val t_a_cadena: token -> string
-    val tknzer : string -> token list
+    val Lex : string -> token list
     
 end =
 	struct
@@ -54,7 +59,7 @@ end =
                     (Int(int_of_string int_token), rest)
             else
                 failwith ("Syntax error: \""^input^ "\" caracter no reconocido")
-         let rec tknzer input = 
+         let rec Lex input = 
             let input = String.trim input in 
                 if String.length input = 0
                 then []
@@ -68,7 +73,7 @@ end =
                         | ';'::rest -> (Semicolon, a_cadena rest)
                         | _ -> identificado input
                     in
-                    tok :: (tknzer remaining_program)
+                    tok :: (Lex remaining_program)
          let t_a_cadena t =
             let s = 
                 match t with
@@ -85,6 +90,7 @@ end =
             s
      end
 	 
-let tokens = Tknzer.tknzer "int main() { return 2; }" 
-let cadena_t = List.map Tknzer.t_a_cadena tokens;;
+let tokens = Lex.Lex "int main() { return 2; }" 
+let cadena_t = List.map Lex.t_a_cadena tokens;;
 let _ = List.iter (Printf.printf "%s ," ) cadena_t
+let ast = Parse.parse tokens
