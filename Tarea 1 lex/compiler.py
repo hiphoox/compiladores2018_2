@@ -1,4 +1,6 @@
 from lex import lex
+from parser import parcer
 
 file = "return_2.c"
-lex(file)
+_tokens = lex(file)
+_ast = parcer(_tokens)

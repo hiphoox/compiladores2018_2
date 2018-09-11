@@ -1,0 +1,36 @@
+Tarea #1.- Ventajas y desventajas de la notación infija, prefija y posfija.
+	Infija:
+	La notación infija requiere definir reglas de gerarquia así como elementos nuevos para su correcto uso.
+	Los operadores ya no son ambiguos con respecto a los operandos sobre los que actúan.
+	Solamente la notación infija requiere los símbolos adicionales.
+	El orden de las operaciones dentro de las expresiones prefijas y sufijas está completamente determinado por la posición del operador y nada más. De muchas maneras, esto hace que la notación infija sea la notación menos deseable de usar.
+	Link: http://interactivepython.org/runestone/static/pythoned/BasicDS/ExpresionesInfijasPrefijasYSufijas.html
+
+	Postfija:
+	Ventajas: Código generado conciso. No hacen falta temporales. Algunas optimizaciones sencillas. Mantiene la estructura sintáctica.
+	Desventajas: Código dependiente de la posición. Solo efectiva si el ‘target’ es de pila.
+	Link: http://webdiis.unizar.es/~neira/12048/generaciondecodigo.pdf
+
+	Prefija:
+	No requiere de paréntesis para indicar el orden de precedencia de operadores ya que el es una operación.
+	Se evalúa de izquierda a derecha hasta que entrémonos el primer operador seguido inmediatamente de un par de operandos.
+	Se evalúa la expresión binaria y el resultado se cambia como un nuevo operando.
+	Link: http://upsg01.foroactivo.com/t199-notaciones-prefijainfija-y-posfija
+
+	Conclusión
+	Es claro que desarrollar un compilador que entienda la notación infija es significativamente mas complicado que desarrollarlo en una notación prefija o postfija, sin embargo y con lo mencionado anteriormente sabemos que el algoritmo mas sencillo para la resolución de operaciones aritméticas es usando la notación postfija, pues solo debemos recorrer la expresión de izquierda a derecha.
+
+Tarea #2.- Representación de números negativos en binario.
+	Para la representación de un número negativo en complemento a 2, el primer bit(más significativo) lo reservamos para el signo y el resto de bits se usan para representar:
+	Si es positivo, se pone tal cual.
+	Si es negativo, se pone el complemento a 2
+	Al número representado en binario se le agrega un dígito hasta la izquierda 0 si es positivo o 1 si es negativo, después se le saca el complemento a 2.
+	Link: https://automatizaciondigital.wordpress.com/numeros-binarios-con-signo/
+
+	Representación de negativos en ensamblador:
+	Hay 3 técnicas que se han usado para representar números enteros en la memoria del computador. Todos estos métodos usan el bit mas significativo como un bit de signo. Este bit es 0 si el número es positivo y 1 si es negativo.
+	MAGNITUD Y SIGNO: Representa los enteros como dos partes. La primera es el bit de signo y la segunda es la magnitud del entero. Así 56 sería representado como el byte 00111000 (el bit de signo está subrayado) y -56 sería 10111000. El mayor valor de un byte sería 01111111 o +127 y el menor valor sería 11111111 o -127. Para negar un valor, se cambia el bit del signo.
+	COMPLEMENTO A UNO: El complemento a uno de un número se encuentra invirtiendo cada bit en el número. Por ejemplo el complemento a uno de 00111000 (+56) es 11000111. En la notación de complemento a uno calcular el complemento a uno es equivalente a la negación. Así 11000111 es la representación de -56.
+	COMPLEMENTO A DOS: 1. Hallar el complemento a uno del número. 2. Sumar uno al resultado del paso 1.
+	Acá está un ejemplo usando 00111000 (56). Primero se calcula el complemento a uno: 11000111. Entonces se añade uno: 11000111 + 1 = 11001000, el complemento a dos es el mas usado en el mundo de los compiladores debido a que solo existe una representacion del cero en esta notacion.
+	Link: https://www.clasesordenador.com/tutorial-de-ensamblador-basico/index.html
