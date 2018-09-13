@@ -37,4 +37,17 @@
                 2. Convertimos a binario, en este caso. Luego, 31 = 00011111.
         
 3. ¿por qué un byte es igual a 8 bits?
+        En un inicio cada fabricante ocupaba un número indistinto de bits para representar un byte, 
+        pero siendo que las computadoras cada vez eran más utilizadas y comenzaba a ser cada vez más 
+        necesaria interoperabilidad entre las mismas,
+        Bob Bemer propone crear un standard para la representación de caracteres al American National Standards Institute (ANSI). 
+        Así es como en 1963 se crea el código ASCII (American Standard Code for Information Interchange). 
+        El código ASCII original utilizaba 7 bits para un total de 128 caracteres posibles. 
+        Rápidamente se hizo evidente que era una limitación y se empezó a trabajar con códigos de 8 bits. 
+        Cada fabricante utilizaba extensiones de ASCII propias y los 8 bits se hicieron corrientes.
+        Y fue en Agosto de 1981 cuando el destino del Byte como sinónimo de 8 bits tuvo un inevitable empuje. 
+        La IBM 5150, más conocida como la IBM PC (Personal Computer) salió al mercado, transformándose al poco tiempo en la arquitectura 
+        dominante de la industria. Utilizando el microprocesador Intel 8088 de 8bits 
+        (aunque ya estaba disponible para la época el 8086 de 16bits de mejores prestaciones, aunque también más costoso) 
+        dió paso a una familia de productos y derivados con gran éxito de ventas y una cantidad de clones que inundaron el mercado.
         
