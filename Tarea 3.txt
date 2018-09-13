@@ -1,0 +1,11 @@
+¿Por qué 1 byte es igual a 8 bits?
+En los años 60’s, los fabricantes de los componentes de las computadoras tenían diferentes diseños para representar 1 byte, por ejemplo, PDP-8 (construida en 1965) utilizaba 12 bits dividido en 2 bloques de 6 bits (bytes de 6 bits) para almacenar caracteres. 
+Todo cambio cuando se comenzó a estandarizar el código ASCII (American Standard Code for Information Interchange) en 1963 por Bob Bemer. 
+Este código original utilizaba 7 bits para un total de 128 caracteres posibles para almacenar. 
+La IBM System/360 y su familia fueron mainframes construidos entre 1965 y 1978. 
+Eran computadoras multipropósito que comenzaron a popularizar el byte fijo de 8 bits. 
+En 1972 el primer procesador comercial de 8bits fue el 8008 de Intel. 
+Pronto otros fabricantes de microprocesadores lanzaron sus propias versiones, por ejemplo el Zilog Z80 y el Motorola 6800. Igual de 8 bits.
+Para 1984 cuando la IBM PC-AT salio a la venta con un procesador 80286 de 16bits, el byte se mantuvo en 8bits tanto para la terminología como para los lenguajes de programación. 
+Más aun, cuando en 1987 sale a la luz Unicode, utilizando para codificar caracteres más de 8 bits, el Byte siguió siendo sinónimo de 8 bits.
+Debido a la popularidad de estás máquinas se mantuvo el estandar de manejar 1 byte como 8 bits.
