@@ -39,3 +39,14 @@ Tarea 1: ¿Cómo se representa un número binario en negativo y por qué es así?
 	indica que un número es negativo al momento de estar encendido.
 
 	Link:https://www.calvin.edu/academic/rit/webBook/chapter5/negative.htm
+
+Tarea 2: ¿Cómo funciona el registro Flag? (Status register)
+
+	El status register o registro de bandera es aquel que lleva el estatus aritmético de la ALU(Unidad aritmética lógica) del procesador, así como el valor de
+	reset y el banco de selección de bits para memoria de datos.
+	
+	Esto quiere decir que al momento de que la ALU es usada se guarda en ese registro el estatus del resultado.
+	
+	Este registro nos ayuda a identificar si la operación dejo acarreo o si el resultado es negativo, por ejemplo.
+
+	
