@@ -3,7 +3,7 @@
   Notación prefija o polaca
   Notación posfija o polaca inversa
   
- 2. Representación de números negativos en binario
+2. Representación de números negativos en binario
         Existen 4 formas
                 1. Magnitud y signo
                 2. Complemento a la base menos uno
@@ -35,4 +35,6 @@
                 Supongamos, que tenemos que representar el número -97 (decimal). Procedemos a:
                 1. Tomar el número -97 y sumarle el exceso, en este caso 128, luego -97 + 128 = 31;
                 2. Convertimos a binario, en este caso. Luego, 31 = 00011111.
+        
+3. ¿por qué un byte es igual a 8 bits?
         
