@@ -13,3 +13,17 @@ Para representar un número negativo en el sistema binario necesitamos el comple
 Para determinar el complemento a dos primero tenemos que agregar un cero en el bit mas significativo, este será nuestro
 bit de signo; cero represeta positivo y uno negativo, después negamos todos los bit's para porteriormente sumarle uno. De
 esta manera obtenemos la representación de un numero negativo en binario. 
+
+¿Por qué un byte son 8 bits?
+El termino Byte fue introducido por el científico informático Werner Buchholz mientras desarrollaba una computadora para IBM
+fue difino por 4 bits para despues extenderlo a palabras de 8 bits ya que es la unidad minima que puede leer una computadora,
+pero ¿por qué 8 bits? esto para representar todos los caracteres que una computadora puede representar como una letra, un numero,
+etc. así con todas las posibles combinaciones de 2^8 podemos formar estos caracteres que estan definidos por ASCII (American
+Standard Code of Information Interchange) es un codigo estandar para casi todos los idiomas, sin embargo no es suficiente para
+todos por eso se ha aumentado a 2 bytes.
+
+Numeros negativos en los registros.
+Una computadora x86 tiene 14 registros con 16 bits cada uno, tiene 4 de proposito general que pueden utilizarse para almacenar
+cualquier caracter ya que son dos bytes, para representar un numero negativo se utiliza otro registro que es el Registro de
+banderas ya que en uno de ls 16 bits de este registro se encuentra la badera de signo o bit de signo que nos dice que si esta
+en 1 el valor es negativo si es cero es positivo.
