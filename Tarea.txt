@@ -13,3 +13,32 @@ Aunque la infija es la que utilizamos diaria mente los humanos y ya estamos acos
 ---¿Cómo representar un numero negativo en binario?
 El uso del signo permite representar números enteros negativos y positivos. Los tres métodos que se estudian en esta sección tienen en común que los enteros positivos se representan directamente por su valor en binario y que reservan el primer bit para indicar el signo del número, 0 para los positivos y 1 para los negativos. Las diferencias estriban en la forma de representar los enteros negativos, en la facilidad que ofrecen para la realización de las operaciones aritméticas básicas y en el rango de enteros que se pueden representar.
 Los tres métodos que se presentan son: signo y magnitud, complemento a uno y complemento a dos.
+
+
+---¿Por que grupos de 8 bits?
+Las diferentes codificaciones de caracteres para almacenar y transmitir de forma eficiente un determinado carácter determinan la cantidad de bits requeridos por la arquitectura de la computadora. Inicialmente códigos utilizados para representar mensajes podían usar 5 bits, por ejemplo los códigos baudot para la telegrafía. También se utilizaron códigos de 6 bits como BCD ("Binary-Coded Decimal"). Las computadoras que utilizaban algunos de estos códigos necesitaban poder manipular esa cantidad de bits en forma conjunta, esto llevaba a sus constructores a diseñar arquitecturas con esa cantidad mínima de bits en mente.
+El código ASCII original utilizaba 7 bits para un total de 128 caracteres posibles. Rápidamente se hizo evidente que era una limitación y se empezó a trabajar con códigos de 8 bits.
+
+---Registros 
+Registro de bandera.
+
+Bandera
+Las banderas mas comunes son las siguientes:
+OF (Over flow flag, desbordamiento).
+Indica el desbordamiento de un bit de orden alto (mas a la izquierda) después de una operación aritmética.
+DF (Direction flag, Direccion).
+Designa la dirección hacia la izquierda o hacia la derecha para mover o comparar cadenas de caracteres.
+IF (Interruption flag, Interrupcion).
+Indica que una interrupción externa, como la entrada desde el teclado sea procesada o ignorada.
+TF (Trap flag, Trampa).
+Examina el efecto de una instrucción sobre los registros y la memoria. Los programas depuradores como DEBUG, activan esta bandera de manera que pueda avanzar en la ejecución de una sola interrupción a un tiempo.
+SF (Sign flag, Signo).
+Contiene el signo resultante de una operación aritmética (0=positivo y 1= negativo).
+ZF (Zero flag, Zero).
+Indica el resultado de una operación aritmética o de comparación (0= resultado diferente de cero y 1=resultado igual a cero).
+AF (Auxiliary carry flag, Acarreo auxiliar).
+Contiene un acarreo externo del bit 3 en un dato de 8 bits, para aritmética especializada
+PF (Parity flag, Paridad).
+Indica paridad par o impar de una operación en datos de ocho bits de bajo orden (mas a la derecha).
+CF (Carry flag, Acarreo).
+Contiene el acarreo de orden mas alto (mas a la izquierda) después de una operación aritmética; también lleva el contenido del ultimo bit en una operación de corrimiento o rotación.
