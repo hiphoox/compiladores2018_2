@@ -25,3 +25,35 @@ La notación postfija puede ser fácilmente evaluada haciendo uso de una pila.
 REFERENCIAS
 http://www.cs.man.ac.uk/~pjj/cs212/fix.html
 https://www.geeksforgeeks.org/stack-set-2-infix-to-postfix/
+
+
+Tarea 3
+13-Septiembre-2018
+Galván Bazán Raúl
+
+El motivo por lo que los bytes son paquetes de 8 bits no tiene una razón específica. Anteriormente,
+la palabra byte se utilizaba para referirse a un paquete con un número variable de bits, es decir,
+un byte bien podía contener cinco, seis o siete bits o cualquier otra cantidad. Pero fue IBM (la
+compañía líder en diseño de computadoras durante la época en que se estableció dicho "estándar")
+quien propuso el uso de paquetes de ocho bits como un estándar, el por qué se seleccionó esta cantidad
+se debe también a varias razones, como por ejemplo ofrecer compatibilidad con sus sistemas anteriores,
+porque 8 bits ofrecían el tamaño necesario para codificar todos los caracteres que se necesitaban, y
+también porque 8 es una potencia de 2. Gracias a la popularidad de los sistemas de IBM, especialmente su
+mainframe System/360, los 8 bits en un byte pegaron y se quedaron para la posteridad.
+
+REFERENCIAS
+https://www.quora.com/Why-is-a-byte-EXACTLY-8-bits
+https://www.youtube.com/watch?v=ixJCo0cyAuA
+
+Tarea 4
+13-Septiembre-2018
+Galván Bazán Raúl
+
+Todos los números (o cualquier dato) es representado en binario para poder ser utiliado por los elementos
+de la computadora. Todos los datos consisten de la representación binaria del dato y también tienen información
+sobre cómo utilizar dicha información. La manera en que se organiza esta información va a depender en gran medida
+del tipo de arquitectura que tenga cada sistema. En realidad, todos los datos consisten de un serie de instrucciones
+y de la información en sí. Es decir, para representar un número no sólo es necesaria la codificación binaria
+del número en sí, sino también una serie de instrucciones que contengan las operaciones que se deben realizar con
+dicho número. Estas operaciones son codificadas durante la compilación de un programa junto con los datos a utilizar.
+La manera en que se guarda toda esta información dependerá de la arquitectura con la que se tranaje.
