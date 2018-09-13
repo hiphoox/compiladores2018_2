@@ -1,1 +1,38 @@
         Tareas
+1. Ventajas de las posiciones prefijas y posfijas con respecto a la infija
+  Notación prefija o polaca
+  Notación posfija o polaca inversa
+  
+ 2. Representación de números negativos en binario
+        Existen 4 formas
+                1. Magnitud y signo
+                2. Complemento a la base menos uno
+                3. Complemento a dos o complemento a la base
+                4. En exceso a K
+        Ejemplo de magnitud y signo
+                Supongamos, que tenemos que representar el número -971(decimal). Procedemos a:
+                1. Tomar nota del signo del número reducido o simplificado -97, que siendo negativo, llevará como bit de signo un 1;
+                2. Realizar la conversión: el valor absoluto de -97 es |-97| = 97. Que en binario es: 1100001;
+                3. Colocar todo junto, el número -97 en binario con formato de Signo y Magnitud es: 11100001. 
+                   Donde el 1 en el bit más significativo indica un número negativo, y 1100001 es el significando en valor absoluto.
+        Ejemplo de complemento a la base menos uno
+                Supongamos, que tenemos que representar el número -97. Procedemos a:
+                1. Tomar nota del signo del número -97, que siendo negativo, llevará como bit de signo un 1;
+                2. Como el signo es negativo, el número a continuación del bit de signo, deberá expresarse en complemento a uno.
+                   Al realizar la conversión: el valor absoluto de -97 es |-97| = 97. 
+                   Que en binario es: 1100001, y el complemento a uno de 1100001 es C1(1100001) = 0011110;
+                3. Colocar todo junto, el número -97 en binario con formato de Complemento a uno es: 10011110. 
+                   Donde el 1 en el bit más significativo indica un número negativo, y 00111102 es el significando 
+                   en complemento a uno del valor absoluto del número.
+        Ejemplo de complemento a dos
+                Supongamos, que tenemos que representar el número -97. Procedemos a:
+                1. Tomar nota del signo del número -97, que siendo negativo, llevará como bit de signo un 1;
+                2. Como el signo es negativo, el número a continuación del bit de signo, deberá expresarse en complemento a dos. 
+                   Al realizar la conversión: el valor absoluto de -97 es |-97| = 97. Que en binario es: 1100001, 
+                   y el complemento a uno de 1100001 es C1(1100001) = 0011110, le sumamos uno para obtener el 
+                   complemento a dos: 0011110 + 0000001 = 0011111;
+        Ejemplo de en exceso K
+                Supongamos, que tenemos que representar el número -97 (decimal). Procedemos a:
+                1. Tomar el número -97 y sumarle el exceso, en este caso 128, luego -97 + 128 = 31;
+                2. Convertimos a binario, en este caso. Luego, 31 = 00011111.
+        
