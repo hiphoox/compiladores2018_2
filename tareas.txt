@@ -1,0 +1,52 @@
+Arjona Jiménez Gerardo | Compiladores | 2019-1
+
+Tarea 1: ¿Qué ventajas tiene la notación posfija contra la infija y prefija? ¿Qué es más fácil para el compilador?
+
+	-Dado que la notación infija nos indica que el operador de la operación a realizarse esta en medio de los operandos es necesario información extra
+	para el correcto orden de operación, como la jerarquía de operaciones y la asosiación mediante el uso de () para sobreponerse a la jerarquía e indicar
+	que operación se desea hacer primero.
+
+	Ahora, en la notación prefija se evaluan los operandos de izquierda a derecha actuando sobre ellos el operador a la izquierda más cercano. Sin embargo, 
+	usar notacion prefija implica que es necesario esperar por la ejecución de operaciones que se encuentran más a la derecha, lo que implica definir 
+	un conjunto de reglas para que el orden de operaciones deseado suceda.
+	
+	Finalmente, la notacion posfija nos permite evaluar operandos de izquierda a derecha con el operador a la derecha más cercano de ellos, esto implica que
+	al para seguir el orden de operación solo es necesario leer de izquierda a derecha la expresión. Tenemos por seguro que la operación necesaria anterior
+	ya habrá sido computada.
+	
+	-En mi opinión, creo que para nosotros es más complicado diseñar un compilador que lea notaciones que no sean la infija, ya que no estamos acostumbrados
+	a ellas. Sin embargo, considero que es evidente que el uso de notación posfija es sumamente natural para una computadora y por ende para el compilador. 
+	Con el uso de notación infija es necesario definir reglas de jerarquía así como el uso de paréntesis para la asosiación de operaciones. Agregando,
+	con la notación prefija	es necesario esperar a la ejecuión de operaciones más a la derecha de la actual, esto implica terminar de leer la expresión una vez
+	y posteriormente operar de derecha a izquiera.
+	Ahora, para el compilador creo que la notación posfija sería la más adecuada porque, dicho lo anterior, es bastante claro que al momento de operar solo es
+	necesario recorrer la expresión de izquierda a derecha y operar con su operando más cercano a la derecha. Sabiendo que las operaciones necesarias ya se
+	habrán ejecutado. 
+
+	Link: http://www.cs.man.ac.uk/~pjj/cs212/fix.html
+
+Tarea 1: ¿Cómo se representa un número binario en negativo y por qué es así?
+	
+	-Generalmente un número negativo se representa agregandole un bit de signo al número que se desea representar, esta es la manera más fácil de hacerlo, sin
+	embargo, esta forma de representación se presta a ambigüedades. ¿Como diferenciamos entre un número positivo y negativo sí no sabemos que le agregamos
+	el bit de signo?
+	
+	Otra, forma de obtener el negativo de un número binario es mediante el complemento a dos de este. Este método es el más utilizado, sin embargo, es claro que
+	si nos volvemos a hacer la misma pregunta sigue sin ser respondida.
+
+	Para esto al momento de realizar operaciones con números negativos es necesario indicar, de alguna u otra forma, que el número siendo operado es negativo.
+	El registro F, de flag, contiene información extra para el momento de realizar operaciones. En nuestro caso, comúnmente, existe el bit de negativo el cual
+	indica que un número es negativo al momento de estar encendido.
+
+	Link:https://www.calvin.edu/academic/rit/webBook/chapter5/negative.htm
+
+Tarea 2: ¿Cómo funciona el registro Flag? (Status register)
+
+	El status register o registro de bandera es aquel que lleva el estatus aritmético de la ALU(Unidad aritmética lógica) del procesador, así como el valor de
+	reset y el banco de selección de bits para memoria de datos.
+	
+	Esto quiere decir que al momento de que la ALU es usada se guarda en ese registro el estatus del resultado.
+	
+	Este registro nos ayuda a identificar si la operación dejo acarreo o si el resultado es negativo, por ejemplo.
+
+	
