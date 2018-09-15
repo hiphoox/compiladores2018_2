@@ -41,6 +41,7 @@ def parse(tokens):
             tokens.remove(t)
         else:
             ast.append(program(tokens))
+            break
     print(ast)
     return ast
 
