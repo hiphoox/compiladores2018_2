@@ -1,3 +1,5 @@
+------- Tarea 1 ------------
+
 1.- ¿Qúe ventajas tiene la notación prefija con respecto a la infija?
     La expresión o notación prefija nos indica que el operador va antes de los
     Operandos sus características principales son:
@@ -27,3 +29,10 @@
 
 
 http://itpn.mx/recursosisc/7semestre/leguajesyautomatas2/Unidad%20II.pdf
+
+
+--------- Tarea 2 ---------
+
+** Diferencia entre los registros EAX y RAX
+
+Ambos son conocidos como registro acumulador, la diferencia está en que EAX es un registro de 32 bits y RAX de 64 bits.
