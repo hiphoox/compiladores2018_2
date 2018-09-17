@@ -16,6 +16,8 @@ algebraicas.
 "ventajas notación prefija"
 -La notación de prefijo ha visto una amplia aplicación con las S-expressions de Lisp, donde son requeridos los paréntesis debido a los operadores aritméticos que tienen aridad variable. El lenguaje de programación Ambi usa la notación polaca para operaciones aritméticas y la construcción del programa. La posfija notación polaca inversa es usada en muchos lenguajes de programación basados en pila como PostScript, y es el principio de operación de ciertas calculadoras, notablemente las de Hewlett-Packard.
 Aunque sea obvio, es importante observar que el número de operandos en una expresión debe igualar al número de operadores más uno, de lo contrario la sentencia no tiene ningún sentido (asumiendo que solamente son usados operadores binarios en la expresión). Esto puede ser fácil de pasarlo por alto cuando se trata con expresiones más largas y más complicadas con varios operadores, así que se debe tener cuidado de comprobar con minuciosidad que una expresión tiene sentido al usar la notación de prefijo.
+
+
 2.- ¿Como representar numeros negaticos en binario?
 hay varias maneras: (las dos mas comunes son)
 Representación de "Magnitud con Signo"
@@ -32,3 +34,14 @@ ejemplo:
 "Complemento a 2":
 los enteros son el complemento del entero positivo mas uno.
 3=0011  -3= 1101
+
+3.-  ¿Por que los procesadores van de 16-34-62 bits?
+Con un código de caracteres de 8 bits (1 byte) se pueden representar hasta
+28 = 256 caracteres diferentes.
+Existe un código, que desde que fue definido en 1963, ha sido adoptado como
+el estándar para la transmisión de datos. Este código denominado ASCII
+(American Standard Code for Information Interchange) permite representar
+hasta 128 caracteres diferentes, para ello necesita 7 bits (27 = 128 combinaciones).
+ Normalmente el código ASCII se extiende a 8 bits (1 byte) añadiendo un
+ bit de control, llamado bit de paridad.
+ Por esto la memoria de los procesadores debe ser un multiplo de 8.
