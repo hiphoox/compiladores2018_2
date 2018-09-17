@@ -1,0 +1,20 @@
+Diferencia entre RAX y EAX en ensamblador
+Ambos son nombre de registros concretos. Dentro de la arquitectura de las computadoras, existen varios de estos registros específicos:
+•	AL (A Low): Son los 8 bits menos significativos.
+•	AH (A High): Son los 8 bits más significativos.
+•	AX: Está compuesto por AL y AX y es de 16 bits.
+•	EAX (Extended AX): Es una extensión de AX de 32 bits
+•	RAX: Se utiliza para la arquitectura x86_64 para utilizar los 64 bits disponibles.  
+Para comprender estos registros se explicará un ejemplo:
+Tomemos de ejemplo al registro AX de propósito general, de 16 bits. El byte alto puede accederse con el nombre AH (A High), 
+y el bajo con AL (A Low). Si sale el número 80386, de 32 bits, el registro AX Extendido (Extended AX, EAX) refirió al registro de 32 bits, 
+mientras que AX se siguió refiriendo al registro formado por los 16 bits de la mitad baja del EAX. Del mismo modo, al salir la arquitectura x86_64, 
+se usó el prefijo R, y el EAX pasó a ser la mitad baja del registro RAX, de 64 bits.
+
+Big Endian
+Consiste en representar los bytes en el orden "natural": así el valor hexadecimal 0x4A3B2C1D se codificaría en memoria 
+en la secuencia {4A, 3B, 2C, 1D}.
+
+Little Endian
+Consiste en representar los bytes de derecha a izquierda, si 0x4A3B2C1D, se almacena {1D, 2C, 3B, 4A}, de manera que de este modo 
+se hace más intuitivo el acceso a datos.
