@@ -56,4 +56,33 @@ del tipo de arquitectura que tenga cada sistema. En realidad, todos los datos co
 y de la información en sí. Es decir, para representar un número no sólo es necesaria la codificación binaria
 del número en sí, sino también una serie de instrucciones que contengan las operaciones que se deben realizar con
 dicho número. Estas operaciones son codificadas durante la compilación de un programa junto con los datos a utilizar.
-La manera en que se guarda toda esta información dependerá de la arquitectura con la que se tranaje.
+La manera en que se guarda toda esta información dependerá de la arquitectura con la que se trabaje.
+
+Tarea 5
+19-Septiembre-2018
+Galván Bazán Raúl
+
+En la arquitectura x86_64 se cuentan con registros de 64 bits.
+El registro acumulador se organiza de la siguiente manera:
+
+| 63 - 32 | 31 - 16 | 15 - 8 | 7 - 0 |
+======================================
+.         .         | AH     | AL    |
+.         .         | AX             |
+.         | EAX                      | 
+| RAX                                |
+======================================
+| 63 - 32 | 31 - 16 | 15 - 8 | 7 - 0 |
+
+En modo de 64 bits, ell tamaño del operando determina el número de bits válidos 
+en el registro (de propósito general) destino:
+* Operandos de 64 bits generan un resultado de 64 bits en el registro destino.
+* Opeerandos de 32 bits generan un resultado de 32 bits, rellenando con ceros el resto del 
+registro destino.
+*Operandos de 8 y 16 bits generan resultados de 8 y 16 bits, respectivamente. Los 56 o 48 bits
+restantes (según corresponda) del registro destino no son modificados por la operación. Si el
+resultado de una operación de 8 o 16 bits se usará para el cálculo de direcciones de 64 bits, 
+entonces se debe extender explícitamente el resultado para que tenga el signo adecuado.
+
+REFERENCIAS
+https://software.intel.com/sites/default/files/managed/39/c5/325462-sdm-vol-1-2abcd-3abcd.pdf
