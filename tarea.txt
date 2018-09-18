@@ -27,3 +27,11 @@ Una computadora x86 tiene 14 registros con 16 bits cada uno, tiene 4 de proposit
 cualquier caracter ya que son dos bytes, para representar un numero negativo se utiliza otro registro que es el Registro de
 banderas ya que en uno de ls 16 bits de este registro se encuentra la badera de signo o bit de signo que nos dice que si esta
 en 1 el valor es negativo si es cero es positivo.
+
+¿Qué significa el registro EAX y RAX? y cual es la diferencia.
+En la familia de computadoras x86 los registros de propósito general tenian los nombres de AX, BX, CX y DX de 16 bit con en la
+transición de 16 bits a 32 bits se les coloco un prefijo "E" de extended por lo que ahora eran EAX, EBX etc., ya que se nesecitaba
+diferenciar los nombres, así mismo cuando salió la nueva arquitectura de 64 bit se tuvo que volver a renombrar y ahora eran
+RAX, RBX etc.
+Los registros, por ejemplo AX, se divide en AH (A High) y AL(A Low) de 8 bits cada uno, cuando llegan los nuevos registros de 32
+bits por lo que AX pasa a ser la mitad baja, así mismo sucede con el registro EAX que pasa a ser la mitad baja de RAX de 64 bits.
