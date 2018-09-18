@@ -49,4 +49,20 @@ Tarea 2: ¿Cómo funciona el registro Flag? (Status register)
 	
 	Este registro nos ayuda a identificar si la operación dejo acarreo o si el resultado es negativo, por ejemplo.
 
+	Link: https://pictutorials.com/The_Status_Register.htm
+
+Tarea 3: ¿Qué es el registro EAX y el RAX? Diferencia...
 	
+	El registro EAX inicialmente fue utilizado en los procesadores con ensamblador x86, es un registro de 32 bits.
+
+	El registro EAX es el registro acumulador, este registro es utilizado para acesso a puertos de entrada y salida, almacenar el resultado de operaciones
+	aritméticas, interrupciones, entre otras.
+
+	En procesadores con ensamblador x64 existe el RAX, el cual es un registro de 64 bits.
+	Este registro tiene la funcionalidad de acumulador. Lo que quiere decir  que es utilizado para el mismo propósito que el registro EAX.
+
+	La diferencia entre estos dos radica en que en x64 RAX es el registro de 64 bit mientras que EAX es la parte baja de 32 bits.
+	En 32 bits no existe el registro RAX.
+
+	Link: http://www.eecg.toronto.edu/~amza/www.mindsec.com/files/x86regs.html
+	      https://docs.microsoft.com/en-us/windows-hardware/drivers/debugger/x64-architecture	
