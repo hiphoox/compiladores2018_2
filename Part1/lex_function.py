@@ -1,14 +1,41 @@
 import re
 import os
-from enum import Enum
 
-#class Token(Enum):
-#    OpenBrace="{",
-#    CloseBrace="}",
-#    OpenParen="(",
-#    CloseParen=")",
-#    Semicolon=";",
-#    IntId="int",
+class int_kw:
+    def __init__(self):
+        self.kw = "int"
+
+class id_kw:
+    def __init__(self, id):
+        self.id = id
+
+class open_paren:
+    def __init__(self):
+        self.paren = "("
+
+class close_paren:
+    def __init__(self):
+        self.paren = ")"
+    
+class open_brace:
+    def __init__(self):
+        self.brace = "{"
+
+class close_brace:
+    def __init__(self):
+        self.brace = "}"
+
+class ret_kw:
+    def __init__(self):
+        self.kw = "return"
+
+class literal_num:
+    def __init__(self, num):
+        self.num = num
+
+class semicolon:
+    def __init__(self, kw):
+        self.semi = ";"
 
 
 def lex():
