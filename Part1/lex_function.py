@@ -1,40 +1,40 @@
 import re
 import os
 
-class int_kw:
+class Int_kw:
     def __init__(self):
         self.kw = "int"
 
-class id_kw:
+class Id_kw:
     def __init__(self, id):
         self.id = id
 
-class open_paren:
+class Open_paren:
     def __init__(self):
         self.paren = "("
 
-class close_paren:
+class Close_paren:
     def __init__(self):
         self.paren = ")"
     
-class open_brace:
+class Open_brace:
     def __init__(self):
         self.brace = "{"
 
-class close_brace:
+class Close_brace:
     def __init__(self):
         self.brace = "}"
 
-class ret_kw:
+class Ret_kw:
     def __init__(self):
         self.kw = "return"
 
-class literal_num:
+class Literal_num:
     def __init__(self, num):
         self.num = num
 
-class semicolon:
-    def __init__(self, kw):
+class Semicolon:
+    def __init__(self):
         self.semi = ";"
 
 
@@ -46,25 +46,35 @@ def lex():
         word=word+letter
         word=word.strip("()\{\};")
         if(word=="int"):
-            tokens.append("INT_ID<"+word+">")
+            tokens.append(Int_kw())
             word=""
         elif(word=="main"):
-            tokens.append("ID<"+word+">")
+            tokens.append(Id_kw("main"))
             word=""
         elif(word=="return"):
-            tokens.append(word.upper())
+            tokens.append(Ret_kw())
             word=""
         elif(letter not in "int" and letter not in "return" and letter not in "main"):
             single_numero_searched=re.search(r'[0-9]',letter)
             if  single_numero_searched:
                 numero_searched=re.search(r'[0-9]+\;',l)
                 if  numero_searched:
-                    if ("INT<"+numero_searched.group(0).strip(';')+">" not in tokens):
-                        tokens.append("INT<{}>".format(numero_searched.group(0).strip(';')))
+                    if (Literal_num(numero_searched.group(0).strip(';')) not in tokens):
+                        tokens.append(Literal_num(numero_searched.group(0).strip(';')))
             else:
                 tok=re.search(r'[\{ | \} | \( | \) | \;]',letter)
                 if tok:
-                    tokens.append(tok.group(0))
+                    if (tok.group(0) == "{"):
+                        tokens.append(Open_brace())
+                    elif (tok.group(0) == "}"):
+                        tokens.append(Close_brace())
+                    elif (tok.group(0) == "("):
+                        tokens.append(Open_paren())
+                    elif (tok.group(0) == ")"):
+                        tokens.append(Close_paren())
+                    elif (tok.group(0) == ";"):
+                        tokens.append(Semicolon())
+    print(tokens)
 
 
 #    for line in file:
@@ -81,6 +91,7 @@ def lex():
 #            if  numero_searched:
 #                tokens.append(numero_searched.group(0).strip(';'))
 
-    print(tokens)
-    return tokens
-            
+#    print(tokens)
+ #   return tokens
+
+lex()           
