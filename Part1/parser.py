@@ -2,6 +2,12 @@ import re
 import os
 from lex_function import lex
 
+class Node:
+    def __init__(self, value, parent, son ):
+        self.value = value
+        self.parent = parent
+        self.son = son
+
 def expression(ret):
     num=[]
     for l in ret:

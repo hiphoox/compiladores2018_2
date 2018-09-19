@@ -74,24 +74,9 @@ def lex():
                         tokens.append(Close_paren())
                     elif (tok.group(0) == ";"):
                         tokens.append(Semicolon())
+
+
+    print("----- TOKENS -----")
     print(tokens)
-
-
-#    for line in file:
-#        l=line.replace(" ", "").strip("\n")
-#        int_searched=re.search(r'int',l)
-#        if  int_searched:
-#            tokens.append("INT<"+int_searched.group(0)+">")
-#        fun_name_searched=re.search(r'int[a-z]+\(',l)
-#        if  fun_name_searched:
-#            tokens.append("ID<"+int_searched.group(0)+">".strip("int("))
-#        for letter in line:
-#            if(letter=="{" or letter="}" or letter"(" or letter")" or ";")
-#            numero_searched=re.search(r'[0-9]+\;',l)
-#            if  numero_searched:
-#                tokens.append(numero_searched.group(0).strip(';'))
-
-#    print(tokens)
- #   return tokens
-
-lex()           
+    print()
+    return tokens
