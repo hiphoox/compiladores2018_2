@@ -1,12 +1,27 @@
 import re
 
 def tokenizer(file):
+	#diccionario de simbolos
 	symbols = {'(':'OpenParen', ')': 'CloseParen', '{': 'OpenBrace', '}': 'CloseBrace', ';': 'Semicolon'}
-	#las key words se pueden leer de un archivo
+
+	#set de palabras reservadas del lenguaje C
 	key={'auto','break','case','char','const','continue','default','do','double','else','enum','extern','float',
             'for','if','inline','int','long','register','restrict','return','sizeof','static','struct','switch',
             'typedef','union','unsigned','void','volatile','while'}
+
+	
+	#Abre el archivo tarea1.c y reemplaza todos los saltos de linea y tabs por cadena vacía	
 	program = open(file, 'r').read().replace("\n", "").replace("\t", "")
+
+	"""
+	El primer for etiqueta los simbolos que se encuentren en el programa.
+
+	El segundo for etiqueta las keywords encontradas en el programa.
+
+	Tercer for busca las palabras que aún no están etiquetadas, y con expresiones regulares
+	se etiquetan números y id's.
+	"""
+
 	for x in symbols:
 	    program = program.replace(x, ' '+symbols[x]+':'+x)
 	for y in key:
