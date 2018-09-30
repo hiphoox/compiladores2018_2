@@ -1,0 +1,1 @@
+C:\Users\Kevin\documents\github\compiladores2018_2\compilador\target\debug\compilador.pdb: C:\Users\Kevin\documents\github\compiladores2018_2\compilador\src\lib.rs C:\Users\Kevin\documents\github\compiladores2018_2\compilador\src\main.rs
