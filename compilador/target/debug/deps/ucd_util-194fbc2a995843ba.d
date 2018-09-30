@@ -1,0 +1,11 @@
+C:\Users\Kevin\documents\github\compiladores2018_2\compilador\target\debug\deps\libucd_util-194fbc2a995843ba.rlib: C:\Users\Kevin\.cargo\registry\src\github.com-1ecc6299db9ec823\ucd-util-0.1.1\src\lib.rs C:\Users\Kevin\.cargo\registry\src\github.com-1ecc6299db9ec823\ucd-util-0.1.1\src\hangul.rs C:\Users\Kevin\.cargo\registry\src\github.com-1ecc6299db9ec823\ucd-util-0.1.1\src\ideograph.rs C:\Users\Kevin\.cargo\registry\src\github.com-1ecc6299db9ec823\ucd-util-0.1.1\src\name.rs C:\Users\Kevin\.cargo\registry\src\github.com-1ecc6299db9ec823\ucd-util-0.1.1\src\property.rs C:\Users\Kevin\.cargo\registry\src\github.com-1ecc6299db9ec823\ucd-util-0.1.1\src\unicode_tables\mod.rs C:\Users\Kevin\.cargo\registry\src\github.com-1ecc6299db9ec823\ucd-util-0.1.1\src\unicode_tables\jamo_short_name.rs
+
+C:\Users\Kevin\documents\github\compiladores2018_2\compilador\target\debug\deps\ucd_util-194fbc2a995843ba.d: C:\Users\Kevin\.cargo\registry\src\github.com-1ecc6299db9ec823\ucd-util-0.1.1\src\lib.rs C:\Users\Kevin\.cargo\registry\src\github.com-1ecc6299db9ec823\ucd-util-0.1.1\src\hangul.rs C:\Users\Kevin\.cargo\registry\src\github.com-1ecc6299db9ec823\ucd-util-0.1.1\src\ideograph.rs C:\Users\Kevin\.cargo\registry\src\github.com-1ecc6299db9ec823\ucd-util-0.1.1\src\name.rs C:\Users\Kevin\.cargo\registry\src\github.com-1ecc6299db9ec823\ucd-util-0.1.1\src\property.rs C:\Users\Kevin\.cargo\registry\src\github.com-1ecc6299db9ec823\ucd-util-0.1.1\src\unicode_tables\mod.rs C:\Users\Kevin\.cargo\registry\src\github.com-1ecc6299db9ec823\ucd-util-0.1.1\src\unicode_tables\jamo_short_name.rs
+
+C:\Users\Kevin\.cargo\registry\src\github.com-1ecc6299db9ec823\ucd-util-0.1.1\src\lib.rs:
+C:\Users\Kevin\.cargo\registry\src\github.com-1ecc6299db9ec823\ucd-util-0.1.1\src\hangul.rs:
+C:\Users\Kevin\.cargo\registry\src\github.com-1ecc6299db9ec823\ucd-util-0.1.1\src\ideograph.rs:
+C:\Users\Kevin\.cargo\registry\src\github.com-1ecc6299db9ec823\ucd-util-0.1.1\src\name.rs:
+C:\Users\Kevin\.cargo\registry\src\github.com-1ecc6299db9ec823\ucd-util-0.1.1\src\property.rs:
+C:\Users\Kevin\.cargo\registry\src\github.com-1ecc6299db9ec823\ucd-util-0.1.1\src\unicode_tables\mod.rs:
+C:\Users\Kevin\.cargo\registry\src\github.com-1ecc6299db9ec823\ucd-util-0.1.1\src\unicode_tables\jamo_short_name.rs:

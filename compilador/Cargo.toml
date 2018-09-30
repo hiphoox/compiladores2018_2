@@ -1,6 +1,7 @@
 [package]
 name = "compilador"
-version = "0.1.0"
-authors = ["mewbito <mewbito@gmail.com>"]
+version = "0.0.5"
+authors = ["Kevin Téllez Salto <mewbito@gmail.com>"]
 
 [dependencies]
+regex = "1"

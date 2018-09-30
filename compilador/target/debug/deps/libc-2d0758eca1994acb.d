@@ -1,0 +1,13 @@
+C:\Users\Kevin\documents\github\compiladores2018_2\compilador\target\debug\deps\liblibc-2d0758eca1994acb.rlib: C:\Users\Kevin\.cargo\registry\src\github.com-1ecc6299db9ec823\libc-0.2.43\src\lib.rs C:\Users\Kevin\.cargo\registry\src\github.com-1ecc6299db9ec823\libc-0.2.43\src\macros.rs C:\Users\Kevin\.cargo\registry\src\github.com-1ecc6299db9ec823\libc-0.2.43\src\dox.rs C:\Users\Kevin\.cargo\registry\src\github.com-1ecc6299db9ec823\libc-0.2.43\src\windows.rs C:\Users\Kevin\.cargo\registry\src\github.com-1ecc6299db9ec823\libc-0.2.43\src\redox\mod.rs C:\Users\Kevin\.cargo\registry\src\github.com-1ecc6299db9ec823\libc-0.2.43\src\redox\net.rs C:\Users\Kevin\.cargo\registry\src\github.com-1ecc6299db9ec823\libc-0.2.43\src\cloudabi\mod.rs C:\Users\Kevin\.cargo\registry\src\github.com-1ecc6299db9ec823\libc-0.2.43\src\fuchsia\mod.rs C:\Users\Kevin\.cargo\registry\src\github.com-1ecc6299db9ec823\libc-0.2.43\src\unix\mod.rs
+
+C:\Users\Kevin\documents\github\compiladores2018_2\compilador\target\debug\deps\libc-2d0758eca1994acb.d: C:\Users\Kevin\.cargo\registry\src\github.com-1ecc6299db9ec823\libc-0.2.43\src\lib.rs C:\Users\Kevin\.cargo\registry\src\github.com-1ecc6299db9ec823\libc-0.2.43\src\macros.rs C:\Users\Kevin\.cargo\registry\src\github.com-1ecc6299db9ec823\libc-0.2.43\src\dox.rs C:\Users\Kevin\.cargo\registry\src\github.com-1ecc6299db9ec823\libc-0.2.43\src\windows.rs C:\Users\Kevin\.cargo\registry\src\github.com-1ecc6299db9ec823\libc-0.2.43\src\redox\mod.rs C:\Users\Kevin\.cargo\registry\src\github.com-1ecc6299db9ec823\libc-0.2.43\src\redox\net.rs C:\Users\Kevin\.cargo\registry\src\github.com-1ecc6299db9ec823\libc-0.2.43\src\cloudabi\mod.rs C:\Users\Kevin\.cargo\registry\src\github.com-1ecc6299db9ec823\libc-0.2.43\src\fuchsia\mod.rs C:\Users\Kevin\.cargo\registry\src\github.com-1ecc6299db9ec823\libc-0.2.43\src\unix\mod.rs
+
+C:\Users\Kevin\.cargo\registry\src\github.com-1ecc6299db9ec823\libc-0.2.43\src\lib.rs:
+C:\Users\Kevin\.cargo\registry\src\github.com-1ecc6299db9ec823\libc-0.2.43\src\macros.rs:
+C:\Users\Kevin\.cargo\registry\src\github.com-1ecc6299db9ec823\libc-0.2.43\src\dox.rs:
+C:\Users\Kevin\.cargo\registry\src\github.com-1ecc6299db9ec823\libc-0.2.43\src\windows.rs:
+C:\Users\Kevin\.cargo\registry\src\github.com-1ecc6299db9ec823\libc-0.2.43\src\redox\mod.rs:
+C:\Users\Kevin\.cargo\registry\src\github.com-1ecc6299db9ec823\libc-0.2.43\src\redox\net.rs:
+C:\Users\Kevin\.cargo\registry\src\github.com-1ecc6299db9ec823\libc-0.2.43\src\cloudabi\mod.rs:
+C:\Users\Kevin\.cargo\registry\src\github.com-1ecc6299db9ec823\libc-0.2.43\src\fuchsia\mod.rs:
+C:\Users\Kevin\.cargo\registry\src\github.com-1ecc6299db9ec823\libc-0.2.43\src\unix\mod.rs:
