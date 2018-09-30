@@ -36,15 +36,15 @@ def Separa(cadena,tok):
 
 def TokensNormales(cadena):                #Se verifica las coincidencias dentro de la cadena
 	if(cadena[0] == "{"):
-		return Token.LlaveIn.name
+		return Integers.LlaveIn.name
 	elif(cadena[0] == "}"):
-		return Token.LlaveOut.name
+		return Integers.LlaveOut.name
 	elif(cadena[0] == "("):
-		return Token.ParentesisIn.name
+		return Integers.ParentesisIn.name
 	elif(cadena[0] == ")"):
-		return Token.ParentesisOut.name
+		return Integers.ParentesisOut.name
 	elif(cadena[0] == ";"):
-		return Token.Semicolon.name
+		return Integers.Semicolon.name
 	else: return False                   
 
 def keyW(token):                         #Se verifica las coincidencias dentro de la clase definida al inicio
