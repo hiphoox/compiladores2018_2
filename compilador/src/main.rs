@@ -6,9 +6,9 @@ fn main(){
    println!("holocrayolo");
    let s="int main() {
     return 2;
-}"; 
-    let tokens: Vec<Token> =lex(s);
-
+}";
+    let tokens: Vec<&str> =lex(s);
+    println!("{:?}",tokens);
 
 
 }

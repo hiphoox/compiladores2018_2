@@ -13,7 +13,7 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 
 [[package]]
 name = "compilador"
-version = "0.0.1"
+version = "0.0.5"
 dependencies = [
  "regex 1.0.5 (registry+https://github.com/rust-lang/crates.io-index)",
 ]
