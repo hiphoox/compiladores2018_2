@@ -1,9 +1,4 @@
-class specialToken:
-	def __init___(self,char):
-		self.caracter = char
-		self.name = nombre(char)
-
-	def nombre(char):
+def nombre(self,char):
 		if(char == "{"):
 			return "openBrace"
 		elif (char == "}"):
@@ -17,3 +12,8 @@ class specialToken:
 		else:
 			print("Elemento no identificado.")
 			return "Error"
+
+class specialToken:
+	def __init___(self,char):
+		self.caracter = char
+		self.name = nombre(char)
