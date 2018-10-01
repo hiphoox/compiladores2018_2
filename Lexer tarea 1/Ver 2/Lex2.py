@@ -24,17 +24,9 @@ def leerArchivo(source_file):
     with open(source_file,'r') as file:
         renglon = file.read()
     return renglon
-		
-def escribirArchivo(token_file):
-    with open(token_file,'w') as file:
-	    for i in range(len(token_list)):	
-		    file.write(str(token_list[i]) + "\n")
-			
 			
 token_list = []
 source_file = sys.argv[1]
 renglon = leerArchivo(source_file)
 separar(renglon,token_list)
-token_file = os.path.splitext(source_file)[0] + ".txt"
-escribirArchivo(token_file)
 print(token_list)
