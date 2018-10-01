@@ -1,0 +1,17 @@
+Name: Compilador
+Version: 3.3
+Synopsis: Compilador C
+Authors: Juan Nolasco
+License: MIT
+
+Description: Compilador c simple 
+
+OASISFormat: 0.4
+BuildTools: ocamlbuild
+Plugins: META (0.4), DevFiles (0.4)
+
+Executable "Compilador"
+  Path: src_compilador
+  MainIs: Compilador_Pruebas.ml
+  BuildDepends:
+    str

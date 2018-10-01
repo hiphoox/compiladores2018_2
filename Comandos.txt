@@ -1,0 +1,6 @@
+comando para instalar oasis
+  #opam install oasis
+
+Comando para correr el proyecto (Teniendo en cuenta que estas en la raiz del proyecto)
+  #oasis setup -setup-update dynamic
+  #make

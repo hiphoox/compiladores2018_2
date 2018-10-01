@@ -1,0 +1,8 @@
+(*Ast funcion para todos los tipos (coleccion de tipos)*)
+
+Error 1 => No tiene definido el valor de retorno la funcion
+Error 2 => Falta el parentecis de una de las funciones 
+Error 3 => Parametros mal de la funcion
+Error 4 => Valores invalidos en el return 
+Error 5 => No hay CloseBrace
+Error 6 => No soporta la expercion del return 
