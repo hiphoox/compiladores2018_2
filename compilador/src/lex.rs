@@ -6,7 +6,7 @@ pub fn lex( programa: &str) -> Vec<&str>{
     let tok: Vec<&str> = programa.split(' ').collect();
     println!("{:?}",tok);
     let reid = Regex::new(r"[A-Za-z][A-Za-z0-9_]*").unwrap();
-    let reint = Regex::new(r"[0-9]").unwrap();
+    let reint = Regex::new(r"[0-9]+").unwrap();
     let rechar= Regex::new(r"[(){};]").unwrap();
     let mut tokf = vec!();
     for mut x in tok{
