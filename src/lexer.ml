@@ -1,82 +1,101 @@
 (* Mauricio Esparza, lexer para idetificar C*)
-(*OCaml se construye de abajo para arriba*)
-(*Nora usa explode, yo uso nuke porque explode no existe en mi OCaml*)
 
-(*Necesitas una función que guarde en una lista a todo caracter que esté antes de un espacio
-* Ya que encuentres un espacio, le das implode, lo comparas con tus kwds.
-* Nota pedorra: List.concat es para concatenar listas List.concat a b -> [a; b]
-* Una vez que logres hacer eso, pues ya implodeas tus palabras y comparas :3
-*)
+(* val lexer : string -> token list = <fun>*)
+let lexer input =
+let input = String.trim input in
+lex (worderlist (partidor (nuke input)))
 
-let kwd_compare kwd =
-	let kwd = Lexer.nuke kwd in
-	let open Tokens in
-	match kwd with
-	|"INT" -> IntKeyword
-	|"MAIN" -> MainKeyword
-	|"RETURN" -> ReturnKeyword
-	| _ -> Printf.sprintf "VALOR NO RECONOCIDO"
-
-
-
-
-(*Lex_word_id te regresa una palabra completa dentro del input principal
-* i.e., regresa "MainKeyword" de encuentra "main() { return 2; }"
-y te regresa "ReturnKeyword" de " return 2; }"
-lex_word_id recibe una cadena de caracteres *)
-let lex_word_id input_tokens =
-	let input_tokens = String.trim input_tokens
-	
-	
-
-
-(*ésta funcion de abajo queda pendiente, no sé aún si sí la voy a poder hacer así
-* ahora mismo, trabajo con la de arriba
-*
-*Recibe lista de letras, debe pegarlas y encontrar si se trata de un kwd.
-*Debe devolver un token y un resto porque lo llama lex_rest y eso es lo que
-*esa función sabe manejar o que más bien, espera recibir
-*)
-let rec lex_is_keywd input_tokens =
-	let input = String.trim (string_of_charl input_tokens) in(*le hacemos trim otra vez por si las moscas xd*)
-	let token, rest = lex_word_id input in
-	token::(lex_rest (String.nuke rest)) 
-	
-
-(* lex_rest recibe una cadena rota en partes, éste pedazo sólo identifica simbolos de 1 caracter *)
-and lex_rest words = (*words = [i; n; t; " "; m; a; i; n; " "; usw.]*)
+(* val lex : char list list -> token list *)
+let rec lex words = (*words = [['i';'n';'t'];['m';'a';'i';'n'];['('];[')'];usw.]*)
 	let open Tokens in
 	match words with
-	(* Si la partícula es igual a (, ), [ ó ], la separa del resto y regresa su e
-	*  equivalente en token junto al resultado de volver a llamar la función con el resto *)
-	| [] -> [] (*En algún momento se llega al final de la lista, o sea, lista vacía []*)
-	|'('::rest -> OpenParen::(les_rest rest)
-	|')'::rest -> CloseParen::(lex_rest rest)
-	|'{'::rest -> OpenBrace::(lex_rest rest)
-	|'}'::rest -> CloseBrace::(lex_rest rest)
-	| c::rest -> if (' ' = c) then lex_rest rest else lex_is_keywd words
-(*lex_is_keyw recibe words, que actualmente es una lista de caracteres*)
+	|[] -> []
+	|['(']::rest -> OpenParen::(lex rest)
+	|[')']::rest -> CloseParen::(lex rest)
+	|['{']::rest -> OpenBrace::(lex rest)
+	|['}']::rest -> CloseBrace::(lex rest)
+	|[';']::rest -> Semicolon::(lex rest)
+	|c::rest -> kwd_compare c::(lex rest)
 
-(* La funcion lexer debe encargarse de separar e identificar cada elemento en la entrada *)
-let lexer input =
-	let input = String.trim input in (*Deja que la entrada sea ella misma pero recortada en:*)
-	lex_rest (String.nuke input) (*Llama a la funcion lex_rest y le pasa el input separado en letras*)
+(*trampas sucias y mañosas*)
+let kwd_compare kwd =
+	let open Tokens in
+	match kwd with
+	|'i'::'n'::'t'::[] -> IntKeyword
+	|'m'::'a'::'i'::'n'::[] -> MainKeyword
+	|'r'::'e'::'t'::'u'::'r'::'n'::[] -> ReturnKeyword
+	|'2'::[] -> Int 2
+	|_ -> Error
 
-let string_of_charl cl = (*Método casero para sustituir el implode*)
-	let buf = BUffer.create 16 in (*HOnestidad ante todo; después de 3 horas de no poder, lo busqué en Stack Overflow*)
+(*val string_of_charl : char list -> string = <fun>*)
+let string_of_charl cl =
+	let buf = Buffer.create 16 in
 	List.iter (Buffer.add_char buf) cl;
-	BUffer.contents buf
+	Buffer.contents buf
 
-let nuke s i= (*Metodo casero de string_to_charlist porque explode ya no está en ocaml moderno :( *)
-	let str_len = String.length s in
-	let i = i + 1 in 			(*La ventaja de éste método es que puedes empezar la cadena en el índice que quieras*)
-	if i = str_len then []
-	else s.[i] :: nuke s i
+(* val worderlist : char list -> char list = <fun>
+Función para llamar sin campo de error a la función Worderlist*)
+let worderlist cl = worderlist_inner cl 0
 
-(* convierte tokens en sus equivalentes strings *)
+(*val worderlist_inner : char list -> int -> char list list = <fun>
+Regresa una lista de listas de chars que estaban en la primer lista separadas por un espacio en blanco*)
+let rec worderlist_inner cl i=
+	let cl = drop i (limpiador cl) in
+	match cl with
+	[] -> []
+	|_ -> separador (limpiador cl)::worderlist_inner cl (List.length (separador (limpiador cl)))
+
+(*val drop : int -> a' list -> a' list = <fun>
+quita los primeros n elementos de una a' list*)
+let rec drop n l=
+	if n = 0 then l else
+		match l with
+		[] -> []
+		|h::t -> drop (n-1) t
+
+(* val partidor cl : char list -> char list = <fun>
+separa los parentesis, corchetes y punto y coma de las otras palabras*)
+let rec partidor cl =
+	match cl with
+	[] -> []
+	|h::t -> if isOtherToken h 
+			 then [' ']@[h]@partidor t 
+			 else [h]@partidor t
+
+(* val isOtherToken : char -> bool = <fun>
+identifica si un caracter es un token*)
+let isOtherToken c =
+	match c with
+	'(' -> true
+	|')' -> true
+	|'}' -> true
+	|'{' -> true
+	|';' -> true
+	|_ -> false
+
+(*val separador : char list -> char list = <fun>
+recibe una char list y regresa la primer char list antes de espacio en blanco*)
+let rec separador cl =
+	match cl with
+	[] -> []
+	|h::t -> if h = ' ' then [] else [h]@separador t;;
+ 
+ (*val limpiador : char list -> char list = <fun>
+ recibe una cadena y quita los espacios en blanco antes de un caracter*)
+let rec limpiador cl =
+	match cl with
+	[] -> []
+	|' '::t -> limpiador t
+	|h::t -> cl;;
+
+let rec nuke_inner s i =
+	if (String.length s) = i then [] else s.[i]::nuke_inner s (i+1)
+
+let nuke s = nuke_inner s 0
+
 let token_to_string t =
-	let open Tokens in (*Abre el modulo Tokens.ml para trabajar la siguiente linea*)
-	match t with (*Compara la entrada t con los tokens en Tokens.ml*)
+	let open Tokens in 
+	match t with 
 	| OpenBrace -> "{"
 	| CloseBrace -> "}"
 	| OpenParen -> "("
@@ -85,9 +104,5 @@ let token_to_string t =
 	| IntKeyword -> "INT" 
 	| MainKeyword -> "MAIN"
 	| ReturnKeyword -> "RETURN"
+	| Error -> "TOKEN NO RECONOCIDO, ERROR"
 	| Int i -> Printf.sprintf "INT<%d>" i 
-(* Llama a la funcion printf dentro del modulo Printf y le pasa los parámetros INT<%d> con d = entrada i
-* se usa sprintf porque éste devuelve la cadena, printf la imprime en pantalla, 
-* no queremos eso.
-* lex.ml de Nora Sandler define cómo trabaja el lexer
-*)

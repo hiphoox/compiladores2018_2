@@ -10,6 +10,7 @@ type token = (*definimos un tipo llamado token*)
 	| MainKeyword (*Para identificar la palabra "main"*)
 	| ReturnKeyword (*Identifica el "return"*)
 	| Int of int (*Así ubicamos a los números como token tipo Int con un valor int*)
+	| Error
 	
 (*Con todo lo anterior, ya podemos identificar todas las partes de un
 * "int main() {return 2;}"

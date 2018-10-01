@@ -1,5 +1,12 @@
-open Lexer
+open Lexer;;
 
 let toks = Lexer.lexer "int main() { return 2; }"
-let toks_strs = List.map Lexer.token_to_string toks
-let _ List.iter (Printf.printf "%s, ") toks_strs
+
+let rec map l f =
+	match l with
+	[] -> []
+	|h::t -> f h::map t f
+
+let prinToken t = Lexer.token_to_string t
+
+let result = map toks prinToken
