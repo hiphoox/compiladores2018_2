@@ -26,6 +26,7 @@ pub fn lex( programa: &str) -> Vec<&str>{
       if reint.is_match(x){//en caso de encontrar un entero, se guarda  el numero de uno o mas digitos encontrado
           let cap =reint.captures(x).unwrap();
               println!("{}",cap.get(0).map_or("", |m| m.as_str()));
+              tokf.push("int");
               tokf.push(cap.get(0).map_or("", |m| m.as_str()));
       }
       if rechar.is_match(x){//en caso de encontrar algun caracter hace lo siguiente
