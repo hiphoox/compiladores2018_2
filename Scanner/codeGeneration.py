@@ -4,7 +4,7 @@ parametro un AST'''
 
 aux=[]
 from scanner import scanner
-from parser1 import parser
+from parser import parser
 
 def hijoDerecho(arbol):
     return arbol[2]
