@@ -10,13 +10,44 @@ struct TOKEN{
     struct TOKEN *next;
 };
 
+struct PRODUCTO{
+    char *type;
+    int terminal;
+    struct PRODUCTO *next;
+};
+
+struct LISTA_PRODUCTOS{
+    struct PRODUCTO *head;
+    struct PRODUCTO *tail;
+};
+
+struct PROGRAMA{
+    struct FUNCION *funcion;
+};
+
+struct BODY{
+    struct LISTA_PRODUCTOS *produccion;
+};
+
+
+struct FUNCION{
+    struct LISTA_PRODUCTOS *produccion;
+    struct BODY *body;
+    
+};
+
+struct ARBOL{
+    struct PROGRAMA *programa;
+};
+
 struct LISTA_TOKENS{
     struct TOKEN *head;
     struct TOKEN *tail;
 };
 
-
-
+struct ARBOL * iniciaArbol(){
+    
+};
 
 void agregaToken(struct LISTA_TOKENS *lista, char *value, char *type){
    if(lista->head != NULL){
@@ -71,7 +102,7 @@ int main(){
     fclose(archivo);
  
 /**********************************************************************************************************************/
- /****************************************************** PARTE 2: tokenizer   */
+ /****************************************************** PARTE 2: lexer   */
 
 
     struct LISTA_TOKENS *lista;
@@ -84,7 +115,7 @@ int main(){
     char *resto, *valor;
     resto = bufer;
 
-    /****************************************************** todo este while se puede optimizar aun   */
+    /************************************************************************************************   */
     while(*resto){                                           //mientras queden caracteres por escanear
         limite = strcspn(resto, delimitadores);                        //calculamos cuanto mide el sig. token
 
@@ -187,11 +218,7 @@ int main(){
             
             default:
             break;
-                
-        
         }
-        
-       
     };
 
    
@@ -213,13 +240,99 @@ int main(){
         iterador = iterador->next;
     }
 
+  //  imprimeTokens(lista);
     
     
-    imprimeTokens(lista);
 /******************************************************************************************************************/    
-/******************************************************************************************************************/
-/****************************************************** PARTE 3: parser   */
+/****************************************************** 
+ *
+ * 
+ * PARTE 3: parser   */
     
+
+
+    struct ARBOL *ast = (struct ARBOL *)calloc(1,sizeof(struct ARBOL));
+    ast->programa = (struct PROGRAMA *)calloc(1,sizeof(struct PROGRAMA));
+    ast->programa->funcion = (struct FUNCION *)calloc(1,sizeof(struct FUNCION));
+    ast->programa->funcion->produccion = (struct LISTA_PRODUCTOS *)calloc(1,sizeof(struct LISTA_PRODUCTOS));
+    ast->programa->funcion->produccion->head = (struct PRODUCTO *)calloc(1,sizeof(struct PRODUCTO));
+    struct PRODUCTO *indicador = ast->programa->funcion->produccion->head;
+    
+    indicador->type = "keyword";                //int
+    indicador->terminal = 1;
+    indicador->next = (struct PRODUCTO *)calloc(1,sizeof(struct PRODUCTO));
+    indicador = indicador->next;
+    
+    indicador->type = "identifier";                //main
+    indicador->terminal = 1;
+    indicador->next = (struct PRODUCTO *)calloc(1,sizeof(struct PRODUCTO));
+    indicador = indicador->next;
+    
+    indicador->type = "LeftPar";                //(
+    indicador->terminal = 1;
+    indicador->next = (struct PRODUCTO *)calloc(1,sizeof(struct PRODUCTO));
+    indicador = indicador->next;
+    
+    indicador->type = "RightPar";                //)
+    indicador->terminal = 1;
+    indicador->next = (struct PRODUCTO *)calloc(1,sizeof(struct PRODUCTO));
+    indicador = indicador->next;
+    
+    indicador->type = "LeftKey";                //{
+    indicador->terminal = 1;
+    indicador->next = (struct PRODUCTO *)calloc(1,sizeof(struct PRODUCTO));
+    indicador = indicador->next;
+
+    
+    indicador->type = "keyword";                //return
+    indicador->terminal = 1;
+    indicador->next = (struct PRODUCTO *)calloc(1,sizeof(struct PRODUCTO));
+    indicador = indicador->next;
+    
+    indicador->type = "integer";                //2
+    indicador->terminal = 1;
+    indicador->next = (struct PRODUCTO *)calloc(1,sizeof(struct PRODUCTO));
+    indicador = indicador->next;
+    
+    
+    indicador->type = "Colon";                //;
+    indicador->terminal = 1;
+    indicador->next = (struct PRODUCTO *)calloc(1,sizeof(struct PRODUCTO));
+    indicador = indicador->next;
+    
+    indicador->type = "RightKey";                //}
+    indicador->terminal = 1;
+    indicador->next = NULL;
+    
+    
+    //regresamos indicador al inicio
+    iterador = lista->head;                                   //LISTA DE TOKENS
+    indicador = ast->programa->funcion->produccion->head;      //PRODUCCIONES DE FUNCION
+    
+    int k = 0;
+    while (iterador!=NULL){
+        //printf("Evaluando %s contra %s",iterador->type, indicador->type );
+        if (strcmp(iterador->type, indicador->type)==0){
+            k +=1;
+        }
+        
+        iterador = iterador->next;
+        indicador = indicador->next;
+    }
+    
+//     if (k=9)
+//         printf("parseo exitoso\n");
+    
+    
+/*    
+    indicador = ast->programa->funcion->produccion->head;
+    while (indicador){
+        printf("%s\n",indicador->type);
+        indicador = indicador->next;
+    }
+    */
+    
+
     
     
     
