@@ -1,6 +1,9 @@
 import re
 
-#Realiza la busqueda del simbolo correspondiente
+# (1) -> La funcion realiza lo que debe de manera natural.
+# (0) -> La funcion realiza lo que debe pero no de manera natual.
+
+#Realiza la busqueda del simbolo correspondiente (1)
 def simbols(code_section):
 	if code_section == '(':
 		return 'openParentesis'
@@ -13,24 +16,27 @@ def simbols(code_section):
 	if code_section == ';':
 		return 'semiColon'
 
-#Realiza la busqueda del keyWord correspondiente
+#Realiza la busqueda del keyWord correspondiente (1)
 def keyWords(code_section):
 	if code_section == 'int':
 		return 'intKeyWord'
 	if code_section == 'return':
 		return 'returnKeyWord'
 
-#Clase contenedora de un entero
+#Clase contenedora de un entero (1)
 class Integer:
 	def __init__(self, code_section):
 		self.int = int(code_section)
 
-#Clase contenedora de un identificador
+#Clase contenedora de un identificador (1)
 class Identifier:
 	def __init__(self, code_section):
 		self.id = code_section
 
 
+#Pese a que el lexer ya realiza todo como deberia, pensar en algun algoritmo
+#que realize los mismo paso, pero de manera natural (0)
+#NOTA: Preguntar al profe sobre la duda del error del archivo 'no_space.c'
 def lex(fileName):
 	code = '#'.join((open(fileName, "r").read().split()))
 
