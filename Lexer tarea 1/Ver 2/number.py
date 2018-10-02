@@ -1,11 +1,11 @@
-def tipo(num):
-	tmp = str(type(num))
+def tipo(elemento):
+	tmp = str(type(elemento))
 	if (tmp == "<class 'int'>"):
 		return "int"
 	else:
 		return "Error"
 
 class number:
-	def __init__(self,num):
-		self.numero = num
-		self.type = tipo(num)
+	def __init__(self,elemento):
+		self.elemento = elemento
+		self.name = tipo(elemento)
