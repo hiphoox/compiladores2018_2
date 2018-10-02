@@ -1,6 +1,6 @@
 [package]
 name = "compilador"
-version = "0.0.5"
+version = "0.0.7"
 authors = ["Kevin Téllez Salto <mewbito@gmail.com>"]
 
 [dependencies]

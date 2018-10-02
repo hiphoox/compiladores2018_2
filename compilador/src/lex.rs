@@ -2,6 +2,8 @@ extern crate regex;
 use self::regex::Regex;
 
 
+
+
 pub fn lex( programa: &str) -> Vec<&str>{
     let tok: Vec<&str> = programa.split(' ').collect();
     println!("{:?}",tok);
@@ -15,9 +17,9 @@ pub fn lex( programa: &str) -> Vec<&str>{
             println!("{}",cap.get(0).map_or("", |m| m.as_str()));
             match cap.get(0).map_or("", |m| m.as_str()) {
                       "int" => tokf.push("IntKeyword"),
-                      "main" => tokf.push("MainKeyword"),
                       "return" => tokf.push("ReturnKeyword"),
-                      _=> println!("id no encontrado"),
+                      _=> {tokf.push("identifier");
+                      tokf.push(x);},
             }
 
       }
