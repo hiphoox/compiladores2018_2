@@ -1,5 +1,5 @@
 import os, sys
-from Lex2 import lexer
+from Lex import lexer
 from archivos import leerArchivo
 			
 lista_token = [] #Lista de tokens
