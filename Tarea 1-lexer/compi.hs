@@ -1,6 +1,6 @@
 import Data.Char
+import System.Environment   
 
---Lexer
 
 data UnaryOp = Plus | Minus | Neg
     deriving (Show, Eq)
@@ -107,7 +107,7 @@ parse_funBody tokens =
             RBrac-> let (c', cs') = (lookAhead cs, accept cs) in
                         case c' of
                            TokEnd-> Body statements
-                           _->error "Error"
+                           _->error "Error " 
             _ -> error "Se esperaba }"
 
 makeBody :: [Token] -> FunBod
@@ -131,14 +131,23 @@ parse_fun tokens=
                                                 _-> error "Se esperaba )"
                         _-> error "Se esperaba un identificador"
          _-> error "Se esperaba tipo de la funcion"
- 
+
 
 parser :: [Token] -> Prog
 parser tokens= Program (parse_fun tokens)
 
 --Generador
 
-
-
-main = do file <- readFile "./prueba.c"
-          print $ parser (tokenize file)
+generator :: Prog -> String
+generator program=
+   let main = ".globl main\n" in
+      case program of
+         (Program x) -> case x of
+                           Funcion(IntType, (ID y), Body z)-> let funId= id y in
+                                                               case z of
+                                                                  ReturnVal (Const i) -> let fun = "_"++show y ++ ":\n " in
+                                                                     main ++  funId ++ ":\nmovl $" ++ show i ++ ", %eax \nret"
+     
+main = do args <- getArgs
+          file <- readFile (args!!0)
+          writeFile "out.s" (generator (parser (tokenize file)))
