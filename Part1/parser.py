@@ -5,12 +5,6 @@ from c_classes import *
 
 from lex_function import lex
 
-class Node:
-    def __init__(self, value, parent, son ):
-        self.value = value
-        self.parent = parent
-        self.son = son
-
 def expression(tokens):
     num=[]
     for t in tokens:
@@ -64,4 +58,28 @@ def parse(tokens):
     print()
     return ast
 
-parse(lex())
+def iterate(l):
+    for i in l:
+        if type(i) == list:
+            iterate(i)
+        else:
+            if isinstance(i, Int_kw):
+                int_kw = i.kw
+                print("FUN RETURN TYPE: "+str(int_kw))
+            elif isinstance(i, Id_kw):
+                id_kw = i.id
+                print("\t FUN NAME: "+str(id_kw))
+            elif isinstance(i, Ret_kw):
+                ret = i.kw
+                print("\t\t FUN BODY:")
+                print("\t\t\t"+str(ret)+" ", end='')
+            elif isinstance(i, Literal_num):
+                n = i.num
+                print(str(n), end='')
+            
+
+def generate(ast):
+    print("----Pretty AST----")
+    iterate(ast)
+
+generate(parse(lex()))
