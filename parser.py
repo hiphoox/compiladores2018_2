@@ -20,7 +20,6 @@ def statement(tokens):
         elif l[0] ==  "Semicolon":
             sta.append(l[1])
             pass
-        
     return sta
 
 def func(tokens):
@@ -37,15 +36,12 @@ def func(tokens):
             pass
         elif l[0] ==  "OpenBrace":
             aidi.append(l[1])
+            aidi.append(statement(tokens))
             pass
         elif l[0] ==  "CloseBrace":
             aidi.append(l[1])
             pass
-        else:
-            aidi.append(statement(tokens))
-            break
     return aidi
-
 
 def programa(tokens):
     fun = []
@@ -54,6 +50,7 @@ def programa(tokens):
         if l[0] ==  "Keyword" and l[1] == "int":
             fun.append(l[1])
             tokens.remove(i)
+            print(tokens)
         else:
             fun.append(func(tokens))
             break
