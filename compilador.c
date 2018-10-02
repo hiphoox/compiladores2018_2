@@ -2,9 +2,10 @@
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
+#include <ctype.h>
 
 struct TOKEN{
-    char *name;
+    char *type;
     char *value;
     struct TOKEN *next;
 };
@@ -14,18 +15,24 @@ struct LISTA_TOKENS{
     struct TOKEN *tail;
 };
 
-void agregaToken(struct LISTA_TOKENS *lista, char *value){
+
+
+
+void agregaToken(struct LISTA_TOKENS *lista, char *value, char *type){
    if(lista->head != NULL){
        lista->tail->next = (struct TOKEN *)calloc(1,sizeof(struct TOKEN));
        lista->tail = lista->tail->next;
        lista->tail->next = NULL;
        lista->tail->value = value;
+       lista->tail->type = type;
+       
     }
     else{
         lista->head = (struct TOKEN *)calloc(1,sizeof(struct TOKEN));
         lista->tail = lista->head;
         lista->tail->next = NULL;
         lista->head->value = value;
+        lista->tail->type = type;
     }
 }
 
@@ -34,7 +41,7 @@ void imprimeTokens(struct LISTA_TOKENS *lista){
     struct TOKEN *token = (struct TOKEN *)calloc(1,sizeof(struct TOKEN));
     token = lista->head;
     while(token != NULL){
-        printf("%s\n",token->value);
+        printf("%s, %s\n",token->value, token->type);
         token = token->next;
     }
 }
@@ -96,7 +103,7 @@ int main(){
                     for(j=0;j<limite;j++){                  
                         valor[j] = resto[j];                //lo agregamos a la lista
                     }
-                    agregaToken(lista, valor);
+                    agregaToken(lista, valor,NULL);
                 }   
                 resto  = resto + limite + 1;
             break;
@@ -106,27 +113,22 @@ int main(){
                     for(j=0;j<limite;j++){                  
                         valor[j] = resto[j];
                     }
-                   agregaToken(lista, valor);
+                   agregaToken(lista, valor, NULL);
                 }   
                 resto  = resto + limite + 1;
             break;
               
-            
-            
-            
-            
-            
             /*----------------------------              single tokens: delimitadores que no ignoramos */
             case '(':                                   //dos casos posibles
                 if(limite > 0){                         // a) ya ibamos a medio token
                     for(j=0;j<limite;j++){                  //lo terminamos y lo guardamos
                         valor[j] = resto[j];
                     }
-                    agregaToken(lista, valor);
+                    agregaToken(lista, valor,NULL);
                     resto = resto + limite ;
                 }
                 valor = "(";                            //no tenemos token a medias:
-                agregaToken(lista, valor);                  //agregamos token sencillo
+                agregaToken(lista, valor,"LeftPar");                  //agregamos token sencillo
                 resto ++;
             break;
                 
@@ -135,51 +137,25 @@ int main(){
                     for(j=0;j<limite;j++){             //mismo caso (single token)
                         valor[j] = resto[j];
                     }
-                   agregaToken(lista, valor);
+                   agregaToken(lista, valor,NULL);
                     resto = resto + limite ;
                 }
                 valor = ")";
-                agregaToken(lista, valor);
+                agregaToken(lista, valor,"RightPar");
                 resto ++;
             break;
-                
-            case '[':
-                if(limite > 0){
-                    for(j=0;j<limite;j++){                  //single token
-                        valor[j] = resto[j];
-                    }
-                    agregaToken(lista, valor);
-                    resto = resto + limite ;
-                }
-                valor = "[";
-               agregaToken(lista, valor);
-                resto ++;
-            break;
-                
-            case ']':
-                if(limite > 0){
-                    for(j=0;j<limite;j++){                  //single token
-                        valor[j] = resto[j];
-                    }
-                    agregaToken(lista, valor);;
-                    resto = resto + limite ;
-                }
-                valor = "]";
-                agregaToken(lista, valor);
-                resto ++;
-            break;
-                
+            
             
             case '{':
                 if(limite > 0){
                     for(j=0;j<limite;j++){                  //single token
                         valor[j] = resto[j];
                     }
-                    agregaToken(lista, valor);
+                    agregaToken(lista, valor,NULL);
                     resto = resto + limite ;
                 }
                 valor = "{";
-                agregaToken(lista, valor);
+                agregaToken(lista, valor,"LeftKey");
                 resto ++;
             break;
                 
@@ -188,11 +164,11 @@ int main(){
                     for(j=0;j<limite;j++){                  //hsingle token
                         valor[j] = resto[j];
                     }
-                    agregaToken(lista, valor);
+                    agregaToken(lista, valor,NULL);
                     resto = resto + limite ;
                 }
                 valor = "}";
-                agregaToken(lista, valor);
+                agregaToken(lista, valor,"RightKey");
                 resto ++;
             break;
             
@@ -201,11 +177,11 @@ int main(){
                     for(j=0;j<limite;j++){                  //single token
                         valor[j] = resto[j];
                     }
-                    agregaToken(lista, valor);
+                    agregaToken(lista, valor,NULL);
                     resto = resto + limite ;
                 }
                 valor = ";";
-                agregaToken(lista, valor);
+                agregaToken(lista, valor,"Colon");
                 resto ++;
             break;               
             
@@ -219,6 +195,24 @@ int main(){
     };
 
    
+    
+    struct TOKEN *iterador = lista->head;               //Identificamos los tokens
+    while (iterador != NULL){
+       if (!(iterador->type))
+            if (strcmp(iterador->value, "int")==0)
+                iterador->type = "keyword";
+            else
+                if (strcmp(iterador->value, "return")==0)
+                    iterador->type = "keyword";
+                else
+                    if(isdigit(iterador->value[0]))
+                        iterador->type="integer";
+                    else
+                        iterador->type ="identifier";
+        
+        iterador = iterador->next;
+    }
+
     
     
     imprimeTokens(lista);
