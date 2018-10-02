@@ -2,36 +2,52 @@
 Descricion: Este programa genera el AST recibiendo como parametro la 
 lista de tokens que manda el scanner'''
 
-import re
+from scanner import scanner
 
 def parser(tokens):
-    ast=insertar("programa") 
-    function(tokens, ast)
-    statement(tokens, ast)
-    exp(tokens, ast)
+    ast=[[],[],[]]
+    ast = function(tokens, ast)
+    ast= ["PROGRAM", ast, []]
     return ast
 
-def insertar(r):
-    return [r, [], []]
+def function(tokens, ast):
+    for iterador in range(0, len(tokens)):
+        if tokens[0] == 'INTKEYWORD' or tokens[0] == 'ID' or tokens[0] == 'OPENPARE' or tokens[0] == 'CLOSEPARE' or tokens[0] == 'OPENBRACE':
+            tokens.remove(tokens[0])
+        elif tokens[0] == "RETURNKEYWORD":
+            ast = statement(tokens, ast)
+        elif tokens[0] == "CLOSEBRACE":
+            tokens.remove(tokens[0])
+            ast = ["MAIN", ast, []]
+            break
+        else:
+            print('Error')
+            break
+    return ast
     
-def function(tkn, ast):
-    if "INT" in tkn and "Opare" in tkn and "CPare" in tkn and "Obrace" in tkn and "Cbrace" in tkn:
-        ast.pop(1)
-        ast.insert(1, ["MAIN", [], []])
-    else:
-        print("Error")
-
-def statement(tkn, ast):
-    if "RETURN" in tkn:
-        ast[1].pop(1)
-        ast[1].insert(1,["RETURN", [], []])
-    else:
-        print("Error")
-
-def exp(tkn, ast):
-    patron4=re.compile('(ID<[0-9]>)')
-    for iterador in tkn:        
-        id=patron4.findall(iterador)
-        if len(id) != 0:
-            ast[1][1].pop(1)
-            ast[1][1].insert(1,[int(id[0][3]), [], []])
+def statement(tokens, ast):
+    for iterador in range(0, len(tokens)):
+        if tokens[0] == "RETURNKEYWORD":
+            tokens.remove(tokens[0])
+        elif tokens[0].isdigit():
+            ast = exp(tokens, ast)
+        elif tokens[0] == "SEMICOLON":
+            tokens.remove(tokens[0])
+            ast = ["RETURN", ast, []]
+            break
+        else:
+            print('Error')
+            break
+    return ast
+        
+def exp(tokens, ast):
+    for iterador in range(0, len(tokens)):
+        if tokens[0].isdigit():
+            ast.pop(0)
+            ast.insert(0,int(tokens[0]))
+            tokens.remove(tokens[0])
+            break
+        else:
+            print("Error")
+            break
+    return ast
