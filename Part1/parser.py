@@ -59,6 +59,7 @@ def parse(tokens):
     return ast
 
 def iterate(l):
+    python_comp = open("python_comp.s","a+")
     for i in l:
         if type(i) == list:
             iterate(i)
@@ -68,18 +69,32 @@ def iterate(l):
                 print("FUN RETURN TYPE: "+str(int_kw))
             elif isinstance(i, Id_kw):
                 id_kw = i.id
+                python_comp.write(' .globl _{}\n'.format(i.id))
+                python_comp.write('_{}:\n'.format(i.id))
                 print("\t FUN NAME: "+str(id_kw))
             elif isinstance(i, Ret_kw):
                 ret = i.kw
                 print("\t\t FUN BODY:")
                 print("\t\t\t"+str(ret)+" ", end='')
-            elif isinstance(i, Literal_num):
-                n = i.num
-                print(str(n), end='')
+                if isinstance(l[l.index(i)+1][0], Literal_num):
+                    n = l[l.index(i)+1][0].num
+                    python_comp.write(' movl  ${}, {}eax\n'.format(n, "%"))
+                    python_comp.write('  ret\n')
+                    print(str(n), end='')
+                    break
+            else:
+                print("Error: AST badly constructed")
+                break
+    python_comp.close()
             
 
 def generate(ast):
     print("----Pretty AST----")
     iterate(ast)
+    f = open("python_comp.s","r")
+    f_lines = f.readlines()
+    assem=  open("c_program.s","w")
+    f.close()
+    assem.close()
 
 generate(parse(lex()))
