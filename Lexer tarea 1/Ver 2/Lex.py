@@ -20,12 +20,12 @@ def lexer(renglon,lista_token):
 				print("Elemento no válido: " + tok.elemento)
 				lista_token = ["Error"]
 				return lista_token
-			renglon = renglon.lstrip(id.group(0)) #Quitamos el elemento que acabamos de etiquetar
+			#renglon = renglon.lstrip(id.group(0)) #Quitamos el elemento que acabamos de etiquetar
 		elif(numero): #En caso de que no sea un id pero si un número, lo etiqueta, de momento solo tomamos en cuenta enteros
 			tok = number(int(numero.group(0)))
-			if(tok.type != "Error"):
-				lista_token.append([tok.numero, tok.type])
-				list.append
+			if(tok.name != "Error"):
+				lista_token.append([tok.elemento, tok.name])
+				list.append(tok)
 				renglon = renglon.lstrip(numero.group(0))
 			else:
 				print("Elemento no válido: " + str(tok.numero))
@@ -34,11 +34,11 @@ def lexer(renglon,lista_token):
 		else: #En caso de que no sea ninguno de los dos anteriores lo podemos catalogar como token especial, por lo que lo verifica
 			tok = specialToken(renglon[0])
 			if(tok.name != "Error"): 
-				lista_token.append([tok.caracter,tok.name])
+				lista_token.append([tok.elemento,tok.name])
 				list.append(tok)
-				renglon = renglon.lstrip(tok.caracter)
+				renglon = renglon.lstrip(tok.elemento)
 			else:
-				print("Elemento no válido: " + tok.caracter)
+				print("Elemento no válido: " + tok.elemento)
 				lista_token = ["Error"]
 				return lista_token
 	print (lista_token)
