@@ -1,18 +1,18 @@
-def nombre(char): #compara el elemento que recibió con los specialToken existentes
-		if(char == "{"):
+def nombre(elemento): #compara el elemento que recibió con los specialToken existentes
+		if(elemento == "{"):
 			return "openBrace"
-		elif (char == "}"):
+		elif (elemento == "}"):
 			return "closeBrace"
-		elif (char == "("):
+		elif (elemento == "("):
 			return "openParen"
-		elif (char == ")"):
+		elif (elemento == ")"):
 			return "closeParen"
-		elif (char == ";"):
+		elif (elemento == ";"):
 			return "semicolon"
 		else:
 			return "Error"
 
 class specialToken: #Creamos la clase specialToken para etiquetar
-	def __init__(self,char):
-		self.caracter = char
-		self.name = nombre(char)
+	def __init__(self,elemento):
+		self.elemento = elemento
+		self.name = nombre(elemento)
