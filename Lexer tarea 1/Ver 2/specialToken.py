@@ -1,4 +1,4 @@
-def nombre(self,char):
+def nombre(char): #compara el elemento que recibió con los specialToken existentes
 		if(char == "{"):
 			return "openBrace"
 		elif (char == "}"):
@@ -10,10 +10,9 @@ def nombre(self,char):
 		elif (char == ";"):
 			return "semicolon"
 		else:
-			print("Elemento no identificado.")
 			return "Error"
 
-class specialToken:
-	def __init___(self,char):
+class specialToken: #Creamos la clase specialToken para etiquetar
+	def __init__(self,char):
 		self.caracter = char
 		self.name = nombre(char)
