@@ -12,9 +12,12 @@ pub fn lex( programa: &str) -> Vec<&str>{
     let rechar= Regex::new(r"[(){};]").unwrap();
     let mut tokf = vec!();//se crea "token final" para ir incertando ahi el resultado del lexer
     for mut x in tok{// ciclo en el que se irán analizando elemento por elemento para etiquetarlo
+
+
+
       if reid.is_match(x){// en caso de encontrar algo de identificadores:
             let cap =reid.captures(x).unwrap();// se obtiene primero la captura de los identificadore
-            println!("{}",cap.get(0).map_or("", |m| m.as_str()));
+          
             match cap.get(0).map_or("", |m| m.as_str()) {//se reviza si  es alguna de nuestras 2 keywords
                       "int" => tokf.push("IntKeyword"),
                       "return" => tokf.push("ReturnKeyword"),
