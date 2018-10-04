@@ -8,8 +8,8 @@ let string_to_char_list s =
 
 
 (*Recibe una lista de chars y regresa una string compuesta de los chars*)
-let char_list_to_String char_list = 
-  String.concat (" ") (List.map (String.make 1) char_list)
+let char_list_to_string char_list = 
+  String.concat ("") (List.map (String.make 1) char_list)
 
 
 
@@ -61,7 +61,7 @@ let lex_especial strg (*string*) =
 (*crea un lista de tokens, si el token es tipo numero o keyword se procesa
   de manera especial*)
 let rec lex_numbers_ids char_list =
-  let str = String.trim (char_list_to_String (char_list)) in
+  let str = String.trim (char_list_to_string (char_list)) in
   let token, rest = lex_especial str in
     token::(lex_rest (string_to_char_list rest))
 
@@ -79,15 +79,15 @@ and lex_rest char_list =
       | ')'::rest -> CloseParen::(lex_rest rest)
       | ';'::rest -> Semicolon::(lex_rest rest)
       |otherChar::tail ->
-          if (Char.equal ' ' otherChar) then lex_rest tail
+          if ((Char.equal ' ' otherChar) || (Char.equal '\r' otherChar)) then lex_rest tail
           else lex_numbers_ids char_list
 
 
 (*tokeniza los caracteres de una cadena de texto*)
 (*string -> unit*)
 let lex linea =
-  let linea = String.trim linea in
-    lex_rest (string_to_char_list linea)
+  let linea_trim = String.trim linea in
+    lex_rest (string_to_char_list linea_trim)
 
 (* recibe un token y lo imprime*)
 (*token -> string*)

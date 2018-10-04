@@ -8,7 +8,7 @@ let rec map f l =
 
 
 
-let string_list_to_string l = String.concat "" l
+let string_list_to_string l = String.trim (String.concat "" l)
 
 
 (*obtiene las lineas de un archivo y devuelve un string*)
