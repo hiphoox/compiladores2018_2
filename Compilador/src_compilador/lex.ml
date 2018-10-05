@@ -4,12 +4,21 @@ let rec explode_inner s i =
         s.[i]::explode_inner s (i+1)
 
 let explode s = explode_inner s 0
-        
+
+
+
 (*funcion para juntar un arreglo de char*)
 let rec implode c =
     let buf = Buffer.create 16 in 
         List.iter (Buffer.add_char buf) c;
         Buffer.contents buf
+
+let implode_res c =
+    let a = explode_inner c 1 in 
+            implode a
+    
+    
+
 
 module Lex : sig
     type token = 
@@ -93,12 +102,12 @@ end =
                 then []
                 else
                     let tok, remaining_program = 
-                        match explode input with
-                        | '{'::rest -> (OpenBrace, implode rest)
-                        | '}'::rest -> (CloseBrace, implode rest)
-                        | '('::rest -> (OpenParen, implode rest)
-                        | ')'::rest -> (CloseParen, implode rest)
-                        | ';'::rest -> (Semicolon, implode rest)
+                        match input.[0]::[] with
+                        | '{'::rest -> (OpenBrace, implode_res input)
+                        | '}'::rest -> (CloseBrace, implode_res input)
+                        | '('::rest -> (OpenParen, implode_res input)
+                        | ')'::rest -> (CloseParen, implode_res input)
+                        | ';'::rest -> (Semicolon, implode_res input)
                         | _ -> get_kw_int_or_id input in
                     tok :: (lex remaining_program)
 
