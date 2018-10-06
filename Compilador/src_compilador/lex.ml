@@ -5,17 +5,17 @@ let rec explode_inner s i =
 
 let explode s = explode_inner s 0
 
-
-
 (*funcion para juntar un arreglo de char*)
 let rec implode c =
     let buf = Buffer.create 16 in 
         List.iter (Buffer.add_char buf) c;
         Buffer.contents buf
 
+(*Posible mejora valorando*)
 let implode_res c =
-    let a = explode_inner c 1 in 
-            implode a
+    String.sub c 1 ((String.length c) -1)
+    (*let a = explode_inner c 1 in 
+            implode a*)
     
     
 
@@ -98,7 +98,7 @@ end =
         (*Funcion principal que quita los simbolos especiales encontrados*)
         let rec lex input = 
             let input = String.trim input in 
-                if String.length input = 0
+                if input = ""
                 then []
                 else
                     let tok, remaining_program = 
