@@ -16,9 +16,9 @@ def compilador():
 	ast = parcerProgram(tokens)
 	
 	if ast == False:
-		print("Error sintactico")
+		print("Error sintactico: False")
 		return 0
-	print("Valor regreso", ast)
+	print("---->", ast)
 	#codeGenerator(_ast)
 
 compilador()
