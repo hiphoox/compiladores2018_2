@@ -1,6 +1,6 @@
 from Lexer import *
 from Parser import *
-
+from codeGenerator import *
 
 
 def compilador():
@@ -19,6 +19,9 @@ def compilador():
 		print("Error sintactico: False")
 		return 0
 	print("---->", ast)
-	#codeGenerator(_ast)
+	
+	codeGenerator(ast)
+
+
 
 compilador()

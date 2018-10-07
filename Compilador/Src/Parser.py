@@ -12,7 +12,11 @@ import re
 
 #<exp> ::= <int>
 def expresion(fn):
-	const=fn[0]
+	if len(fn) == 2:
+		const=fn[0]+fn[1] 
+	else:
+		const=fn[0]
+
 	return const
 
 #<statement> ::= "return" <exp> ";"
@@ -24,6 +28,7 @@ def statement(tokens):
 			return const
 		else:
 			print("Falto Semicolon")
+			return False
 	else:
 		print("Falta Statement")
 		return False;
@@ -34,8 +39,14 @@ def statement(tokens):
 def function(tokens):
 	if tokens.pop(0) == 'CharKeyword' and tokens.pop(0) == 'OpenParen' and tokens.pop(0) == 'CloseParen' and tokens.pop(0) == 'OpenBrace': 
 		const = statement(tokens)
+		if tokens == []:
+			print("Error de Sintaxis")
+			return False
 		if tokens.pop(0) == 'CloseBrace':
 			return const
+		else:
+			print("Error de Sintaxis")
+			return False
 	else:
 		print("Error de compilación Error de Sintaxis") 
 		return False;
