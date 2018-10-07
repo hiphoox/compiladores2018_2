@@ -13,15 +13,9 @@ let rec implode c =
 
 (*Posible mejora valorando*)
 
-let implode_res c a =
-    if a = 0
-    then ""
-    else
-        String.sub c 1 (a -1)
-  
-    
-    (*  String.fill c 1 ((String.length c)-1)
-    let a = explode_inner c 1 in 
+let implode_res c =
+    String.sub c 1 ((String.length c) -1)
+    (*let a = explode_inner c 1 in 
             implode a*)
     
     
@@ -76,14 +70,14 @@ end =
         let id_regexp = Str.regexp "\\([A-Za-z][A-Za-z0-9_]*\\)\\(\\b.*\\)"
 
         (*Funcion para encontrar el cuerpo del programa sin simbolos*)
-        let get_kw_int_or_id input a=
+        let get_kw_int_or_id input =
             (*busca cadenas con esas expreciones regulares (numeros)*)
             if Str.string_match int_regexp input 0
             then 
                 (*Str.matched_group  agarra n considencia con respecto a la exprecion utilizada anterior mente*)
                 let int_token = Str.matched_group 1 input in
                 let rest = Str.matched_group 2 input in
-                    (Int(int_of_string int_token), rest, a-(String.length int_token))
+                    (Int(int_of_string int_token), rest)
             (*busca cadenas con esas expreciones regulares (palabras)*)
             else if Str.string_match id_regexp input 0
             then
@@ -97,29 +91,26 @@ end =
                     | "int" -> IntKeyword
                     | "char" -> CharKeyword
                     | _ -> Id(id_token_str) in
-                    (id_token, rest, a-(String.length id_token_str))
+                    (id_token, rest)
             else
                 (*sino hay considencia con ninguna exprecion entonces marca un error*)
                 failwith ("Syntax error: \""^input^ "\" is not valid.")
 
         (*Funcion principal que quita los simbolos especiales encontrados*)
-        let rec lex_in input a = 
+        let rec lex input = 
             let input = String.trim input in 
                 if input = ""
                 then []
                 else
-                    let tok, remaining_program, input_lent = 
+                    let tok, remaining_program = 
                         match input.[0]::[] with
-                        | '{'::rest -> (OpenBrace, implode_res input a,a-1)
-                        | '}'::rest -> (CloseBrace, implode_res input a,a-1)
-                        | '('::rest -> (OpenParen, implode_res input a,a-1)
-                        | ')'::rest -> (CloseParen, implode_res input a,a-1)
-                        | ';'::rest -> (Semicolon, implode_res input a,a-1)
-                        | _ -> get_kw_int_or_id input a in
-                    tok :: (lex_in remaining_program (input_lent-1))
-        let lex input =
-            lex_in input (String.length input)
-        
-    end
+                        | '{'::rest -> (OpenBrace, implode_res input)
+                        | '}'::rest -> (CloseBrace, implode_res input)
+                        | '('::rest -> (OpenParen, implode_res input)
+                        | ')'::rest -> (CloseParen, implode_res input)
+                        | ';'::rest -> (Semicolon, implode_res input)
+                        | _ -> get_kw_int_or_id input in
+                    tok :: (lex remaining_program)
+
         
     end
