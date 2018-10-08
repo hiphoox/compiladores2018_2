@@ -37,7 +37,10 @@ class Identifier:
 #Pese a que el lexer ya realiza todo como deberia, pensar en algun algoritmo
 #que realize los mismo paso, pero de manera natural (0)
 #NOTA: Preguntar al profe sobre la duda del error del archivo 'no_space.c'
+#OTRA NOTA: En caso de axistir un error, no terminar el programa, seguir con la ejecucion del mismo,
+#al termino del analizador lexico debo regresar el el numero de errores y su linea.
 def lex(fileName):
+	#Recordar que C no reconoce UNICODE
 	code = '#'.join((open(fileName, "r").read().split()))
 
 	simbol = re.compile('\(|\)|\{|\}|\;')

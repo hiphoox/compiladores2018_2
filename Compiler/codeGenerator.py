@@ -14,7 +14,7 @@ def codeGenerator(_ast):
 			assembly_file.write('.globl _'+instruction+'\n'+'_'+instruction+':\n')
 		elif instruction == 'returnKeyWord':
 			x = _ast.pop(0).pop()
-			assembly_file.write('  mov $%s, '%(x)+chr(37)+'eax\n  ret\n')
+			assembly_file.write('  mov $%s, '%(x.int)+chr(37)+'eax\n  ret\n')
 		#Condicion de cierre
 		if _ast == []:
 			break
