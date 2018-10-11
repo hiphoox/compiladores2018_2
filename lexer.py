@@ -1,233 +1,90 @@
-#Serrano Sanchez Bryant Ricardo
-#Compiladores - Lexer
+#use re module for regular exprew ssions
+import re 
 
-from sys import *
+#list "l" to stock tokens
+l = []
 
-#read content from file
-def open_file(file):
-	data = open(file,"r").read()
-	return data
+#function to add items into list "l"
+def add( a,b ):
+	aux = []
+	aux.append( a )
+	aux.append( b )
+	l.append( aux )
 
+#set of regular expressions
+c = '[-(){};~!]' 			#single character
+n = '\d+'					#number
+w = '[a-zA-Z]+\w*'			#word
 
-def lex(content):
-	token = ""
-	flag_s = 0
-	string = ""
-	lexer = []
-	#save the content as list
-	content = list(content)
+#list of regular expressions
+tokens = [c,n,w]
 
-	
-	for char in content:
-		token += char
-		#not erase a space, tab or line jump when inside a string
-		if token == " " and flag_s != 1:
-			#print("found a white space")
-			token = ""
+#list of reserved words
+reserved = ["int","return"]
 
-		elif token == '\t' and flag_s != 1:
-			#print("found a tab")
-			token = ""
+#dictionay to tag tokens
+tag = {'(':"OPEN PA",')':"CLOSE PA",'{':"OPEN BR",'}':"CLOSE BR",';':"SEMIC",'-':"Negation",
+'~':"Bitwise complement",'!':"Logical Negation",'int':"INT K",'return':"RETURN K",1:"INT",2:"IDENTIFIER"}
 
-		elif token == '\n' and flag_s != 1:
-			#print("found a jump line")
-			token = ""
-		
-		#case of an open or close brace
-		elif token == "{":
-			new_item = []
-			new_item.append("openBrace")
-			new_item.append(token)
-			
+class Lexer:
 
-			lexer.append(new_item)
-			
+	#unique position error and size for each instance
+	def __init__( self,data ):
+		self.pos_error = 0
+		if len( data ) == 0: 
+			print("Error: Nothin to tokenize")
+			exit()
+		self.size = len( data )
 
-			token = ""
+	#function to create list of tagged tokens
+	def lex( self,data ):
 
-		elif token == "}":
-			new_item = []
-			new_item.append("closeBrace")
-			new_item.append(token)
+		#case there's a space, \n or a \t
+		if re.match( '\s',data ):
 
-			lexer.append(new_item)
+			#update position and size
+			self.pos_error = self.pos_error + 1
+			self.size = self.size - 1
 
+			#calls function without space, \n or a \t (1 character)
+			self.lex( data[1:] )		
 
-			token = ""
+		#iterate through list of tokens
+		for t in tokens:
 
-		#case of an open or close parenthesis
-		elif token == "(":
-			new_item = []
-			new_item.append("openParenthesis")
-			new_item.append(token)
-			lexer.append(new_item)
-			
-			token = ""
+			#case there's a match
+			if re.match( t,data ):
 
-		elif token == ")":
-			new_item = []
-			new_item.append("closeParenthesis")
-			new_item.append(token)
-			lexer.append(new_item)
-			
-			token = ""		
+				#save match in variable
+				a = re.match( t,data )
 
-		#case of a semicolon
-		elif token == ";":
-			new_item = []
-			new_item.append("semicolon")
-			new_item.append(token)
-			lexer.append(new_item)
-			
-			token = ""			
+				#case matches a number
+				if re.match( n,data ): add( tag[1],a.group() )
 
-		#case of declaring an int type
-		elif token == "int":
-			new_item = []
-			new_item.append("INT KEYWORD")
-			new_item.append(token)
-			lexer.append(new_item)
-			
-			token = ""
+				#case matches a word
+				elif re.match( w,data ):
 
-		#case of declaring a returning value
-		elif token == "return":
-			new_item = []
-			new_item.append("RETURN KEYWORD")
-			new_item.append(token)
-			lexer.append(new_item)
-			
-			token = ""
+					#case matches a word and NOT a reserverd word
+					if a.group() not in reserved: add( tag[2],a.group() )
 
+					#case matches a word and it's a keyword (reserved word)
+					else: add( tag[a.group()],a.group() )
 
-		#case in use of an int type variable(0-9)
-		elif token == "0":
-			new_item = []
-			new_item.append("ID INT")
-			new_item.append(token)
-			lexer.append(new_item)
-			
-			token = ""
+				#anyother case (single characters tokens)	
+				else: add( tag[a.group()],a.group() )
 
+				#update position and size (length of matched word)
+				self.pos_error = self.pos_error + len( a.group() )
+				self.size = self.size - len( a.group() )
 
-		elif token == "1":
-			new_item = []
-			new_item.append("ID INT")
-			new_item.append(token)
-			lexer.append(new_item)
-			
-			token = ""
+				#after adding to list "l", calls function without the matched word
+				self.lex( data[len( a.group()):] )
 
-		elif token == "2":
-			new_item = []
-			new_item.append("ID INT")
-			new_item.append(token)
-			lexer.append(new_item)
-			
-			token = ""
+		#returns list of tokens if it checked the whole string
+		if self.size == 0:
+			return l 
 
-		elif token == "3":
-			new_item = []
-			new_item.append("ID INT")
-			new_item.append(token)
-			lexer.append(new_item)
-			
-			token = ""
-
-		elif token == "4":
-			new_item = []
-			new_item.append("ID INT")
-			new_item.append(token)
-			lexer.append(new_item)
-			
-			token = ""
-
-		elif token == "5":
-			new_item = []
-			new_item.append("ID INT")
-			new_item.append(token)
-			lexer.append(new_item)
-			
-			token = ""
-
-		elif token == "6":
-			new_item = []
-			new_item.append("ID INT")
-			new_item.append(token)
-			lexer.append(new_item)
-			
-			token = "" 
-
-		elif token == "7":
-			new_item = []
-			new_item.append("ID INT")
-			new_item.append(token)
-			lexer.append(new_item)
-			
-			token = ""
-
-		elif token == "8":
-			new_item = []
-			new_item.append("ID INT")
-			new_item.append(token)
-			lexer.append(new_item)
-			
-			token = "" 
-
-		elif token == "9":
-			new_item = []
-			new_item.append("ID INT")
-			new_item.append(token)
-			lexer.append(new_item)
-			
-			token = ""
-
-
-		#case of using main keyword
-		elif token == "main":
-			new_item = []
-			new_item.append("MAIN KEYWORD")
-			new_item.append(token)
-			lexer.append(new_item)
-			
-			token = ""
-
-
-		#case of using print keyword
-		elif token == "print":
-			new_item = []
-			new_item.append("PRINT KEYWORD")
-			new_item.append(token)
-			lexer.append(new_item)
-			
-			token = ""
-
-
-		#case of declaring a string type
-		elif token == "\"":
-			if flag_s == 0:
-				flag_s = 1
-			elif flag_s == 1:
-				new_item.append("ID STRING")
-				new_item.append(string)
-				lexer.append(new_item)
-				
-				
-				string = ""
-				flag_s = 0
-
-		elif flag_s == 1:
-			string += char
-			token = ""
-
-	#tagging tokens
-	print(lexer)
-	
-def run():
-    #file's name goes as second parameter in command line
-	data = open_file(argv[1])
-	lex(data)
-
-run() 
-
-
+		#returns error in case an unkown character is found
+		else:
+			print ("Lexer Error after position "+str( self.pos_error ) )
+			exit()
