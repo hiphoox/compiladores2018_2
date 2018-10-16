@@ -26,7 +26,7 @@ struct PROGRAMA{
     struct ARBOL *padre;
 };
 
-struct BODY{
+struct EXPRESION{
     struct FUNCION *padre;
     struct LISTA_PRODUCTOS *produccion;
 };
@@ -34,7 +34,7 @@ struct BODY{
 
 struct FUNCION{
     struct LISTA_PRODUCTOS *produccion;
-    struct BODY *hijo;
+    struct EXPRESION *hijo;
     struct PROGRAMA *padre;
     
 };
@@ -113,6 +113,7 @@ int main(){
     
     lista->head = NULL;
     lista->tail= NULL;
+    printf("EXITO\n");
     char *delimitadores = " ();[]{}\n";
     int j, limite;
     char *resto, *valor;
@@ -226,21 +227,21 @@ int main(){
 
    
     
-    struct TOKEN *iterador = lista->head;               //Identificamos los tokens
-    while (iterador != NULL){
-       if (!(iterador->type))
-            if (strcmp(iterador->value, "int")==0)
-                iterador->type = "keyword";
+    struct TOKEN *tok = lista->head;               //Identificamos los tokens
+    while (tok != NULL){
+       if (!(tok->type))
+            if (strcmp(tok->value, "int")==0)
+                tok->type = "keyword";
             else
-                if (strcmp(iterador->value, "return")==0)
-                    iterador->type = "keyword";
+                if (strcmp(tok->value, "return")==0)
+                    tok->type = "keyword";
                 else
-                    if(isdigit(iterador->value[0]))
-                        iterador->type="integer";
+                    if(isdigit(tok->value[0]))
+                        tok->type="integer";
                     else                                //falta rechazar caracteres prohibidos
-                        iterador->type ="identifier";
+                        tok->type ="identifier";
         
-        iterador = iterador->next;
+        tok = tok->next;
     }
 
     printf("Tokens:\n");
@@ -265,130 +266,109 @@ int main(){
     ast->hijo->hijo->produccion = (struct LISTA_PRODUCTOS *)calloc(1,sizeof(struct LISTA_PRODUCTOS));
     ast->hijo->hijo->produccion->head = (struct PRODUCTO *)calloc(1,sizeof(struct PRODUCTO));
     
-    struct PRODUCTO *indicador = ast->hijo->hijo->produccion->head;     //variable que nos permitira asignarle las reglas de produccion  a FUNCION
+    struct PRODUCTO *prod = ast->hijo->hijo->produccion->head;     //variable que nos permitira asignarle las reglas de produccion  a FUNCION
     
-    indicador->type = "keyword";                //int
-    indicador->terminal = 1;
-    indicador->next = (struct PRODUCTO *)calloc(1,sizeof(struct PRODUCTO));
-    indicador = indicador->next;
+    prod->type = "keyword";                //int
+    prod->terminal = 1;
+    prod->next = (struct PRODUCTO *)calloc(1,sizeof(struct PRODUCTO));
+    prod = prod->next;
     
-    indicador->type = "identifier";                //main
-    indicador->terminal = 1;
-    indicador->next = (struct PRODUCTO *)calloc(1,sizeof(struct PRODUCTO));
-    indicador = indicador->next;
+    prod->type = "identifier";                //main
+    prod->terminal = 1;
+    prod->next = (struct PRODUCTO *)calloc(1,sizeof(struct PRODUCTO));
+    prod = prod->next;
     
-    indicador->type = "LeftPar";                //(
-    indicador->terminal = 1;
-    indicador->next = (struct PRODUCTO *)calloc(1,sizeof(struct PRODUCTO));
-    indicador = indicador->next;
+    prod->type = "LeftPar";                //(
+    prod->terminal = 1;
+    prod->next = (struct PRODUCTO *)calloc(1,sizeof(struct PRODUCTO));
+    prod = prod->next;
     
-    indicador->type = "RightPar";                //)
-    indicador->terminal = 1;
-    indicador->next = (struct PRODUCTO *)calloc(1,sizeof(struct PRODUCTO));
-    indicador = indicador->next;
+    prod->type = "RightPar";                //)
+    prod->terminal = 1;
+    prod->next = (struct PRODUCTO *)calloc(1,sizeof(struct PRODUCTO));
+    prod = prod->next;
     
-    indicador->type = "LeftKey";                //{
-    indicador->terminal = 1;
-    indicador->next = (struct PRODUCTO *)calloc(1,sizeof(struct PRODUCTO));
-    indicador = indicador->next;
+    prod->type = "LeftKey";                //{
+    prod->terminal = 1;
+    prod->next = (struct PRODUCTO *)calloc(1,sizeof(struct PRODUCTO));
+    prod = prod->next;
 
-    indicador->type = "BODY";                //return 2;
-    indicador->terminal = 0;
-    indicador->next = (struct PRODUCTO *)calloc(1,sizeof(struct PRODUCTO));
-    indicador = indicador->next;
+    prod->type = "EXPRESION";                //return 2;
+    prod->terminal = 0;
+    prod->next = (struct PRODUCTO *)calloc(1,sizeof(struct PRODUCTO));
+    prod = prod->next;
     
-    indicador->type = "RightKey";                //}
-    indicador->terminal = 1;
-    indicador->next = NULL;
-    
-    
+    prod->type = "RightKey";                //}
+    prod->terminal = 1;
+    prod->next = NULL;
     
     
     
-    ast->hijo->hijo->hijo=(struct BODY *)calloc(1,sizeof(struct BODY));                 //creamos BODY y su lista de produccion
+    
+    
+    ast->hijo->hijo->hijo=(struct EXPRESION *)calloc(1,sizeof(struct EXPRESION));                 //creamos EXPRESION y su lista de produccion
     ast->hijo->hijo->hijo->padre = ast->hijo->hijo;
     
     ast->hijo->hijo->hijo->produccion = (struct LISTA_PRODUCTOS *)calloc(1,sizeof(struct LISTA_PRODUCTOS));
     ast->hijo->hijo->hijo->produccion->head = (struct PRODUCTO *)calloc(1,sizeof(struct PRODUCTO));
     
-    indicador = ast->hijo->hijo->hijo->produccion->head; 
-    indicador->type = "keyword";                //int
-    indicador->terminal = 1;
-    indicador->next = (struct PRODUCTO *)calloc(1,sizeof(struct PRODUCTO));
-    indicador = indicador->next;
+    prod = ast->hijo->hijo->hijo->produccion->head; 
+    prod->type = "keyword";                //int
+    prod->terminal = 1;
+    prod->next = (struct PRODUCTO *)calloc(1,sizeof(struct PRODUCTO));
+    prod = prod->next;
     
-    indicador->type = "integer";                //main
-    indicador->terminal = 1;
-    indicador->next = (struct PRODUCTO *)calloc(1,sizeof(struct PRODUCTO));
-    indicador = indicador->next;
+    prod->type = "integer";                //main
+    prod->terminal = 1;
+    prod->next = (struct PRODUCTO *)calloc(1,sizeof(struct PRODUCTO));
+    prod = prod->next;
     
-    indicador->type = "Colon";                //(
-    indicador->terminal = 1;
-    indicador->next = (struct PRODUCTO *)calloc(1,sizeof(struct PRODUCTO));
-    indicador = indicador->next;
+    prod->type = "Colon";                //(
+    prod->terminal = 1;
+    prod->next = (struct PRODUCTO *)calloc(1,sizeof(struct PRODUCTO));
+    prod = prod->next;
     
     
     //AHORA comparemos nuestra lista de tokens con las reglas de produccion de FUNCION:
-    //regresamos indicador al inicio
-    iterador = lista->head;                                   //LISTA DE TOKENS
-    indicador = ast->hijo->hijo->produccion->head;      //PRODUCCIONES DE FUNCION
+    //regresamos prod al inicio
+    tok = lista->head;                                   //LISTA DE TOKENS
+    prod = ast->hijo->hijo->produccion->head;      //PRODUCCIONES DE FUNCION
     
     int i, k = 0;
-    while (iterador!=NULL){
-        printf("Evaluando %s contra %s: ",iterador->type, indicador->type );
-        if (strcmp(iterador->type, indicador->type)==0){
+    while (tok!=lista->tail){
+        printf("Evaluando %s contra %s: ",tok->type, prod->type );
+        if (strcmp(tok->type, prod->type)==0){
             
             printf("coinciden\n");
         }
         else{
-            if (!indicador->terminal){
-                //printf("no coinciden, creando hijo\n");
-                indicador = ast->hijo->hijo->hijo->produccion->head;
-                if (strcmp(iterador->type, indicador->type)==0){
-                    printf("coinciden\n");
+            if (!prod->terminal){
+                printf("no coinciden, creando hijo\n");
+                prod = ast->hijo->hijo->hijo->produccion->head;
+                if (strcmp(tok->type, prod->type)!=0){    //
+                    printf("ERROR DE PARSEO\n");
+                    exit(0);
                 }
             }
             
-            if ((iterador->next)==NULL){
-                printf("ultimo round");
-                iterador = lista->head;
-                for (i=0;i<k;i++){
-                    iterador = iterador->next;
-                }
-            }
+
         }
-        
-        iterador = iterador->next;
-        indicador = indicador->next;
-        k += 1;
+                  
+
+        tok = tok->next;
+        prod = prod->next;
+      
     }
-    
-//     if (k=9)
-//         printf("parseo exitoso\n");
-    
-    
-/*    
-    indicador = ast->programa->funcion->produccion->head;
-    while (indicador){
-        printf("%s\n",indicador->type);
-        indicador = indicador->next;
-    }
-    */
     
 
     
+  
+    prod = ast->hijo->hijo->produccion->head;
+    while (prod){
+        printf("%s\n",prod->type);
+        prod = prod->next;
+    }
     
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
+   
     return 1;
 }
