@@ -36,6 +36,7 @@ struct FUNCION{
     struct LISTA_PRODUCTOS *produccion;
     struct EXPRESION *hijo;
     struct PROGRAMA *padre;
+    struct LISTA_TOKENS *contenido;
     
 };
 
@@ -338,7 +339,7 @@ int main(){
     while (tok!=lista->tail){
         printf("Evaluando %s contra %s: ",tok->type, prod->type );
         if (strcmp(tok->type, prod->type)==0){
-            
+            //agregaToken(ast->hijo->hijo->contenido,tok->value,tok->type);
             printf("coinciden\n");
         }
         else{
@@ -349,25 +350,19 @@ int main(){
                     printf("ERROR DE PARSEO\n");
                     exit(0);
                 }
+                else{
+                    printf("coinciden\n");
+                }
             }
             
 
         }
                   
-
         tok = tok->next;
         prod = prod->next;
       
     }
-    
 
-    
-  
-    prod = ast->hijo->hijo->produccion->head;
-    while (prod){
-        printf("%s\n",prod->type);
-        prod = prod->next;
-    }
     
    
     return 1;
