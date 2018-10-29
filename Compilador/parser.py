@@ -1,24 +1,35 @@
-"""
-program = Program(function_declaration)
-function_declaration = Function(string, statement) //string is the function name
-statement = Return(exp)
-exp = Constant(int) 
-"""
+#program = Program(function_declaration)
+#function_declaration = Function(string, statement) //string is the function name
+#statement = Return(exp)
+#exp = Constant(int)
 
-# TOKENS ESPERADOS: ['INT KEYWORD', 'MAIN ID', 'OPENPARENTHESIS', 'CLOSEPARENTHESIS', 
-#                      'OPENBRACE', 'RETURN KEYWORD', 'INT<2563>', 'SEMICOLON', 'CLOSEBRACE']
+
+# TOKENS ESPERADOS: ['INT KEYWORD', 'MAIN ID', 'OPENPARENTHESIS', 'CLOSEPARENTHESIS',
+#                      'OPENBRACE', 'RETURN KEYWORD', [LOGICNEGOP, NEGOP, BITWOP] , 'INT<#>', 'SEMICOLON', 'CLOSEBRACE']
 def statement (tokensS, contFunciones, programa):
-    if (tokensS[0].find("INT") == 0):
+    operador = ''
+    if (tokensS[0] in ['LOGICNEGOP', 'NEGOP', 'BITWOP']):
+        operador = tokensS.pop(0);
+        if (tokensS[0].find('INT') == 0):
+            ast = "Correcto"
+            s = []
+            s.append(tokensS.pop(0))
+            programa.append(s)
+    elif (tokensS[0].find('INT') == 0):
         ast = "Correcto"
         s = []
-        s.append(tokensS.pop(0)) 
+        s.append(tokensS.pop(0))
         programa.append(s)
     else:
         ast = "Incorrecto"
         return ast, tokensS, []
 
     if (tokensS[0] == "SEMICOLON"):
-            tokensS.pop(0)
+        tokensS.pop(0)
+        if (len(operador) == 0):
+          	return (ast, tokensS, programa)
+        else:
+            programa[contFunciones-1].insert(0, operador)
             return (ast, tokensS, programa)
     else:
         ast = "Incorrecto"
@@ -74,7 +85,7 @@ def parser(tokensP):
         ast = "Error sintaxis"
         programa = []
     elif (ast == "Funcion correcta" and len(tokensP) == 0):
-        programa[contFunciones-1].insert(0, f_Id)       
+        programa[contFunciones-1].insert(0, f_Id)
         ast = "Programa compilado"
 
     return ast, programa
