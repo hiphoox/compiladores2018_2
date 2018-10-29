@@ -6,6 +6,7 @@ def tokenizerV2 (programa):
     tokens = []
     TK = {'int': 'INT KEYWORD', 'main': 'MAIN ID', 'return': 'RETURN KEYWORD'};
     WP = {'(':'OPENPARENTHESIS', ')': 'CLOSEPARENTHESIS', '{':'OPENBRACE', '}':'CLOSEBRACE', ';':'SEMICOLON'};
+    OpUn = {'-':'NEGOP', '~':'BITWOP', '!':'LOGICNEGOP'};
 
     while (1):
         
@@ -24,6 +25,9 @@ def tokenizerV2 (programa):
 
                 elif (codigo[0] in ['\t', '\n', ' ']):
                     codigo = codigo[1:len(codigo)]
+                elif (codigo[0] in OpUn):
+                    tokens.append(OpUn[codigo[0]])
+                    codigo = codigo[1:len(codigo)]                    
                 else:
                     Id = re.match('\\(*[A-Za-z][A-Za-z0-9_]*\\)*', codigo)
                     if(Id):
