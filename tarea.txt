@@ -1,0 +1,44 @@
+Tarea01
+*Ventajas notación prefija sobre infija
+	Normalmente estamos acostumbramos de ver y manipular la notación
+	infija: a (opBinario) b. Sin embargo, no es la mejor manera de
+	implementar en una computadora. Esto no quiere decir que
+	no se pueda sino que su algoritmo basado en una estructura de
+	datos -pila- se complica y además evita el uso de paréntesis.
+	Esto significa que no existe amiguedad cuando se trata de expresiones
+	con más de un operador. Por lo anterior, sí requiere de una precedencia 
+	de operadores binarios, la misma que se utiliza en las diferentes
+	notaciones. 
+	
+*Ventaja postfija sobre las demás notaciones
+	La notación postfija realiza los cálculos secuencialmente,
+	la misma manera en que se van introduciendo los operadores 
+	sin tener que esperar a que se termine la expresión completo
+	con la ventaja de que se cometen menos errores al procesar 
+	cálculos complejos. Otra ventaja es que al momento de introducirlos
+	a la pila, permite guardar resultados intermedios en caso de
+	necesitarlos posteriormente. Por último, ésta notación requiere
+	que se comprenda la operación a realizar ya que se estará computando
+	a todo momento,sobre todo, es la notación que las calculadoras HP utilizan.
+	
+
+Tarea02
+*¿Por qué hay grupos de 8 para formar un byte?
+	Históricamente, no hay registro de la denominación del "byte"
+	como conjunto de 8 bits, alguno sufieren que viene del inglés
+	"bite" para identificar el conjunto más pequeño de bits que 
+	se pueden manipular por la arquitectura de la computadora y se 
+	eliminó la "e" para no causar confusión.  
+	En 1963, se definió el código ACCI como estándar para la transmisión
+	de datos. El código permite representar hasta 128 caracteres diferentes
+	(requiere de 7 bits) pero se extiene con un bit de control -conocido 
+	como bit de paridad.
+	
+Tarea03
+*¿Cuál es la diferencia entre los registros RAX y EAX?
+	No son tipos de registros sino nombres concretos, RAX es el 
+	doble de grande que EAX significando que EAX es la parte
+	menos significativa de RAX. Dicho de otra forma RAX es el
+	mismo registro que EAX con un total de 64 bits, mientras que
+	EAX son los 32 bits bajos de los mismos 64 bits en EAX.
+
