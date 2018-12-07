@@ -6,8 +6,8 @@ t = []
 
 #set of regular expressions
 c  = '[-|*|/|(|)|{|}|;|~|!|+]' 	#single character
-n  = '\d+'						#number
-w  = '\w+'						#word
+n  = '\d+'			#number
+w  = '\w+'			#word
 
 #list of reserved words
 reserved = ["int","return"]
