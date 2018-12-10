@@ -1,4 +1,4 @@
-
+import lex
 # (1) -> La funcion realiza lo que debe de manera natural.
 # (0) -> La funcion realiza lo que debe pero no de manera natual.
 
@@ -10,8 +10,8 @@ def codeGenerator(_ast):
 	#While que itera dentro la lista de listas.
 	while True:
 		instruction = _ast.pop(0)
-		if instruction == 'main':
-			assembly_file.write('.globl _'+instruction+'\n'+'_'+instruction+':\n')
+		if type(instruction) is lex.Identifier and instruction.id == 'main':
+			assembly_file.write('.globl _'+instruction.id+'\n'+'_'+instruction.id+':\n')
 		elif instruction == 'returnKeyWord':
 			x = _ast.pop(0).pop()
 			assembly_file.write('  mov $%s, '%(x.int)+chr(37)+'eax\n  ret\n')

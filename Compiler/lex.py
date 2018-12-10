@@ -15,6 +15,12 @@ def simbols(code_section):
 		return 'closeBrace'
 	if code_section == ';':
 		return 'semiColon'
+	if code_section == '-':
+		return 'nagation'
+	if code_section == '!':
+		return 'logicalNegation'
+	if code_section == '~':
+		return 'bitwiseComplement'
 
 #Realiza la busqueda del keyWord correspondiente (1)
 def keyWords(code_section):
@@ -41,39 +47,42 @@ class Identifier:
 #al termino del analizador lexico debo regresar el el numero de errores y su linea.
 def lex(fileName):
 	#Recordar que C no reconoce UNICODE
-	code = '#'.join((open(fileName, "r").read().split()))
-
+	code = open(fileName, "r")
+	line = code.readline()
+	lineNumber = 1
 	simbol = re.compile('\(|\)|\{|\}|\;')
-	keyWordd = re.compile('int|return')
+	keyWord = re.compile('int$|return$') #Delimitar las expresiones regulares con simbolos
 	identifierd = re.compile('main')
-	integers = re.compile('(\d)+')
+	integers = re.compile('^[0-9]+')
 
 	string = ''
 	tokensList = []
-	#for que itera en cada uno de los elementos de la cadena 'code'.
-	for x in range(0,len(code)):
-		if code[x]!='#':
-			key = simbol.search(code[x])
-			if not key:
-				string += code[x]
-				#Realiza una busqueda dentro de keyWords e indentifiers
-				identifier = identifierd.search(string)
-				keyWord = keyWordd.search(string)
-				if identifier != None:
-					tokensList.append(Identifier(string))
-					string=''
-				elif keyWord != None and code[x+1]=='#':
-					tokensList.append(keyWords(keyWord.group(0)))
-					string=''
-				elif keyWord != None or identifier != None and code[x+1]!='#':
-					return False
-			else:
-				"""Comprobamos que lo anterior sea un numero, de no serlo significara que no se encuentra definido
-				dentro de ningun diccionario y en consecuencia debera mandar un error lexico"""
-				if string.isdigit():
-					tokensList.append(Integer(string))
-				elif string != '':
-					return False
-				tokensList.append(simbols(code[x]))
-				string = ''
+
+	while line:
+		#print('line {}: {}'.format(lineNumber, ' '.join(line.split())))
+		line = line.split()
+		for item in line:
+			for char in item:
+				key = simbol.search(char)
+				if key:
+					tokensList.append(simbols(char))
+				else:
+					string += char
+					key = keyWord.search(string)
+					if key:
+						tokensList.append(keyWords(string))
+						string = ''
+					else:
+						key = identifierd.search(string)
+						if key:
+							tokensList.append(Identifier(string))
+							string = ''
+						else:
+							key = integers.search(string)
+							if key:
+								tokensList.append(Integer(string))
+								string = ''
+		line = code.readline()
+		lineNumber += 1
+
 	return tokensList

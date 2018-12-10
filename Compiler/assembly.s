@@ -1,2 +1,4 @@
-  mov $100, %eax
+.globl _main
+_main:
+  mov $0, %eax
   ret
