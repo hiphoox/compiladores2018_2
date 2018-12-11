@@ -67,7 +67,7 @@ let identificador = (t: token) => {
     | Multiplication => "Multiplication"
     | Division => "Division"
     | Id(n) => "Id"
-    | Constant(n) => string_of_int(n)
+    | Constant(n) => "Constant"
     | Invalid => "Invalid Token"
     };
     result;
@@ -77,6 +77,7 @@ let extrac = (t: token) => {
   let result =
     switch (t) {
     | Id(n) => n
+    | Constant(n) => string_of_int(n)
     | Invalid => "Invalid Token"
     };
     result;
