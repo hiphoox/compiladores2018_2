@@ -103,7 +103,7 @@ function identificador(t) {
       
     }
   } else if (t.tag) {
-    return String(t[0]);
+    return "Constant";
   } else {
     return "Id";
   }
@@ -124,14 +124,7 @@ function extrac(t) {
           ];
     }
   } else if (t.tag) {
-    throw [
-          Caml_builtin_exceptions.match_failure,
-          /* tuple */[
-            "Token.re",
-            78,
-            4
-          ]
-        ];
+    return String(t[0]);
   } else {
     return t[0];
   }
