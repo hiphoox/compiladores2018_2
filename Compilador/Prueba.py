@@ -9,7 +9,7 @@ for i in pruebaV:
     print ('\n'+i)
     tokens = tokenizerV2(i)
     print(tokens)
-    ast,programa = parser(tokens)
+    ast, programa = parser(tokens)
     
     if (len(programa) != 0):
     	print(programa)
