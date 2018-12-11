@@ -10,24 +10,29 @@ from tokens import Token
 	@param list tokens
 '''
 def tokeniza(linea,tokens = []):
-	linea = linea.lstrip()	
-	id = re.match('\\(*[A-Za-z][A-Za-z0-9_]*\\)*', linea) #expresion regular para identificadores
-	numero = re.match('[0-9]+',linea)  #expresión regular para numeros
+	id_regex = '\\(*[A-Za-z][A-Za-z0-9]*\\)*'
+	num_regex = '\\d+'
+	special_char_regex = "^({|}|\\(|\\)|;|-|!|~)"
+	
+	linea = linea.lstrip()
+
 	if(len(linea)==0):
 		return 
-	if(id):
+	if(re.match(id_regex, linea)):
+		id = re.match(id_regex, linea)
 		tokens.append([keyWords(id.group(0)),id.group(0)])
 		tokeniza(linea.lstrip(id.group(0)),tokens)
-	elif(numero):
+	elif(re.match(num_regex,linea)):
+		numero = re.match(num_regex,linea) 
 		tokens.append(['Int',numero.group(0)])
 		tokeniza(linea.lstrip(numero.group(0)),tokens)
+	elif(re.match(special_char_regex,linea)):
+		special_char = re.match(special_char_regex,linea)
+		tok = singularTokens(special_char.group(0))
+		tokens.append([tok,Token[tok].value])
+		tokeniza(linea.lstrip(Token[tok].value),tokens)
 	else:
-		tok = singularTokens(linea[0])
-		if(tok!=False):
-			tokens.append([tok,Token[tok].value])
-			tokeniza(linea.lstrip(Token[tok].value),tokens)
-		else:
-			return linea[0]
+		return 'token inválido: ' + linea[0]
 	return tokens
 '''
 	KeyWords recibe un  token obtenido de ls expresión regular 
@@ -64,6 +69,9 @@ def singularTokens(token):
 		return Token.CloseParen.name
 	elif(token == ";"):
 		return Token.Semicolon.name
-	else: 
-		return False
-
+	elif(token == "-"):
+		return Token.Negation.name
+	elif(token == "~"):
+		return Token.BitwiseComplement.name
+	elif(token == "!"):
+		return Token.LogicalNegation.name
