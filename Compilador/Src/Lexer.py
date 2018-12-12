@@ -11,6 +11,11 @@ class Token(Enum):
         CharKeyword = "CHAR" 
         ReturnKeyword = "RETURN" 
         IntofInt = 0 
+        Addition = "+"
+        Subtraction = "-"
+        Division = "/"
+        Multiplication = "*"
+
 
 
 def Lex(file):

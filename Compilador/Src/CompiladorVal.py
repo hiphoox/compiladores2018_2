@@ -4,7 +4,13 @@ from codeGenerator import *
 
 
 def compilador():
-	file = "pruebas/ex1.c"
+	file = "pruebas/ex1.c"           #Funciona
+	#file = "pruebas/multi_digit.c"    #Funciona
+	#file = "pruebas/newlines.c"        #Funciona
+	#file = "pruebas/no_newlines.c"     #Funciona
+	#file = "pruebas/return_0.c"      #Funciona
+	#file = "pruebas/return_2.c"   #Funciona
+	#file = "pruebas/spaces.c"     #Funciona
 	
 
 	tokens = Lex(file)
