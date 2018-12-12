@@ -45,7 +45,7 @@ def function(tokens):
 		if tokens.pop(0) == 'CloseBrace':
 			return const
 		else:
-			print("Error de Sintaxis")
+			print("Error de Sintaxis Falta un }")
 			return False
 	else:
 		print("Error de compilación Error de Sintaxis") 
