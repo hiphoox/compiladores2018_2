@@ -15,8 +15,10 @@
 def statement (tokensS, contFunciones, programa):
     if len(tokensS) != 0:
         if tokensS[0] != 'SEMICOLON' or tokensS[0] != 'CLOSEBRACE':
+            #print (tokensS)
             operador, tokensS = parse_exp(tokensS)
-            programa.insert(0,operador) 
+            programa.insert(0,operador)
+            #print (operador)
         else:
             ast = "Incorrecto"
             return (ast, tokensS, [])
@@ -114,12 +116,12 @@ def convert_to_op (operator):
 
 
 def UnOp(op, factor):
-    OpUn = [op, factor]
+    OpUn = [factor, op]
     return OpUn
 
 
 def BinOp(op, term, next_term):
-    OpBin = [op, term, next_term]
+    OpBin = [term, next_term, op]
     return OpBin
 
 
@@ -130,8 +132,10 @@ def parse_factor (tokensFac):
     if next == 'OPENPARENTHESIS':
         # <factor> ::= "(" <exp> ")"
         #print tokensFac
-        exp = parse_exp (tokensFac) # Mandamos la expresion dentro del parentesis
-        print (tokensFac)
+        exp, tokensFac = parse_exp (tokensFac) # Mandamos la expresion dentro del parentesis
+        
+        #print ("Exp: " + str(exp))
+        #print (tokensFac)
         if tokensFac.pop(0) != 'CLOSEPARENTHESIS':
             print ("Validacion parentesis")
             return []
@@ -141,7 +145,8 @@ def parse_factor (tokensFac):
         # <factor> ::= <unary_op> <factor>
         op = convert_to_op (next)
         factor = parse_factor(tokensFac)
-        return UnOp(op, factor), tokensFac
+        final = UnOp(op, factor) 
+        return final, tokensFac
 
     elif next.find("INT") == 0:
         # <factor> ::= <int>
@@ -166,7 +171,10 @@ def parse_term(tokensTerm):
         next_term, tokensTerm = parse_factor(tokensTerm)
         #print op, term, next_term
         #print tokensTerm
+        #print ("Next_term: " + str(next_term))
+        #print ("TokensTerm: " + str(tokensTerm))
         term = BinOp(op, term, next_term)
+        #print ("Termino: " + str(term))
         #print ("Term: " + str(term))
         if len(tokensTerm) == 0:
             break
@@ -193,9 +201,12 @@ def parse_exp(tokensExp):
         term = BinOp(op, term, next_term)
         #print ("Termino " + str(term))
         #print ("TokensExp: " + str(tokensExp))
+        #print (tokensExp[0])
         if tokensExp[0] == 'SEMICOLON':
             break
-        break
+        else:
+            next = tokensExp[0]
+        
     
     return term, tokensExp
 
