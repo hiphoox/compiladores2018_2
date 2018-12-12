@@ -12,7 +12,7 @@ from tokens import Token
 def tokeniza(linea,tokens = []):
 	id_regex = '\\(*[A-Za-z][A-Za-z0-9]*\\)*'
 	num_regex = '\\d+'
-	special_char_regex = "^({|}|\\(|\\)|;|-|!|~)"
+	special_char_regex = "^({|}|\\(|\\)|;|-|!|~){1}"
 	
 	linea = linea.lstrip()
 
@@ -30,7 +30,7 @@ def tokeniza(linea,tokens = []):
 		special_char = re.match(special_char_regex,linea)
 		tok = singularTokens(special_char.group(0))
 		tokens.append([tok,Token[tok].value])
-		tokeniza(linea.lstrip(Token[tok].value),tokens)
+		tokeniza(linea[1:len(linea)],tokens)
 	else:
 		return 'token inválido: ' + linea[0]
 	return tokens

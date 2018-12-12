@@ -12,7 +12,7 @@ print('\n\nProbando con ' + sys.argv[1])
 
 
 tokens = tokeniza(linea)
-print(tokens)
+#print(tokens)
 if(type(tokens) is list):
 	ast = parse_program(tokens)	
 if(ast != None):
