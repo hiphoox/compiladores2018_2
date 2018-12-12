@@ -1,4 +1,5 @@
 from tokens import Token, UnaryOp, BinaryOp
+from colorama import init, Fore, Back, Style
 
 '''
 	Función principal, inicia el parseo de un programa
@@ -12,7 +13,9 @@ def parse_program(tokens, ast = []):
 		ast.append(result)
 		return ast		
 	else: 
-		print('Unexpected token ' + result[1][1] + '\n' + 'Se esperaba ' + result[2])
+		print(Fore.RED + Back.WHITE + Style.DIM+'\----------------------------------------¡Error!------------------------------------/')
+		print('Unexpected token ' + result[1][1] + '\t' + 'Se esperaba ' + result[2])
+		print('\-----------------------------------------------------------------------------------/')
 
 #Parsea la estructura de una funcion
 def parse_function_declaration(tokens,ast):
@@ -86,8 +89,6 @@ def parse_factor(tokens):
 		result = parse_expresion(tokens)
 		if(result[0] != False):
 			tk = tokens.pop(0)
-			print("en los  que van dentro de parentesis")
-			print(tk)
 			if(tk[0] == Token.CloseParen.name):
 				my_node = []
 				my_node.append([['UnaryOp',tk[0]],result])
