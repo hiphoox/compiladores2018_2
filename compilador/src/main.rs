@@ -2,6 +2,7 @@ extern crate compilador;
 use compilador::lex::*;
 use compilador::parser::*;
 use compilador::ast::*;
+use compilador::gen::*;
 
 
 
@@ -20,6 +21,7 @@ fn main(){
 
     println!("{:?}",tokens);
     let ast:Prog = parsear(tokens);
-    print_tree(ast);
+    let ast:Prog=print_tree(ast);
+    gen_code(&ast);
   
 }
