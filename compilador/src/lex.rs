@@ -1,13 +1,12 @@
 extern crate regex;
+
 use self::regex::Regex;
-
-
 
 
 pub fn lex( programa: &str) -> Vec<&str>{
     let tok: Vec<&str> = programa.split(' ').collect();// se divide la cadena por  espacios
     println!("{:?}",tok);
-    let reid = Regex::new(r"[A-Za-z][A-Za-z0-9_]*").unwrap();//se declaran las expresiones regulares en estas 3 lineas
+    let reid = Regex::new(r"[A-Za-z][A-Za-z_]*").unwrap();//se declaran las expresiones regulares en estas 3 lineas
     let reint = Regex::new(r"[0-9]+").unwrap();
     let rechar= Regex::new(r"[(){};]").unwrap();
     let mut tokf = vec!();//se crea "token final" para ir incertando ahi el resultado del lexer
@@ -34,7 +33,7 @@ pub fn lex( programa: &str) -> Vec<&str>{
       }
       if rechar.is_match(x){//en caso de encontrar algun caracter hace lo siguiente
 
-            for cap in rechar.captures_iter(x){//se inicia un cilo, ya que puede haber mas de uno
+            for cap in rechar.captures_iter(x){//se inicia un ciclo, ya que puede haber mas de uno
               match cap.get(0).map_or("", |m| m.as_str()){// captura de uno en uno y compara, guardando la etiqueta correspondiente
                   "{" => tokf.push("OpenBrace"),
                   "}"=> tokf.push("CloseBrace"),

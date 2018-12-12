@@ -1,21 +1,20 @@
+use ast::*;
 
 
-pub fn parsear(tokens: Vec<&str>)-> Vec<&str>{
-let mut ast=vec!();
+
+pub fn parsear(tokens: Vec<&str>)-> Prog{
 if tokens.len()==0{
     println!("error, lexer vacio");
     unreachable!();
 
-}else{
-  ast=funcion(tokens);
-}
+}  
+let ast: Prog= new_prog(funcion(tokens));
 ast
 }
 
 
 
-pub fn funcion(tokens: Vec<&str>)-> Vec<&str>{
-let mut ast= vec!();
+pub fn funcion(tokens: Vec<&str>)-> Fun_decl{
 if tokens[0] != "IntKeyword"{
 println!("eror, falta IntKeyword");
 unreachable!();
@@ -29,44 +28,38 @@ unreachable!();
 println!(" no se abrio llave para el statement");
 unreachable!();
 }
-else{
-      let temp = &tokens;
-     ast= vec!["programa","<","int","main","(",")","{",];
-    for i in statement(temp.to_vec()){
-        ast.push(i);
-    }
-}
+
+let temp = &tokens[6..];
+let ast: Fun_decl=new_fn(statement(temp.to_vec()),"main".to_string());
 if tokens[9] != "SemiColon" || tokens[10] != "CloseBrace"{
 println!("error en cerrar funcion");
-}else{
-  ast.push(";");
-  ast.push("}");
-  ast.push(">");
+unreachable!();
 }
 ast
 }
 
 
-pub fn statement(tokens: Vec<&str>)->Vec<&str>{
-  let mut temp = vec!();
-  if tokens[6] != "ReturnKeyword"{
+pub fn statement(tokens: Vec<&str>)->Statement{
+ 
+  if tokens[0] != "ReturnKeyword"{
   println!("error, falta return");
   unreachable!();
-  }else{
-  let tempo= &tokens;
-  temp= vec!["<","return","<",exp(tempo.to_vec()),">",">"];
   }
+   let tempo= &tokens[1..];
+let temp: Statement=new_st(exp(tempo.to_vec())); 
 temp
 }
 
 
-pub fn exp(tokens: Vec<&str>)-> &str{
-let mut temp= "temporal";
-if tokens[7]!= "int"{
+pub fn exp(tokens: Vec<&str>)-> Exp{
+
+if tokens[0]!= "int"{
       println!("error en valor del return");
       unreachable!();
-}else{
-    temp=tokens[8];
 }
-&temp
+let temp: i64;
+let tempo=tokens[1].to_string();
+temp=tempo.parse().unwrap();
+let expr: Exp=new_exp(temp);
+expr
 }

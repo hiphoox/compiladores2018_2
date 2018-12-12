@@ -1,8 +1,8 @@
 extern crate compilador;
 use compilador::lex::*;
 use compilador::parser::*;
-//extern crate regex;
-//use self::regex::Regex;
+use compilador::ast::*;
+
 
 
 
@@ -19,8 +19,7 @@ fn main(){
     let tokens: Vec<&str> =lex(&s);
 
     println!("{:?}",tokens);
-    let ast:Vec<&str> = parsear(tokens);
-    println!("{:?}",ast);
-
-
+    let ast:Prog = parsear(tokens);
+    print_tree(ast);
+  
 }
