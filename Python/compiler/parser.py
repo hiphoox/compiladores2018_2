@@ -1,5 +1,4 @@
 from tokens import Token, UnaryOp, BinaryOp
-from colorama import init, Fore, Back, Style
 
 '''
 	Función principal, inicia el parseo de un programa
@@ -13,9 +12,7 @@ def parse_program(tokens, ast = []):
 		ast.append(result)
 		return ast		
 	else: 
-		print(Fore.RED + Back.WHITE + Style.DIM+'\----------------------------------------¡Error!------------------------------------/')
-		print('Unexpected token ' + result[1][1] + '\t' + 'Se esperaba ' + result[2])
-		print('\-----------------------------------------------------------------------------------/')
+		return[False,result[1][1],result[2]]
 
 #Parsea la estructura de una funcion
 def parse_function_declaration(tokens,ast):
@@ -23,7 +20,7 @@ def parse_function_declaration(tokens,ast):
 	tk = tokens.pop(0)
 	if(tk[0] != Token.IntKeyword.name and tk[0] != Token.CharKeyword.name):
 		return [False,tk,Token.IntKeyword.name]
-	nodo.append(Token[tk[0]].value)
+	#nodo.append(['ReturnType' , Token[tk[0]].value])
 
 	tk = tokens.pop(0)
 	if(tk[0] != 'Id'):
@@ -50,7 +47,7 @@ def parse_function_declaration(tokens,ast):
 		return result						
 	nodo.append(['Statement',result])					  #si encontró algo válido lo agrego al nodo 'function'	
 
-	tk = tokens.pop(0)
+	tk = tokens.pop(0) if len(tokens) > 0 else [False, '', Token.CloseBrace.name]
 	if(tk[0] != Token.CloseBrace.name):
 		return [False,tk,Token.CloseBrace.name]
 	return(['Function: ',nodo]) # se retorna el nodo funcion
@@ -66,11 +63,11 @@ def parse_statement(tokens,ast):
 	result = parse_expresion(tokens)  #se busca encontrar una expresion válida, si no retorna false
 	if(result[0] == False):		  #implica que sí encontró un nodo 'expresion' y se agrega al nodo 'statement'
 		return result
-	nodo.append(['Expresion',result])
+	nodo.append(result)
 	tk = tokens.pop(0)
 	if(tk[0] != Token.Semicolon.name):
 		return[False,tk,Token.Semicolon.name]
-	return(nodo) #se retorna el nodo statement
+	return nodo #se retorna el nodo statement
 
 #parsea la estructura de una expresion
 def parse_factor(tokens):
@@ -103,21 +100,20 @@ def parse_factor(tokens):
 def parse_term(tokens):
 	factor = parse_factor(tokens)
 	if(factor[0] != False):
-		my_term = []
-		my_term.append(['Term',['Factor',factor]])
+		my_term = ['Term']
 		while(True):
 			#tk = tokens.pop(0)
 			if(tokens[0][0] == BinaryOp.Multiplication.value.name or tokens[0][0] == BinaryOp.Division.value.name):
 				tk = tokens.pop(0)
 				other_factor = parse_factor(tokens)
 				if(other_factor[0] != False):
-					my_term.append(["BinaryOp",BinaryOp.Multiplication.value.name] if (tk[0] == BinaryOp.Multiplication.value.name) else ["BinaryOp",BinaryOp.Division.value.name])
-					my_term.append(['Factor',other_factor])
+					factor = [["BinaryOp",BinaryOp.Multiplication.value.name] if (tk[0] == BinaryOp.Multiplication.value.name) else ["BinaryOp",BinaryOp.Division.value.name],['Factor',factor],['Factor',other_factor]]
 				else:
 					return other_factor
 			else: 
-				return my_term
+				return ['Term',factor]
 				break
+		my_term.append(factor)
 	else:
 		return factor
 
@@ -125,24 +121,22 @@ def parse_term(tokens):
 def parse_expresion(tokens):
 	term = parse_term(tokens)
 	if(term[0] != False):
-		my_exp = []
-		my_exp.append(term)
+		my_exp = ['Expresion']
 		while(True):
 			if(tokens[0][0] == BinaryOp.Addition.value.name or tokens[0][0] == BinaryOp.Subtraction.value.name):
 				tk = tokens.pop(0)
 				other_term = parse_term(tokens)
+				print(other_term)
 				if(other_term[0] != False):
-					my_exp.append(["BinaryOp",BinaryOp.Addition.value.name] if (tk[0] == BinaryOp.Addition.value.name) else ["BinaryOp",BinaryOp.Subtraction.value.name])
-					my_exp.append(other_term)
+					term = [["BinaryOp",BinaryOp.Addition.value.name] if (tk[0] == BinaryOp.Addition.value.name) else ["BinaryOp",BinaryOp.Subtraction.value.name],term,other_term]
 				else:
 					return other_term
 			else: 
-				return my_exp
+				return ['Expresion',term]
 				break
+		my_exp.append(term)
 	else:
 		return term
-
-
 
 #imprime ast en pretty mode
 def imprime(nodes,level = 1):
