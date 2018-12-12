@@ -1,5 +1,4 @@
-from tokens import Token
-from tokens import UnaryOp
+from tokens import Token, UnaryOp, BinaryOp
 
 '''
 	Función principal, inicia el parseo de un programa
@@ -51,7 +50,6 @@ def parse_function_declaration(tokens,ast):
 	tk = tokens.pop(0)
 	if(tk[0] != Token.CloseBrace.name):
 		return [False,tk,Token.CloseBrace.name]
-	nodo.append(tk[1])
 	return(['Function: ',nodo]) # se retorna el nodo funcion
 
 #parsea la estructura de un statement
@@ -62,41 +60,94 @@ def parse_statement(tokens,ast):
 		return[False,tk,Token.ReturnKeyword.name]
 	nodo.append(tk[1])
 
-#	tk = tokens.pop(0)
 	result = parse_expresion(tokens)  #se busca encontrar una expresion válida, si no retorna false
-	print(result)
 	if(result[0] == False):		  #implica que sí encontró un nodo 'expresion' y se agrega al nodo 'statement'
 		return result
 	nodo.append(['Expresion',result])
-
 	tk = tokens.pop(0)
 	if(tk[0] != Token.Semicolon.name):
 		return[False,tk,Token.Semicolon.name]
-	nodo.append(tk[1])
 	return(nodo) #se retorna el nodo statement
 
 #parsea la estructura de una expresion
-def parse_expresion(tokens,nodo = []):
+def parse_factor(tokens):
 	tk = tokens.pop(0)
 	if(tk[0] == 'Int'):
 		return ['Constant',tk[1]]  #busca que la expresion sea un int, sino, retorna false
-	elif(tk[0] == UnaryOp.Negation.name or tk[0] == UnaryOp.BitwiseComplement.name or tk[0] == UnaryOp.LogicalNegation.name):
-		result = parse_expresion(tokens,nodo)
+	elif(tk[0] == Token.Minus.name or tk[0] == UnaryOp.BitwiseComplement.name or tk[0] == UnaryOp.LogicalNegation.name):
+		result = parse_factor(tokens)
 		if(result[0] != False):
 			my_node = []
 			my_node.append([['UnaryOp',tk[0]],result])
 			return my_node
 		else:
 			return result
+	elif(tk[0] == Token.OpenParen.name):
+		result = parse_expresion(tokens)
+		if(result[0] != False):
+			tk = tokens.pop(0)
+			print("en los  que van dentro de parentesis")
+			print(tk)
+			if(tk[0] == Token.CloseParen.name):
+				my_node = []
+				my_node.append([['UnaryOp',tk[0]],result])
+				return my_node
+			else:
+				return [False,tk,Token.CloseParen.name]
+		else:
+			return result
 	else:
-		return[False,tk,'Const'] 
+		return [False,tk,'Const'] 
+
+def parse_term(tokens):
+	factor = parse_factor(tokens)
+	if(factor[0] != False):
+		my_term = []
+		my_term.append(['Term',['Factor',factor]])
+		while(True):
+			#tk = tokens.pop(0)
+			if(tokens[0][0] == BinaryOp.Multiplication.value.name or tokens[0][0] == BinaryOp.Division.value.name):
+				tk = tokens.pop(0)
+				other_factor = parse_factor(tokens)
+				if(other_factor[0] != False):
+					my_term.append(["BinaryOp",BinaryOp.Multiplication.value.name] if (tk[0] == BinaryOp.Multiplication.value.name) else ["BinaryOp",BinaryOp.Division.value.name])
+					my_term.append(['Factor',other_factor])
+				else:
+					return other_factor
+			else: 
+				return my_term
+				break
+	else:
+		return factor
+
+
+def parse_expresion(tokens):
+	term = parse_term(tokens)
+	if(term[0] != False):
+		my_exp = []
+		my_exp.append(term)
+		while(True):
+			if(tokens[0][0] == BinaryOp.Addition.value.name or tokens[0][0] == BinaryOp.Subtraction.value.name):
+				tk = tokens.pop(0)
+				other_term = parse_term(tokens)
+				if(other_term[0] != False):
+					my_exp.append(["BinaryOp",BinaryOp.Addition.value.name] if (tk[0] == BinaryOp.Addition.value.name) else ["BinaryOp",BinaryOp.Subtraction.value.name])
+					my_exp.append(other_term)
+				else:
+					return other_term
+			else: 
+				return my_exp
+				break
+	else:
+		return term
+
 
 
 #imprime ast en pretty mode
 def imprime(nodes,level = 1):
 	for l in nodes:
 		if(type(l) is list):
-			imprime(l,level + 1)
+			imprime(l,level + 2)
 		else:
 			print(" "*level+l)
 
