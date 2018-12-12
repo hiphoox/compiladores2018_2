@@ -1,4 +1,4 @@
-type token =
+type token =  /*Definimos los token*/
   | OpenBrace
   | CloseBrace
   | OpenParen
@@ -16,7 +16,7 @@ type token =
   | Constant(int)
   | Invalid;
 
-let tokenToString = (acummulator, t: token): string => {
+let tokenToString = (acummulator, t: token): string => { /*Identificamos los token para imprimir la lista*/
   let result =
     switch (t) {
     | OpenBrace => "OpenBrace"
@@ -39,18 +39,18 @@ let tokenToString = (acummulator, t: token): string => {
   acummulator ++ " " ++ result ++ ",";
 };
 
-let tokenListToString = tokensList => {
+let tokenListToString = tokensList => { /*Convierte la lista de token en string*/
   let comma_regexp = [%re "/,$/"];
   let stringList = Belt.List.reduce(tokensList, "[", tokenToString);
   Js.String.replaceByRe(comma_regexp, " ]", stringList);
 };
 
-let printTokenList = tokenList => {
+let printTokenList = tokenList => { /*Imprime la lista de token*/
   tokenList |> tokenListToString |> Js.log;
   tokenList;
 };
 
-let identificador = (t: token) => {
+let identificador = (t: token) => { /*Para identificar los token en la comparación*/
   let result =
     switch (t) {
     | OpenBrace => "OpenBrace"
@@ -73,7 +73,7 @@ let identificador = (t: token) => {
     result;
 };
 
-let extrac = (t: token) => {
+let extrac = (t: token) => { /*Extraemos los valores que tengan el id y/o constant*/
   let result =
     switch (t) {
     | Id(n) => n
