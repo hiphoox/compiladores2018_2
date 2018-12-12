@@ -11,12 +11,21 @@ class Token(Enum):
 	IntKeyword = "int"
 	CharKeyword = "char"
 	ReturnKeyword = "return"
-	Negation = "-"
 	BitwiseComplement = "~"
 	LogicalNegation = "!"
+	Plus = "+"
+	Minus = "-"
+	Multiplication = "*"
+	Division = "/"
 
 @unique
 class UnaryOp(Enum):
-	Negation = Token.Negation
 	BitwiseComplement = Token.BitwiseComplement
 	LogicalNegation = Token.LogicalNegation
+
+@unique
+class BinaryOp(Enum):
+	Addition = Token.Plus
+	Subtraction = Token.Minus
+	Multiplication = Token.Multiplication
+	Division = Token.Division
