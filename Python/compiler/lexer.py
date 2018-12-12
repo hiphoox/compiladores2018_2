@@ -12,7 +12,7 @@ from tokens import Token
 def tokeniza(linea,tokens = []):
 	id_regex = '\\(*[A-Za-z][A-Za-z0-9]*\\)*'
 	num_regex = '\\d+'
-	special_char_regex = "^({|}|\\(|\\)|;|-|!|~){1}"
+	special_char_regex = "^({|}|\\(|\\)|;|-|!|~|\\+|\\/|\\*)"
 	
 	linea = linea.lstrip()
 
@@ -69,9 +69,15 @@ def singularTokens(token):
 		return Token.CloseParen.name
 	elif(token == ";"):
 		return Token.Semicolon.name
-	elif(token == "-"):
-		return Token.Negation.name
 	elif(token == "~"):
 		return Token.BitwiseComplement.name
 	elif(token == "!"):
 		return Token.LogicalNegation.name
+	elif(token == "+"):
+		return Token.Plus.name
+	elif(token == "-"):
+		return Token.Minus.name
+	elif(token == "*"):
+		return Token.Multiplication.name
+	elif(token == "/"):
+		return Token.Division.name
