@@ -17,22 +17,28 @@ def tokeniza(linea,tokens = []):
 	linea = linea.lstrip()
 
 	if(len(linea)==0):
-		return 
+		return [True]
 	if(re.match(id_regex, linea)):
 		id = re.match(id_regex, linea)
 		tokens.append([keyWords(id.group(0)),id.group(0)])
-		tokeniza(linea.lstrip(id.group(0)),tokens)
+		result = tokeniza(linea.lstrip(id.group(0)),tokens)
+		if(result[0] == False):
+			return result
 	elif(re.match(num_regex,linea)):
 		numero = re.match(num_regex,linea) 
 		tokens.append(['Int',numero.group(0)])
-		tokeniza(linea.lstrip(numero.group(0)),tokens)
+		result = tokeniza(linea.lstrip(numero.group(0)),tokens)
+		if(result[0] == False):
+			return result
 	elif(re.match(special_char_regex,linea)):
 		special_char = re.match(special_char_regex,linea)
 		tok = singularTokens(special_char.group(0))
 		tokens.append([tok,Token[tok].value])
-		tokeniza(linea[1:len(linea)],tokens)
+		result = tokeniza(linea[1:len(linea)],tokens)
+		if(result[0] == False):
+			return result
 	else:
-		return 'token inválido: ' + linea[0]
+		return [False,linea[0]]
 	return tokens
 '''
 	KeyWords recibe un  token obtenido de ls expresión regular 
