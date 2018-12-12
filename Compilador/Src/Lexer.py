@@ -43,6 +43,14 @@ def Lex(file):
             lista2.append(Token.Semicolon.name) 
         elif token == 'int': 
             lista2.append(Token.IntKeyword.name) 
+        elif token == '+': 
+            lista2.append(Token.Addition.name) 
+        elif token == '-': 
+            lista2.append(Token.Subtraction.name) 
+        elif token == '*': 
+            lista2.append(Token.Multiplication.name) 
+        elif token == '/': 
+            lista2.append(Token.Division.name) 
         elif token == 'main': 
             lista2.append(Token.CharKeyword.name) 
         elif token == 'return': 

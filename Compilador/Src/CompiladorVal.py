@@ -10,8 +10,8 @@ def compilador():
 	#file = "pruebas/Funcionan/no_newlines.c"     #Funciona
 	#file = "pruebas/Funcionan/return_0.c"      #Funciona
 	#file = "pruebas/Funcionan/return_2.c"   #Funciona
-	file = "pruebas/Funcionan/spaces.c"     #Funciona
-	#file = "pruebas/Funcionan/spaces2.c"     #Funciona
+	#file = "pruebas/Funcionan/spaces.c"     #Funciona
+	file = "pruebas/Funcionan/spaces2.c"     #Funciona
 
 	#No funcionan
 	#file = "pruebas/NoFuncionan/missing_paren.c"     #NoFunciona
