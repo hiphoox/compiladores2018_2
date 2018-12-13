@@ -5,5 +5,5 @@ let program_text = {|
 Lexer.lex(program_text)
 |> Token.printTokenList
 |> Parser.parse_program
-/*|> Ast.printAST
-|> Generator.generate_code;*/
+|> Ast.printAST
+|> Generator.generate_code;
