@@ -46,6 +46,7 @@ let tokenListToString = tokensList => { /*Convierte la lista de token en string*
 };
 
 let printTokenList = tokenList => { /*Imprime la lista de token*/
+  tokenList |> Js.log;
   tokenList |> tokenListToString |> Js.log;
   tokenList;
 };
