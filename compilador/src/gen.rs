@@ -2,8 +2,16 @@ use ast::*;
 
 
 pub fn gen_exp(exp: &Exp)-> String{
+    let final_exp:String;
     let ens: String=format!(" movl {} %eax",exp.Const.to_string());
-    ens
+    let neg:String=format!(" neg %eax");
+    if exp.unop==true {
+        final_exp=format!("{}
+        {}",ens,neg);
+    }else{
+        final_exp=ens;
+    }
+    final_exp
 }
 pub fn gen_st(st: &Statement)->String{
      let ens: String=format!("{}

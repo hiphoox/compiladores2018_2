@@ -1,5 +1,6 @@
 pub struct Exp {
   pub Const: i64,
+  pub unop: bool,
 }
 pub struct Statement {
   pub Return: Exp,
@@ -26,14 +27,18 @@ let new= Statement{Return:exp};
 new
 }
 
-pub fn new_exp(int:i64)->Exp{
-  let new= Exp{Const:int};
+pub fn new_exp(int:i64, u:bool)->Exp{
+  let new= Exp{Const:int,unop:u};
   new
 } 
 
 pub fn print_tree(tree: Prog)->Prog{
 println!("-------------impresión del arbol----------------------");
+if tree.prog.st.Return.unop==false{
 println!("prog->function {:?}->return-> constant: {:?}",tree.prog.nombre,tree.prog.st.Return.Const);
+}else{
+ println!("prog->function {:?}->return-> constant: -{:?}",tree.prog.nombre,tree.prog.st.Return.Const); 
+}
 tree
 }
 

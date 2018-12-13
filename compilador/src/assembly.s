@@ -1,4 +1,5 @@
     .golbl _main
     _main:
      ret
-      movl 33 %eax
+      movl 99 %eax
+         neg %eax
