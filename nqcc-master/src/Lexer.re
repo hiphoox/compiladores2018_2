@@ -1,5 +1,5 @@
 let special_chars_regexp = [%re "/^({|}|\\(|\\)|;)/"];
-let const_regex = [%re "/\\^d+$/"];
+let const_regex = [%re "/\\d+/"];
 let id_regexp = [%re "/\\w+/"];
 
 let startsWith = program =>
