@@ -2,7 +2,7 @@ import re
 
 def tokenizer(file):
 	#diccionario de simbolos
-	symbols = {'(':'OpenParen', ')': 'CloseParen', '{': 'OpenBrace', '}': 'CloseBrace', ';': 'Semicolon'}
+	symbols = {'(':'OpenParen', ')': 'CloseParen', '{': 'OpenBrace', '}': 'CloseBrace', ';': 'Semicolon','-':'Negation','~':'Bitwise','!':'Logic Neg'}
 
 	#set de palabras reservadas del lenguaje C
 	key={'auto','break','case','char','const','continue','default','do','double','else','enum','extern','float',
