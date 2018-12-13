@@ -1,4 +1,4 @@
-let parse_constant = tokenList: (Ast.exp, list(Token.token)) =>{ /*Recibe la lista de token y devueleve el token y la lista modificada*/
+let parse_constant = tokenList: (Ast.exp, list(Token.token)) =>{
   
   let [token, ...remainingTokens] = tokenList; /*Sacamos siguiente token que debe de ser el numero*/
   if((token |> Token.identificador) != "Constant"){ /*Comprobamos que el token sea una constante*/
@@ -17,6 +17,7 @@ let parse_statement = tokenList: (Ast.statement, list(Token.token)) => {  /*Reci
     Js.log("Error, falta return");
   };
 
+  let var = token |> Token.identificador;
   /*El elemento es el número, por lo que se pasa al parse_constant*/
   let (constant, remainingTokens ) = parse_constant(remainingTokens);
 
@@ -24,7 +25,7 @@ let parse_statement = tokenList: (Ast.statement, list(Token.token)) => {  /*Reci
   if((token |> Token.identificador) != "Semicolon"){
     Js.log("Error, falta ;");
   };
-  (Ast.Return(constant), remainingTokens);
+  (Ast.Assign(var,constant), remainingTokens);
 };
 
 let parse_function = tokenList: Ast.fun_decl => {
@@ -66,7 +67,7 @@ let parse_function = tokenList: Ast.fun_decl => {
   Ast.Fun(idName, return);
 };
 
-let parse_program = tokenList: option(Ast.prog) => {
+let parse_program = tokenList: Ast.prog => {
   let func_decl = parse_function(tokenList);
-  Some(Ast.Prog(func_decl));
+  Ast.Prog(func_decl);
 };
