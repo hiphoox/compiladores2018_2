@@ -335,12 +335,16 @@ int main(){
     tok = lista->head;                                   //LISTA DE TOKENS
     prod = ast->hijo->hijo->produccion->head;      //PRODUCCIONES DE FUNCION
     
+    ast->hijo->hijo->contenido = (struct LISTA_TOKENS *)calloc(1,sizeof(struct LISTA_TOKENS));
+    
+    
     int i, k = 0;
     while (tok!=lista->tail){
         printf("Evaluando %s contra %s: ",tok->type, prod->type );
         if (strcmp(tok->type, prod->type)==0){
-            //agregaToken(ast->hijo->hijo->contenido,tok->value,tok->type);
+            agregaToken(ast->hijo->hijo->contenido,tok->value,tok->type);
             printf("coinciden\n");
+            
         }
         else{
             if (!prod->terminal){
@@ -352,6 +356,7 @@ int main(){
                 }
                 else{
                     printf("coinciden\n");
+                    agregaToken(ast->hijo->hijo->contenido,"EXPRESION","NODO");
                 }
             }
             
@@ -363,7 +368,7 @@ int main(){
       
     }
 
-    
+    imprimeTokens(ast->hijo->hijo->contenido);
    
     return 1;
 }
