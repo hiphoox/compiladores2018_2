@@ -1,11 +1,15 @@
-let parse_constant = tokenList: (Ast.exp, list(Token.token)) =>{
-  
-    let [token, ...remainingTokens] = tokenList; /*Sacamos siguiente token que debe de ser el numero*/
-    if((token |> Token.identificador) == "Constant"){ /*Comprobamos que el token sea una constante*/
-        let number = int_of_string(token |> Token.extrac); /*Almacenamos el valor de la constante*/ 
-        (Ast.Const(number), remainingTokens); /*Devolvemos el nodo constant*/ 
+let rec parse_constant = tokenList: (Ast.exp, list(Token.token)) =>{
+    let [token, ...remainingTokens] = tokenList; /*Sacamos siguiente token que debe de ser el numero o UnOp*/
+    if((token |> Token.identificador) == "Negation" || (token |> Token.identificador) == "Bitwise" || (token |> Token.identificador) == "LogNeg"){
+        let (exp, remainingTokens) = parse_constant(remainingTokens);
+        (Ast.UnOp(token |> Token.identificador, exp), remainingTokens);
     }else{
-        (Ast.Err_exp("Error, falta una constante"),remainingTokens);
+        if((token |> Token.identificador) == "Constant"){ /*Comprobamos que el token sea una constante*/
+            let number = int_of_string(token |> Token.extrac); /*Almacenamos el valor de la constante*/ 
+            (Ast.Const(number), remainingTokens); /*Devolvemos el nodo constant*/ 
+        }else{
+            (Ast.Err_exp("Error, falta una constante"),remainingTokens);
+        };
     };
   };
   
@@ -72,6 +76,7 @@ let parse_function = tokenList: Ast.fun_decl => {
 let parse_program = tokenList: Ast.prog => {
     let func_decl = parse_function(tokenList);
     if(Ast.identi_fun_decl(func_decl) ==true){
+        Js.log("Paso el parser")
         Ast.Prog(func_decl);
     }else{
         let message = Ast.ext_fun_err(func_decl);
