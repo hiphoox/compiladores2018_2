@@ -1,9 +1,5 @@
-type operator = 
-  | Negation
-  | Bitwise
-  | LogNeg;
 type exp =
-  | UnOp(operator,exp)
+  | UnOp(string,exp)
   | Const(int)
   | Err_exp(string); 
 type statement =
