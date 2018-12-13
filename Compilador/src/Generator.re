@@ -33,6 +33,10 @@ let gen_function_code = ast => {
 };
 
 let generate_code = ast => {
-  Js.log("    .globl _main");
-  gen_function_code(ast);
+  if(Ast.identi_prog(ast) ==true){
+    Js.log("    .globl _main");
+    gen_function_code(ast);
+  }else{
+    Ast.ext_prog_err(ast) |> Js.log;
+  };
 };
