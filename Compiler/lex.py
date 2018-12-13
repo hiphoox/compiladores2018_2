@@ -16,11 +16,17 @@ def simbols(code_section):
 	if code_section == ';':
 		return 'semiColon'
 	if code_section == '-':
-		return 'nagation'
+		return 'negative'
 	if code_section == '!':
 		return 'logicalNegation'
 	if code_section == '~':
 		return 'bitwiseComplement'
+	if code_section == '+':
+		return 'addition'
+	if code_section == '*':
+		return 'multiplication'
+	if code_section == '/':
+		return 'division'
 
 #Realiza la busqueda del keyWord correspondiente (1)
 def keyWords(code_section):
@@ -54,7 +60,6 @@ def lex(fileName):
 	keyWord = re.compile('int$|return$') #Delimitar las expresiones regulares con simbolos
 	identifierd = re.compile('main')
 	integers = re.compile('^[0-9]+')
-
 	string = ''
 	tokensList = []
 
