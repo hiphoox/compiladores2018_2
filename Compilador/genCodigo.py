@@ -11,7 +11,7 @@ def listaRetorno (lista, bandera):
                 #print (e1)
                 ex = ex + "\n\tpush %eax\n\tpop %ecx" + e1 + "\n\taddl %ecx, %eax"
                 bandera = 0
-                instruccion = instruccion + ex
+                instruccion = ex
             else:
                 ex, bandera = listaRetorno(i, bandera)
                 ex = ex + "\n\tpush %eax"
