@@ -1,9 +1,20 @@
-let generate_exp = ast_exp =>
+let rec generate_exp = ast_exp =>
   switch (ast_exp) {
   | Ast.Const(value) =>
     let decimal = string_of_int(value);
     let return_statement = "    movl    " ++ decimal ++ ", %eax";
     Js.log(return_statement);
+  | Ast.UnOp(ope, exp) => 
+    if(ope == "LogNeg"){
+      let return_unop = "    cmpl   $0, %eax" ++  "\n    movl   $0, %eax"  ++  "\n    sete   %al ";
+      generate_exp(exp);
+      Js.log(return_unop);
+    }else{
+      let return_unop = "    " ++ Words.tradu(ope) ++ "    %eax";
+      generate_exp(exp);
+      Js.log(return_unop);
+    };
+  
   };
 
 let visit_statement = (name : string) => {
@@ -12,7 +23,7 @@ let visit_statement = (name : string) => {
 };
 
 let generate_statement = ast => {
-  if(Ast.identi_statement(ast) == true){ /*Reviso que el nodo sea del tipo Prog*/
+  if(Ast.identi_statement(ast) == true){ /*Revisa que el nodo sea del tipo statement*/
     let name_state = Ast.ext_name_statement(ast);
     let node_exp = Ast.ext_statement(ast);
     generate_exp(node_exp);
