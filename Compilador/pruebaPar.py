@@ -141,10 +141,10 @@ def parse_factor (tokensFac):
             return []
         return exp, tokensFac
     
-    elif next in ['LOGICNEGOP', 'NEGOP', 'BITWOP']:
+    elif next in ['LOGICNEGOP', 'NEGOP', 'BITWOP', 'MINUS']:
         # <factor> ::= <unary_op> <factor>
         op = convert_to_op (next)
-        factor = parse_factor(tokensFac)
+        factor, tokensFac = parse_factor(tokensFac)
         final = UnOp(op, factor) 
         return final, tokensFac
 
