@@ -1,6 +1,6 @@
 let program_text = {|
   int main(){ 
-    return 3;
+    return !-~!!!!~~---45;
   }
   |};
 
