@@ -10,13 +10,30 @@ Gramatica de Backus-NaurForm para primer programa:
 # (1) -> La funcion realiza lo que debe de manera natural.
 # (0) -> La funcion realiza lo que debe pero no de manera natual.
 
-#Define la gramatica: <exp> ::= <int> (1)
+def unary_op(_unary_op):
+	value = _unary_op.pop(0)
+	_ast = []
+	if _unary_op != []:
+		pice, _unary_op = expresion(_unary_op)
+		_ast.append(pice)
+		return (_ast, _unary_op)
+
+#Define la gramatica: <exp> ::= <int> (1) *****
 def expresion(_expresion):
 	value = _expresion.pop(0)
 	_ast = []
 	if _expresion != [] and type(value) is lex.Integer:
 		_ast.append(value)
 		return (_ast, _expresion)
+	elif _expresion != [] and (value == 'negative' or value == 'logicalNegation' or value == 'bitwiseComplement'):
+		_ast.append(value)
+		return unary_op(_expresion)
+#		return False
+	elif _expresion != [] and value == 'openBrace':
+		piece, _statement = expresion(_statement)
+		_ast.append(piece)
+		if _statement != [] and  _statement.pop(0) == 'closeBrace':
+			return (_ast, _statement)
 	else:
 		return False
 

@@ -49,41 +49,40 @@ class Identifier:
 #Pese a que el lexer ya realiza todo como deberia, pensar en algun algoritmo
 #que realize los mismo paso, pero de manera natural (0)
 #NOTA: Preguntar al profe sobre la duda del error del archivo 'no_space.c'
-#OTRA NOTA: En caso de axistir un error, no terminar el programa, seguir con la ejecucion del mismo,
-#al termino del analizador lexico debo regresar el el numero de errores y su linea.
 def lex(fileName):
-	#Recordar que C no reconoce UNICODE
-	file = open(fileName, "r")
-	code = file.read().split()
+	code = ' '.join((open(fileName, "r").read().split()))
+
 	simbol = re.compile('\(|\)|\{|\}|\;')
-	keyWord = re.compile('int|return') #Delimitar las expresiones regulares con simbolos
+	keyWordd = re.compile('int|return')
 	identifierd = re.compile('main')
-	#integers = re.compile('^[0-9]+')
+	integers = re.compile('(\d)+')
+
 	string = ''
-	lineNumber = 1
 	tokensList = []
-	token = ''
-
-	for item in code:
-		for x in range(0,len(item)):
-			token = simbol.search(item[x])
-			if token:
-				tokensList.append(simbols(item[x]))
+	#for que itera en cada uno de los elementos de la cadena 'code'.
+	for x in range(0,len(code)):
+		if code[x]!=' ':
+			key = simbol.search(code[x])
+			if not key:
+				string += code[x]
+				#Realiza una busqueda dentro de keyWords e indentifiers
+				identifier = identifierd.search(string)
+				keyWord = keyWordd.search(string)
+				if identifier != None:
+					tokensList.append(Identifier(string))
+					string=''
+				elif keyWord != None and code[x+1]==' ':
+					tokensList.append(keyWords(keyWord.group(0)))
+					string=''
+				elif keyWord != None or identifier != None and code[x+1]!=' ':
+					return False
 			else:
-				string += item[x]
-				token = keyWord.search(string)
-				if token:
-					tokensList.append(keyWords(string))
-					string = ''
-				else:
-					token = identifierd.search(string)
-					if token:
-						tokensList.append(Identifier(string))
-						string = ''
-		if string and string.isdigit():
-			tokensList.append(Integer(string))
-		else:
-			return False
-
-
+				"""Comprobamos que lo anterior sea un numero, de no serlo significara que no se encuentra definido
+				dentro de ningun diccionario y en consecuencia debera mandar un error lexico"""
+				if string.isdigit():
+					tokensList.append(Integer(string))
+				elif string != '':
+					return False
+				tokensList.append(simbols(code[x]))
+				string = ''
 	return tokensList
