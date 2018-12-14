@@ -250,7 +250,7 @@ parseStatement (c:cs)=
                      case lookAhead cs' of
                         Semicolon-> (Statement statement, restoLista cs')
                         _-> error "Se esperaba ;"
-      _ -> error "Se esperaba devolver una expresion"
+      _ -> error "Se esperaba un return"
 
 {-
 La función parse_funBody se encarga de construir el cuerpo de una función.
@@ -305,6 +305,7 @@ parseFunction tok =
                                              case params of
                                                 []->FunctionNode IntType (ID x) (makeBody cs''')
                                                 _-> error "Error de parseo, argumentos no válidos"
+                                          _->error "Error de parseo, se esperaba ("
                         _-> error "Error de parseo, Identificador no válido"
          _-> error "Error de parseo, tipo de la función no válido"
 
@@ -374,7 +375,8 @@ evalTerm (Trm term) =
       (MulNode le ri) -> let (s1, s2) = (evalTerm (Trm le), evalTerm (Trm ri)) in
          s1 ++ "push %ax\n" ++ s2 ++ "pop %cx\n" ++ "imul %ecx, %eax\n"
       (DivNode le ri) -> let (s1, s2) = (evalTerm (Trm le), evalTerm (Trm ri)) in
-         s2++"movl %eax, %ecx\n" ++ s1 ++ "xor %edx, %edx\n" ++ "idivl %ecx\n"
+         --s2++"movl %eax, %ecx\n" ++ s1 ++ "xor %edx, %edx\n" ++ "idivl %ecx\n"
+         s1 ++ "push %ax\n" ++ s2 ++ "push %ax\n" ++ "pop %cx\n" ++ "pop %ax\n" ++ "xor %edx, %edx\n" ++ "idivl %ecx\n"
 
 {-
 La función evalFactor se encarga de evaluar los nodos reconocidos como factores.
@@ -408,5 +410,9 @@ NOTA: Se utilizó gcc para la arquitectura intel x86
 
 main = do args <- getArgs
           file <- readFile (args!!0)
+          print $ "...Tokens..."
+          print $ tokenize file
+          print $ "...AST..."
+          print $ parser (tokenize file)
           writeFile "outComp.s" (generator (parser (tokenize file)))
           createProcess(proc "gcc" ["outComp.s", "-o", "out"])
