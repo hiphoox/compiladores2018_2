@@ -9,7 +9,7 @@
 <factor> ::= "(" <exp> ")" | <unary_op> <factor> | <int>
 """
 
-# TOKENS ESPERADOS: ['INT KEYWORD', 'MAIN ID', 'OPENPARENTHESIS', 'CLOSEPARENTHESIS',
+# TOKENS ESPERADOS: ['INT KEYWORD', 'ID<main>', 'OPENPARENTHESIS', 'CLOSEPARENTHESIS',
 #                      'OPENBRACE', 'RETURN KEYWORD', [LOGICNEGOP, NEGOP, BITWOP] , 'INT<#>', 'SEMICOLON', 'CLOSEBRACE']
 
 def statement (tokensS, contFunciones, programa):
@@ -68,7 +68,7 @@ def parser(tokensP):
     else:
         return "Error sintaxis", []
 
-    if (tokensP[0] == 'MAIN ID'):
+    if (tokensP[0] == 'ID<main>'):
             f_Id = tokensP.pop(0)
     else:
         return "Error sintaxis", []
