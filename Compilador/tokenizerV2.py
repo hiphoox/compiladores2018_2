@@ -3,7 +3,7 @@ import re
 def tokenizerV2 (programa):
     archivo = open(programa, 'r')
     tokens = []
-    TK = {'int': 'INT KEYWORD', 'main': 'MAIN ID', 'return': 'RETURN KEYWORD'}
+    TK = {'int': 'INT KEYWORD', 'main': 'ID<main>', 'return': 'RETURN KEYWORD'}
     WP = {'(':'OPENPARENTHESIS', ')': 'CLOSEPARENTHESIS', '{':'OPENBRACE', '}':'CLOSEBRACE', ';':'SEMICOLON'}
     OpUn = {'-':'MINUS', '~':'BITWOP', '!':'LOGICNEGOP'}
     OpBin = {'+':'PLUS', '*':'MULTIPLICATION', "/":'DIVISION'}
