@@ -1,5 +1,6 @@
 import re
 from tokens import Token
+from Error import ErrorLexico
 '''Función principal, se encarga de buscar identificadores
 	y dígitos decimales con ayuda de expresiones regulares
 	de no encontrar los dos anteriores, busca los tokens
@@ -22,23 +23,23 @@ def tokeniza(linea,tokens = []):
 		id = re.match(id_regex, linea)
 		tokens.append([keyWords(id.group(0)),id.group(0)])
 		result = tokeniza(linea.lstrip(id.group(0)),tokens)
-		if(result[0] == False):
+		if(type(result) == ErrorLexico):
 			return result
 	elif(re.match(num_regex,linea)):
 		numero = re.match(num_regex,linea) 
 		tokens.append(['Int',numero.group(0)])
 		result = tokeniza(linea.lstrip(numero.group(0)),tokens)
-		if(result[0] == False):
+		if(type(result) == ErrorLexico):
 			return result
 	elif(re.match(special_char_regex,linea)):
 		special_char = re.match(special_char_regex,linea)
 		tok = singularTokens(special_char.group(0))
 		tokens.append([tok,Token[tok].value])
 		result = tokeniza(linea[1:len(linea)],tokens)
-		if(result[0] == False):
+		if(type(result) == ErrorLexico):
 			return result
 	else:
-		return [False,linea[0]]
+		return ErrorLexico(linea[0])
 	return tokens
 '''
 	KeyWords recibe un  token obtenido de ls expresión regular 
