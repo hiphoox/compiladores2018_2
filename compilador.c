@@ -3,9 +3,96 @@
 #include "Parser.c"
 
 
+
+
 int main(){
+ //******************************************************PARTE 0: Definir gramática   
+    
+    //************************************************************  FUNCION
+    nPRODUCTO *pFuncion = (nPRODUCTO *)calloc(1,sizeof(nPRODUCTO));
+    nPRODUCTO *cursor = pFuncion;
+
+    pFuncion->v_simbolo = 1;
+    pFuncion->simbolo = "keyword";
+    
+    
+    cursor->next = (nPRODUCTO *)calloc(1,sizeof(nPRODUCTO));
+    cursor = cursor->next;
+    cursor->v_simbolo = 1;
+    cursor->simbolo = "identifier";
+    
+    
+    cursor->next = (nPRODUCTO *)calloc(1,sizeof(nPRODUCTO));
+    cursor = cursor->next;
+    cursor->v_simbolo = 1;
+    cursor->simbolo = "leftPar";
+    
+    cursor->next = (nPRODUCTO *)calloc(1,sizeof(nPRODUCTO));
+    cursor = cursor->next;
+    cursor->v_simbolo = 1;
+    cursor->simbolo = "rightPar";
+    
+    
+    cursor->next = (nPRODUCTO *)calloc(1,sizeof(nPRODUCTO));
+    cursor = cursor->next;
+    cursor->v_simbolo = 1;
+    cursor->simbolo = "leftKey";
+    
+    
+    cursor->next = (nPRODUCTO *)calloc(1,sizeof(nPRODUCTO));
+    cursor = cursor->next;
+    cursor->v_noTerminal = 1;
+    cursor->noTerminal = (nPRODUCTO *)calloc(1,sizeof(nPRODUCTO));
+    nPRODUCTO *pStatement = cursor->noTerminal;
+    
+    
+    cursor->next = (nPRODUCTO *)calloc(1,sizeof(nPRODUCTO));
+    cursor = cursor->next;
+    cursor->v_simbolo = 1;
+    cursor->simbolo = "rightKey";
+    
+        
+    printf("Lista de producción de FUNCION:\n");
+    imprimeProducciones(pFuncion);
+    
+    //************************************************************  STATEMENT
+    cursor = pStatement;
+    cursor->v_simbolo = 1;
+    cursor->simbolo = "keyword";
+    
+    cursor->next = (nPRODUCTO *)calloc(1,sizeof(nPRODUCTO));
+    cursor = cursor->next;
+    cursor->v_noTerminal = 1;
+    cursor->noTerminal = (nPRODUCTO *)calloc(1,sizeof(nPRODUCTO));
+    nPRODUCTO *pExpresion = cursor->noTerminal;
+    
+    cursor->next = (nPRODUCTO *)calloc(1,sizeof(nPRODUCTO));
+    cursor = cursor->next;
+    cursor->v_simbolo = 1;
+    cursor->simbolo = "colon";
+    
+    
+    printf("Lista de producción de STATEMENT:\n");
+    imprimeProducciones(pStatement);
+    
+    //************************************************************  EXPRESION
+    
+    cursor = pExpresion;
+    cursor->v_simbolo = 1;
+    cursor->simbolo = "integer";
+    
+    printf("Lista de producción de EXPRESION:\n");
+    imprimeProducciones(pExpresion);
+    
+    
+    
+    
+    
+    
+
+    
 /**********************************************************************************************************************/
-/******************************************************* PARTE 0: abrir archivo y guardar el contenido en una cadena */
+/******************************************************* PARTE 0.5: abrir archivo y guardar el contenido en una cadena */
     FILE *archivo = fopen("return2.c","r");
     int numbytes;
     char *bufer;
@@ -27,18 +114,24 @@ int main(){
     fclose(archivo);
  
 
+    
+    
+    
+    
+    
  /****************************************************** PARTE 1: lexer   */
-    struct LISTA_TOKENS *lista;
-    lista = (struct LISTA_TOKENS *)calloc(1,sizeof(struct LISTA_TOKENS));
+    LISTA_TOKENS *lista;
+    lista = (LISTA_TOKENS *)calloc(1,sizeof(LISTA_TOKENS));
     lista->head = NULL;
     lista->tail= NULL;
     
     lexea(bufer, lista);
-    
-    struct TOKEN *tok = lista->head;    //tok es un cursor que usaremos para identificar los tokens
-    identificaTokens(tok);
+        
+    identificaTokens(lista->head);
 
     imprimeTokens(lista);
+    
+    
     
     
 /******************************************************************************************************************/    
@@ -47,8 +140,21 @@ int main(){
  * 
  * PARTE 2: parser   */
     
+    ARBOL* ast = (ARBOL *)calloc(1,sizeof(ARBOL));
+    union pARBOL *p = (union pARBOL*)calloc(1,sizeof(union pARBOL));
+    
+    p->pa = ast;
+    p->pp = p->pa->hijo = (PROGRAMA*)calloc(1,sizeof(PROGRAMA));
 
-
+    p->pf = p->pp->hijo = (FUNCION*)calloc(1,sizeof(FUNCION));
+    
+    
+    
+    int a = 0;
+    imprimeTokens(lista);
+    parsea(lista->head, pFuncion, p, a);
+    
+    
    
     return 1;
 }

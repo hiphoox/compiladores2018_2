@@ -3,16 +3,16 @@
 #include <string.h>
 #include <ctype.h>
 
-struct TOKEN{
+typedef struct TOKEN{
     char *type;
     char *value;
     struct TOKEN *next;
-};
+}TOKEN;
 
-struct LISTA_TOKENS{
+typedef struct LISTA_TOKENS{
     struct TOKEN *head;
     struct TOKEN *tail;
-};
+}LISTA_TOKENS;
 
 void agregaToken(struct LISTA_TOKENS *lista, char *value, char *type){
    if(lista->head != NULL){
@@ -112,7 +112,7 @@ void lexea(char* bufer, struct LISTA_TOKENS* lista){
                     resto = resto + limite ;
                 }
                 valor = "(";                            //no tenemos token a medias:
-                agregaToken(lista, valor,"LeftPar");                  //agregamos token sencillo
+                agregaToken(lista, valor,"leftPar");                  //agregamos token sencillo
                 resto ++;
             break;
                 
@@ -125,7 +125,7 @@ void lexea(char* bufer, struct LISTA_TOKENS* lista){
                     resto = resto + limite ;
                 }
                 valor = ")";
-                agregaToken(lista, valor,"RightPar");
+                agregaToken(lista, valor,"rightPar");
                 resto ++;
             break;
             
@@ -139,7 +139,7 @@ void lexea(char* bufer, struct LISTA_TOKENS* lista){
                     resto = resto + limite ;
                 }
                 valor = "{";
-                agregaToken(lista, valor,"LeftKey");
+                agregaToken(lista, valor,"leftKey");
                 resto ++;
             break;
                 
@@ -152,7 +152,7 @@ void lexea(char* bufer, struct LISTA_TOKENS* lista){
                     resto = resto + limite ;
                 }
                 valor = "}";
-                agregaToken(lista, valor,"RightKey");
+                agregaToken(lista, valor,"rightKey");
                 resto ++;
             break;
             
@@ -165,7 +165,7 @@ void lexea(char* bufer, struct LISTA_TOKENS* lista){
                     resto = resto + limite ;
                 }
                 valor = ";";
-                agregaToken(lista, valor,"Colon");
+                agregaToken(lista, valor,"colon");
                 resto ++;
             break;               
             
@@ -179,8 +179,9 @@ void lexea(char* bufer, struct LISTA_TOKENS* lista){
 void imprimeTokens(struct LISTA_TOKENS *lista){
     struct TOKEN *token = (struct TOKEN *)calloc(1,sizeof(struct TOKEN));
     token = lista->head;
+    printf("\n\n\nPrograma lexeado. Lista de tokens:\n");
     while(token != NULL){
-        printf("%s, %s\n",token->value, token->type);
+        printf("\t%s, %s\n",token->value, token->type);
         token = token->next;
     }
 }
