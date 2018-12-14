@@ -7,7 +7,7 @@ use compilador::gen::*;
 use std::fs::OpenOptions;
 use std::fs::write;
 use std::fs::read_to_string;
-
+use std::process::Command;
 
 
 
@@ -29,6 +29,6 @@ fn main(){
     println!("------------impresion del codigo-------------");
     print!("{}",&code);
     write("assembly.s", code).expect("no se pudo generar assembly.s");
-    
+   
   
 }

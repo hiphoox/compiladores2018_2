@@ -1,5 +1,6 @@
     .golbl _main
     _main:
      ret
-      movl 99 %eax
-         neg %eax
+     cmpl $1, %eax
+     movl $99, %eax
+    sete %al
