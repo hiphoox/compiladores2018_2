@@ -53,41 +53,37 @@ class Identifier:
 #al termino del analizador lexico debo regresar el el numero de errores y su linea.
 def lex(fileName):
 	#Recordar que C no reconoce UNICODE
-	code = open(fileName, "r")
-	line = code.readline()
-	lineNumber = 1
+	file = open(fileName, "r")
+	code = file.read().split()
 	simbol = re.compile('\(|\)|\{|\}|\;')
-	keyWord = re.compile('int$|return$') #Delimitar las expresiones regulares con simbolos
+	keyWord = re.compile('int|return') #Delimitar las expresiones regulares con simbolos
 	identifierd = re.compile('main')
-	integers = re.compile('^[0-9]+')
+	#integers = re.compile('^[0-9]+')
 	string = ''
+	lineNumber = 1
 	tokensList = []
+	token = ''
 
-	while line:
-		#print('line {}: {}'.format(lineNumber, ' '.join(line.split())))
-		line = line.split()
-		for item in line:
-			for char in item:
-				key = simbol.search(char)
-				if key:
-					tokensList.append(simbols(char))
+	for item in code:
+		for x in range(0,len(item)):
+			token = simbol.search(item[x])
+			if token:
+				tokensList.append(simbols(item[x]))
+			else:
+				string += item[x]
+				token = keyWord.search(string)
+				if token:
+					tokensList.append(keyWords(string))
+					string = ''
 				else:
-					string += char
-					key = keyWord.search(string)
-					if key:
-						tokensList.append(keyWords(string))
+					token = identifierd.search(string)
+					if token:
+						tokensList.append(Identifier(string))
 						string = ''
-					else:
-						key = identifierd.search(string)
-						if key:
-							tokensList.append(Identifier(string))
-							string = ''
-						else:
-							key = integers.search(string)
-							if key:
-								tokensList.append(Integer(string))
-								string = ''
-		line = code.readline()
-		lineNumber += 1
+		if string and string.isdigit():
+			tokensList.append(Integer(string))
+		else:
+			return False
+
 
 	return tokensList
