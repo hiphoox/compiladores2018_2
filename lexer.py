@@ -6,17 +6,17 @@ t = []
 
 #set of regular expressions
 c  = '[-|*|/|(|)|{|}|;|~|!|+]' 	#single character
-n  = '\d+'			#number
-w  = '\w+'			#word
+n  = '\d+'						#number
+w  = '\w+'						#word
 
 #list of reserved words
 reserved = ["int","return"]
 
 #dictionay to tag single tokens
 tag = {	'(':"OpenPa",	')':"ClosePa",	'{':"OpenBr",	'}':"CloseBr",
-	';':"SemiC",	'-':"Minus",	'+':"Plus",	'/':"Div",
-	'*':"Mult",	'~':"BitwiseComplement",	'!':"LogicalNegation"
-	}
+		';':"SemiC",	'-':"Minus",	'+':"Plus",		'/':"Div",
+		'*':"Mult",		'~':"BitwiseComplement",		'!':"LogicalNegation"
+		}
 
 def startsWith( program ):
 	if program and re.match( c, program ): return ( program[0], program[1:] )
@@ -45,13 +45,25 @@ def lexRawTokens( input, l ):
 		if re.match( c, token ): l.append( tag[token] )
 		elif token == "None":
 			token, remainingProgram = getComplexTokens( remainingProgram )
+			if token == "Invalid":
+				token = input[0]
 			l.append( token )
 		if len( remainingProgram ) != 0: lexRawTokens( remainingProgram, l )
 		return l
 
 #lex function to remove break lines and empty spaces
 def lex( program_text,l = t ):
+
+	if not program_text:
+		print("Lexer Error: Nothin to tokenize")
+		exit()
+
 	program = re.split( '\s', program_text.strip() )
+
 	for item in program:
-		lexRawTokens( item, l )
+		a = lexRawTokens( item, l )
+		for token in l:
+			if str(token) in program_text: 
+				print("Lexer Error in position "+str(program_text.index(token))+". Invalid Token: "+token)
+				exit()
 	return l
