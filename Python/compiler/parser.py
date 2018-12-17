@@ -24,23 +24,20 @@ def parse_function_declaration(tokens,ast):
 
 	tk = tokens.pop(0) if len(tokens) > 0 else ['']
 	if(tk[0] != 'Id'):
-		return ErrorSintactico(tk,'Identifier')
+		return ErrorSintactico(tk[1],'Identifier')
 	nodo.append(tk[1])
 
 	tk = tokens.pop(0) if len(tokens) > 0 else ['']
 	if(tk[0] != Token.OpenParen.name):
-		return ErrorSintactico(tk,Token.OpenParen.name)
-	#nodo.append(tk[1])
+		return ErrorSintactico(tk[0],Token.OpenParen.name)
 
 	tk = tokens.pop(0) if len(tokens) > 0 else ['']
 	if(tk[0] != Token.CloseParen.name):
 		return ErrorSintactico(tk[0],Token.CloseParen.name)
-	#nodo.append(tk[1])
 
 	tk = tokens.pop(0) if len(tokens) > 0 else ['']
 	if(tk[0] != Token.OpenBrace.name):
-		return ErrorSintactico(tk,Token.OpenBrace.name)
-	#nodo.append(tk[1])	
+		return ErrorSintactico(tk[0],Token.OpenBrace.name)
 
 	result = parse_statement(tokens,ast) # se llama a parse_statement para buscar una expresion valida
 	if(type(result) == ErrorSintactico):              #si regresa false, en la lista, entonces no encontró algo válido
@@ -111,7 +108,6 @@ def parse_term(tokens):
 			else: 
 				return ['Term',factor]
 				break
-		#my_term.append(factor)
 	else:
 		return factor
 
@@ -131,7 +127,6 @@ def parse_expresion(tokens):
 			else: 
 				return ['Expresion',term]
 				break
-		#my_exp.append(term)
 	else:
 		return term
 
@@ -141,5 +136,5 @@ def imprime(nodes,level = 1):
 		if(type(l) is list):
 			imprime(l,level + 2)
 		else:
-			print(" "*level+l)
+			print("|"+' s'*(level-1)+"-"*level+l)
 
