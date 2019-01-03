@@ -87,34 +87,42 @@ def iterate(l):
                 leaf = l[l.index(i)+1]
                 leaf.reverse()
                 for t in leaf:
-                    print(t)
                     if isinstance(t, Literal_num):
                         n = t.num
                         python_comp = open("python_comp.s","a+")
                         python_comp.write(' movl  ${}, {}eax\n'.format(n, "%"))
-                        print(str(n), end='')
                         python_comp.close()
                     elif isinstance(t, Negation):
                         python_comp = open("python_comp.s","a+")
                         python_comp.write(' neg {}eax\n'.format("%"))
-                        print(str(n), end='')
                         python_comp.close()
                     elif isinstance(t, BitwiseComplement):
                         python_comp = open("python_comp.s","a+")
                         python_comp.write(' neg {}eax\n'.format("%"))
-                        print(str(n), end='')
                         python_comp.close()
                     elif isinstance(t, LogicalNegation):
                         python_comp = open("python_comp.s","a+")
-                        n = l[l.index(i)+1][0].num
                         python_comp.write(' cmpl  $0, {}eax\n'.format("%"))
                         python_comp.write(' movl  $0, {}eax\n'.format("%"))
                         python_comp.write(' sete  {}al\n'.format("%"))
-                        print(str(n), end='')
                         python_comp.close()
                 python_comp = open("python_comp.s","a+")
                 python_comp.write(' ret\n')
                 python_comp.close()
+                leaf.reverse()
+                for t in leaf:
+                    if isinstance(t, Literal_num):
+                        n = t.num
+                        print(str(n), end='')
+                    elif isinstance(t, Negation):
+                        n = t.neg
+                        print(str(n), end='')
+                    elif isinstance(t, BitwiseComplement):
+                        n = t.comp
+                        print(str(n), end='')
+                    elif isinstance(t, LogicalNegation):
+                        n = t.neg
+                        print(str(n), end='')
                 break
             else:
                 print("Error: AST badly constructed")
