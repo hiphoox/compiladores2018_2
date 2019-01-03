@@ -6,12 +6,18 @@ from c_classes import *
 from lex_function import lex
 
 def expression(tokens):
-    num=[]
+    num = []
     for t in tokens:
-        if  isinstance(t, Literal_num):
+        if isinstance(t, Literal_num):
             num.append(t)
-            break
+        elif isinstance(t, Negation):
+            num.append(t)
+        elif isinstance(t, BitwiseComplement):
+            num.append(t)
+        elif isinstance(t, LogicalNegation):
+            num.append(t)
     return num
+            
 
 def statement(tokens):
     stat=[]
@@ -78,13 +84,36 @@ def iterate(l):
                 ret = i.kw
                 print("\t\t FUN BODY:")
                 print("\t\t\t"+str(ret)+" ", end='')
-                if isinstance(l[l.index(i)+1][0], Literal_num):
-                    n = l[l.index(i)+1][0].num
-                    python_comp.write(' movl  ${}, {}eax\n'.format(n, "%"))
-                    python_comp.write('  ret\n')
-                    print(str(n), end='')
-                    python_comp.close()
-                    break
+                leaf = l[l.index(i)+1]
+                leaf.reverse()
+                for t in leaf:
+                    print(t)
+                    if isinstance(t, Literal_num):
+                        n = t.num
+                        python_comp = open("python_comp.s","a+")
+                        python_comp.write(' movl  ${}, {}eax\n'.format(n, "%"))
+                        print(str(n), end='')
+                        python_comp.close()
+                    elif isinstance(t, Negation):
+                        python_comp = open("python_comp.s","a+")
+                        python_comp.write(' neg {}eax\n'.format("%"))
+                        print(str(n), end='')
+                        python_comp.close()
+                    elif isinstance(t, BitwiseComplement):
+                        python_comp = open("python_comp.s","a+")
+                        python_comp.write(' neg {}eax\n'.format("%"))
+                        print(str(n), end='')
+                        python_comp.close()
+                    elif isinstance(t, LogicalNegation):
+                        python_comp = open("python_comp.s","a+")
+                        n = l[l.index(i)+1][0].num
+                        python_comp.write(' movl  ${}, {}eax\n'.format(n, "%"))
+                        print(str(n), end='')
+                        python_comp.close()
+                python_comp = open("python_comp.s","a+")
+                python_comp.write(' ret\n')
+                python_comp.close()
+                break
             else:
                 print("Error: AST badly constructed")
                 break
