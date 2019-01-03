@@ -3,11 +3,14 @@ from tokenizer import *
 
 def expresion(tokens):
     exp = []
+    op = []
     for i in tokens:
         l=i.split(":")
         if l[0] ==  "INT":
             exp.append(l[1])
             tokens.remove(i)
+       # elif l[0] == "!" or "~" or "-":
+            
     return exp
 
 def statement(tokens):
@@ -50,7 +53,6 @@ def programa(tokens):
         if l[0] ==  "Keyword" and l[1] == "int":
             fun.append(l[1])
             tokens.remove(i)
-            print(tokens)
         else:
             fun.append(func(tokens))
             break
