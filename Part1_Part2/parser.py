@@ -107,7 +107,9 @@ def iterate(l):
                     elif isinstance(t, LogicalNegation):
                         python_comp = open("python_comp.s","a+")
                         n = l[l.index(i)+1][0].num
-                        python_comp.write(' movl  ${}, {}eax\n'.format(n, "%"))
+                        python_comp.write(' cmpl  $0, {}eax\n'.format("%"))
+                        python_comp.write(' movl  $0, {}eax\n'.format("%"))
+                        python_comp.write(' sete  {}al\n'.format("%"))
                         print(str(n), end='')
                         python_comp.close()
                 python_comp = open("python_comp.s","a+")
