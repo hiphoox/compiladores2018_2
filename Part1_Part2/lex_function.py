@@ -26,6 +26,7 @@ def lex():
                 if  numero_searched:
                     if (Literal_num(numero_searched.group(0).strip(';')) not in tokens):
                         tokens.append(Literal_num(numero_searched.group(0).strip(';')))
+                        break
             else:
                 tok=re.search(r'[\{ | \} | \( | \) | \; | \- | \~ | \! ]',letter)
                 if tok:
