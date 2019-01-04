@@ -4,7 +4,7 @@ def tokenizer(file):
 
 	tokenss=[]
 	#diccionario de simbolos
-	symbols = {'(':'OpenParen', ')': 'CloseParen', '{': 'OpenBrace', '}': 'CloseBrace', ';': 'Semicolon','-':'Negation','~':'Bitwise','!':'Logic Neg'}
+	symbols = {'(':'OpenParen', ')': 'CloseParen', '{': 'OpenBrace', '}': 'CloseBrace', ';': 'Semicolon','-':'Negation','~':'Bitwise','!':'Logic_Neg'}
 
 	#set de palabras reservadas del lenguaje C
 	key={'auto','break','case','char','const','continue','default','do','double','else','enum','extern','float',
@@ -12,10 +12,19 @@ def tokenizer(file):
             'typedef','union','unsigned','void','volatile','while'}
 
 	
-	#Abre el archivo tarea1.c y reemplaza todos los saltos de linea y tabs por cadena vacia
+	#Abre el archivo tarea1.c
+	"""
+	El primer for etiqueta los simbolos que se encuentren en el programa.
+
+	El segundo for etiqueta las keywords encontradas en el programa.
+
+	Tercer for busca las palabras que aun no estan etiquetadas, y con expresiones regulares
+	se etiquetan numeros y id's.
+	"""
+
 	with open(file) as fp:
 		for cnt, line in enumerate(fp):
-			line = line.replace("\n", "  ")
+			line = line.replace("\n", "  ").replace("-","- ").replace("~","~ ").replace("!","! ")
 			for x in symbols:
 				line = line.replace(x, ' '+symbols[x]+':'+x)
 			for y in key:
@@ -35,20 +44,7 @@ def tokenizer(file):
 			
 
 			
-			
-
-			
-		    
-	"""
-
-
-	El primer for etiqueta los simbolos que se encuentren en el programa.
-
-	El segundo for etiqueta las keywords encontradas en el programa.
-
-	Tercer for busca las palabras que aun no estan etiquetadas, y con expresiones regulares
-	se etiquetan numeros y id's.
-	"""
+		
 	return tokensf
 	
 

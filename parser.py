@@ -1,14 +1,34 @@
 from tokenizer import *
 
+"""
+<program> ::= <function>
+<function> ::= "int" <id> "(" ")" "{" <statement> "}"
+<statement> ::= "return" <exp> ";"
+<exp> ::= <unary_op> <exp> | <int>
+<unary_op> ::= "!" | "~" | "-"
+"""
+
+def unOp(tokens):    
+    un = []
+    print(tokens)
+    for i in tokens:
+        l=i.split(":")
+        if l[1] == "-" or l[1] == "~" or l[1] == "!":
+            un.append(l[1])
+            print(un)
+            return un
+    
 
 def expresion(tokens):
     exp = []
-    op = []
     for i in tokens:
         l=i.split(":")
         if l[0] ==  "INT":
             exp.append(l[1])
             tokens.remove(i)
+        elif l[0] == "Negation" or l[0] == "Bitwise" or l[0] == "Logic_Neg":
+            exp.append(unOp(tokens))
+
        # elif l[0] == "!" or "~" or "-":
             
     return exp
