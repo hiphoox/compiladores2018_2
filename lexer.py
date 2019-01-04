@@ -5,9 +5,9 @@ import re
 t = []
 
 #set of regular expressions
-c  = '[-|*|/|(|)|{|}|;|~|!|+]' 	#single character
-n  = '\d+'						#number
-w  = '\w+'						#word
+c  = '[-\*/(){};~\+]|&&|==|<=|>=|<|>|!=|!|[|]{2}|=' 	#single character
+n  = '\d+'							#number
+w  = '\w+'							#word
 
 #list of reserved words
 reserved = ["int","return"]
@@ -15,12 +15,22 @@ reserved = ["int","return"]
 #dictionay to tag single tokens
 tag = {	'(':"OpenPa",	')':"ClosePa",	'{':"OpenBr",	'}':"CloseBr",
 		';':"SemiC",	'-':"Minus",	'+':"Plus",		'/':"Div",
-		'*':"Mult",		'~':"BitwiseComplement",		'!':"LogicalNegation"
+		'*':"Mult",		'~':"BitwiseComplement",		'!':"LogicalNegation",
+		'<':"LessThen",	'>':"GreaterThen",'&&':'AND',	'||':"OR",
+		'==':"Equal",	'!=':"NotEqual",'<=':"LessThenOrEqual",'>=':"GreaterThenOrEqual",
+		'=':"Assignment"		
 		}
 
 def startsWith( program ):
-	if program and re.match( c, program ): return ( program[0], program[1:] )
+	if program and re.match( c, program ): 
+		a = re.match( c, program)
+		return a.group(), program[len( a.group() ):] 
 	else: return ( "None",program )
+
+def getDoubleChar( program ):
+	if program and re.match( cc, program ):
+		a = re.match( cc,program )
+		return ( tag[a.group()], program[2:] )
 
 def getId( program ):
 	if program and re.match( w, program ):
@@ -41,13 +51,15 @@ def getComplexTokens( program ):
 #recursive function to lex items
 def lexRawTokens( input, l ):
 	if input:
-		token, remainingProgram = startsWith( input )
+		token, remainingProgram = startsWith( input )		
 		if re.match( c, token ): l.append( tag[token] )
+
 		elif token == "None":
 			token, remainingProgram = getComplexTokens( remainingProgram )
 			if token == "Invalid":
 				token = input[0]
 			l.append( token )
+
 		if len( remainingProgram ) != 0: lexRawTokens( remainingProgram, l )
 		return l
 
