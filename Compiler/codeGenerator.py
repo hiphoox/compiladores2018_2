@@ -1,21 +1,57 @@
-import lex
-# (1) -> La funcion realiza lo que debe de manera natural.
-# (0) -> La funcion realiza lo que debe pero no de manera natual.
+from wrappers import Prog
+from wrappers import Fun
+from wrappers import Return
+from wrappers import UnOp
+from wrappers import Integer
+from wrappers import Operator 
+from wrappers import BinOp
 
-def codeGenerator(_ast):
-	#Creacion del assembly
+def binOp(_binOp):
+	if _binOp:
+		if _binOp.operator.operator == 'addition' or _binOp.operator.operator == 'minus':
+			return returN(Return(_binOp.op1)) + '\n\tpush ' + chr(37) + 'eax\n\tpop ' + chr(37) + 'ecx\n\taddl ' + chr(37) + 'ecx, ' + chr(37) + 'eax'
+		if _binOp.operator.operator == 'multiplication' or _binOp.operator.operator == 'division':
+			return returN(Return(_binOp.op1)) + '\n\tpush ' + chr(37) + 'eax\n\tpop ' + chr(37) + 'ecx\n\timul ' + chr(37) + 'ecx, ' + chr(37) + 'eax'
+
+#Regresa la cadena correspondiente al nodo UnOp.
+def unOp(_unOp):
+	if _unOp:
+		if _unOp.op.operator == 'minus':
+			return returN(Return(_unOp.inner_exp)) + '\n\tneg    ' + chr(37) + 'eax'
+		if _unOp.op.operator == 'bitwiseComplement':
+			return returN(Return(_unOp.inner_exp)) + '\n\tneg    ' + chr(37) + 'eax'
+		if _unOp.op.operator == 'logicalNegation':
+			return returN(Return(_unOp.inner_exp)) + '\n\tcmpl   $0, ' + chr(37) + 'eax  \n\tmovl   $0, ' + chr(37) + 'eax \n\tsete   ' + chr(37) + 'al'
+
+#Regresa la cadena correspondiente al nodo Integer.
+def integer(_integer):
+	if _integer:
+		return '\n\tmov $%s,' %(_integer.int) + chr(37) + 'eax'
+
+#Regresa la cadena correspondiente al nodo Return.
+def returN(_return):
+	print(_return.exp)
+	if _return:
+		if type(_return.exp) is BinOp:
+			return binOp(_return.exp)
+		if type(_return.exp) is UnOp:
+			return unOp(_return.exp)
+		if type(_return.exp) is Integer:
+			return integer(_return.exp)
+
+#Regresa la cadena correspondiente al nodo Fun.
+def function(_function):
+	if _function:
+		return '.globl ' + _function.id.funName + '\n' + _function.id.funName + ':' + returN(_function.statement)
+
+#Regresa la cadena correspondiente al nodo Prog
+def program(_program):
+	if _program:
+		return function(_program.fun) + '\nret'
+
+#Funcion encargada de generar el archivo assembly.s
+def code_generator(_ast):
 	assembly_file = open('assembly.s','w+')
-
-	#Pensar en como recorrer el generador de manera mas natural. (0)
-	#While que itera dentro la lista de listas.
-	while True:
-		instruction = _ast.pop(0)
-		if type(instruction) is lex.Identifier and instruction.id == 'main':
-			assembly_file.write('.globl _'+instruction.id+'\n'+'_'+instruction.id+':\n')
-		elif instruction == 'returnKeyWord':
-			x = _ast.pop(0).pop()
-			assembly_file.write('  mov $%s, '%(x.int)+chr(37)+'eax\n  ret\n')
-		#Condicion de cierre
-		if _ast == []:
-			break
-		_ast = _ast[0]
+	print('\nassembly.s:\n\n' + program(_ast))
+	assembly_file.write(program(_ast))
+	assembly_file.close()

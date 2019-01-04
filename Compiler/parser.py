@@ -1,4 +1,12 @@
-import lex
+
+from wrappers import Prog
+from wrappers import Fun
+from wrappers import Return
+from wrappers import Operator
+from wrappers import Integer
+from wrappers import UnOp
+from wrappers import Identifier
+from wrappers import BinOp
 """
 Gramatica de Backus-NaurForm para primer programa:
 	<program> ::= <function>
@@ -6,72 +14,107 @@ Gramatica de Backus-NaurForm para primer programa:
 	<statement> ::= "return" <exp> ";"
 	<exp> ::= <int>
 """
-
-# (1) -> La funcion realiza lo que debe de manera natural.
-# (0) -> La funcion realiza lo que debe pero no de manera natual.
-
 def unary_op(_unary_op):
-	value = _unary_op.pop(0)
-	_ast = []
-	if _unary_op != []:
-		pice, _unary_op = expresion(_unary_op)
-		_ast.append(pice)
-		return (_ast, _unary_op)
+	if _unary_op == 'minus':
+		return True
+	if _unary_op == 'logicalNegation':
+		return True
+	if _unary_op == 'bitwiseComplement':
+		return True
+	return False
 
-#Define la gramatica: <exp> ::= <int> (1) *****
+#Define la gramatica: <factor> ::= "(" <exp> ")" | <unary_op> <factor> | <int>
+def factor(_factor):
+	tok = _factor.pop(0)
+	if _factor == []:
+		return (False, False)
+	if tok == 'openParentesis':
+		exp, _factor = expresion(_factor)
+		if _factor.pop(0) != 'closeParentesis':
+			return (False, False)
+		return (exp, _factor)
+	if type(tok) is Operator and unary_op(tok.operator):
+		operator = tok
+		print('--------- ' + tok.operator)
+		tok, _factor = factor(_factor)
+		if type(_factor) is bool:
+			return (False, False)
+		return (UnOp(operator, tok), _factor)
+	if type(tok) is Integer:
+		print('--------- ' + str(tok.int))
+		return (tok, _factor)
+	return (False, False)
+
+
+#Define la gramatica: <term> ::= <factor> { ("*" | "/") <factor> }
+def term(_term):
+	termi, _term = factor(_term)
+	if termi:
+		operator = _term[0]
+		if type(operator) is Operator and ( operator.operator == 'multiplication' or operator.operator == 'division'):
+			operator = _term.pop(0)
+			print('--------- ' + operator.operator)
+			next_term, _term = factor(_term)
+			if next_term is bool:
+				return (False, False)
+			return (BinOp(operator, termi, next_term), _term)
+		return (termi, _term)
+	return (False, False)
+
+
+#Define la gramatica : <exp> ::= <term> { ("+" | "-") <term> }
 def expresion(_expresion):
-	value = _expresion.pop(0)
-	_ast = []
-	if _expresion != [] and type(value) is lex.Integer:
-		_ast.append(value)
-		return (_ast, _expresion)
-	elif _expresion != [] and (value == 'negative' or value == 'logicalNegation' or value == 'bitwiseComplement'):
-		_ast.append(value)
-		return unary_op(_expresion)
-#		return False
-	elif _expresion != [] and value == 'openBrace':
-		piece, _statement = expresion(_statement)
-		_ast.append(piece)
-		if _statement != [] and  _statement.pop(0) == 'closeBrace':
-			return (_ast, _statement)
-	else:
-		return False
+	termi, _expresion = term(_expresion)
+	if termi:
+		operator = _expresion[0]
+		if type(operator) is Operator and ( operator.operator == 'addition' or operator.operator == 'minus'):
+			operator = _expresion.pop(0)
+			print('--------- ' + operator.operator)
+			next_term, _expresion = term(_expresion)
+			if next_term is bool:
+				return (False, False)
+			return (BinOp(operator, termi, next_term), _expresion)
+		return (termi, _expresion)
+	return (False, False)
 
-#Define la gramatica: <statement> ::= "return" <exp> ";" (1)
+
+#Define la gramatica: <statement> ::= "return" <exp> ";"
 def statement(_statement):
 	statement = _statement.pop(0)
-	_ast = []
-	if statement=='returnKeyWord':
-		_ast.append(statement)
-		piece, _statement = expresion(_statement)
-		_ast.append(piece)
-		if _statement != [] and  _statement.pop(0) == 'semiColon':
-			return (_ast, _statement)
-	else:
-		return False
+	if statement!='returnKeyWord':
+		return (False, False)
+	print('------- Return')
+	exp, _statement = expresion(_statement)
+	if type(_statement) is bool or _statement == [] or _statement.pop(0) != 'semiColon':
+		return (False, False)
+	return (Return(exp), _statement)
 
-#Define la gramatica: <function> ::= "int" <id> "(" ")" "{" <statement> "}" (1)
+
+#Define la gramatica: <function> ::= "int" <id> "(" ")" "{" <statement> "}"
 def function(_function):
-	_ast = []
 	function_Name = _function.pop(0)
-	if (_function != [] and type(function_Name) is lex.Identifier) and (_function.pop(0)=='openParentesis') and (_function.pop(0)=='closeParentesis') and (_function.pop(0)=='openBrace'):
-		_ast.append(function_Name)
-		piece, _function = statement(_function)
-		_ast.append(piece)
-		if _function != [] and _function.pop(0) == 'closeBrace':
-			return _ast
-	else:
+	if (_function == [] or type(function_Name) is not Identifier) or (_function.pop(0)!='openParentesis') or (_function.pop(0)!='closeParentesis') or (_function.pop(0)!='openBrace'):
 		return False
+	print('---- Function ' + function_Name.funName)
+	returnn, _function = statement(_function)
+	if type(_function) is bool or _function == [] or _function.pop(0) != 'closeBrace':
+		return False
+	return Fun(function_Name, returnn)
 
-#Define la gramatica: <program> ::= <function> (1)
+
+#Define la gramatica: <program> ::= <function>
 def program(_program):
-	if _program != [] and _program.pop(0) == 'intKeyWord':
-		return function(_program)
-	else:
+	if _program == [] or _program.pop(0) != 'intKeyWord':
 		return False
+	print('-- Program')
+	func = function(_program)
+	if not func:
+		return False
+	return Prog(func)
 
-#Funcion parcer (1)
-def parcer(_tokens):
-	if _tokens != []:
-		return program(_tokens)
-	return False
+
+#Funcion parcer
+def parcer(_tokenList):
+	if _tokenList == []:
+		return False
+	return program(_tokenList)

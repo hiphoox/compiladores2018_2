@@ -1,88 +1,49 @@
 import re
+from wrappers import Operator
+from wrappers import Integer
+from wrappers import Identifier
+from wrappers import simbols
+from wrappers import keyWords
+from wrappers import operators
 
-# (1) -> La funcion realiza lo que debe de manera natural.
-# (0) -> La funcion realiza lo que debe pero no de manera natual.
+#Funcion principal que se encarga de identificar los tokens del codigo
+def lexer(line, tokensList):
+	if line != '':
+		simbol = re.compile('\(|\)|\{|\}|\;')
+		operator = re.compile('\+|\-|\~|\!|\*|\/')
+		keyWordd = re.compile('int\\b|return\\b')
+		identifier = re.compile('[a-zA-Z]\w*')
+		integers = re.compile('[0-9]+')
 
-#Realiza la busqueda del simbolo correspondiente (1)
-def simbols(code_section):
-	if code_section == '(':
-		return 'openParentesis'
-	if code_section == ')':
-		return 'closeParentesis'
-	if code_section == '{':
-		return 'openBrace'
-	if code_section == '}':
-		return 'closeBrace'
-	if code_section == ';':
-		return 'semiColon'
-	if code_section == '-':
-		return 'negative'
-	if code_section == '!':
-		return 'logicalNegation'
-	if code_section == '~':
-		return 'bitwiseComplement'
-	if code_section == '+':
-		return 'addition'
-	if code_section == '*':
-		return 'multiplication'
-	if code_section == '/':
-		return 'division'
+		token = simbol.search(line)
+		if token and token.start() == 0:
+			line = line.replace(token.group(),'',1).lstrip()
+			tokensList.append(simbols(token.group()))
+		token = operator.search(line)
+		if token and token.start() == 0:
+			line = line.replace(token.group(),'',1).lstrip()
+			tokensList.append(Operator(token.group()))
+		token = keyWordd.search(line)
+		if token and token.start() == 0:
+			line = line.replace(token.group(),'',1).lstrip()
+			tokensList.append(keyWords(token.group()))
+		token = identifier.search(line)
+		if token and token.start() == 0:
+			line = line.replace(token.group(),'',1).lstrip()
+			tokensList.append(Identifier(token.group()))
+		token = integers.match(line)
+		if token and token.start() == 0:
+			line = line.replace(token.group(),'',1).lstrip()
+			tokensList.append(Integer(token.group()))
+		lexer(line, tokensList)
 
-#Realiza la busqueda del keyWord correspondiente (1)
-def keyWords(code_section):
-	if code_section == 'int':
-		return 'intKeyWord'
-	if code_section == 'return':
-		return 'returnKeyWord'
-
-#Clase contenedora de un entero (1)
-class Integer:
-	def __init__(self, code_section):
-		self.int = int(code_section)
-
-#Clase contenedora de un identificador (1)
-class Identifier:
-	def __init__(self, code_section):
-		self.id = code_section
-
-
-#Pese a que el lexer ya realiza todo como deberia, pensar en algun algoritmo
-#que realize los mismo paso, pero de manera natural (0)
-#NOTA: Preguntar al profe sobre la duda del error del archivo 'no_space.c'
-def lex(fileName):
-	code = ' '.join((open(fileName, "r").read().split()))
-
-	simbol = re.compile('\(|\)|\{|\}|\;')
-	keyWordd = re.compile('int|return')
-	identifierd = re.compile('main')
-	integers = re.compile('(\d)+')
-
-	string = ''
+def funcLeeArchivo(fileName):
+	code = re.split('\n',open(fileName, "r").read())
 	tokensList = []
-	#for que itera en cada uno de los elementos de la cadena 'code'.
-	for x in range(0,len(code)):
-		if code[x]!=' ':
-			key = simbol.search(code[x])
-			if not key:
-				string += code[x]
-				#Realiza una busqueda dentro de keyWords e indentifiers
-				identifier = identifierd.search(string)
-				keyWord = keyWordd.search(string)
-				if identifier != None:
-					tokensList.append(Identifier(string))
-					string=''
-				elif keyWord != None and code[x+1]==' ':
-					tokensList.append(keyWords(keyWord.group(0)))
-					string=''
-				elif keyWord != None or identifier != None and code[x+1]!=' ':
-					return False
-			else:
-				"""Comprobamos que lo anterior sea un numero, de no serlo significara que no se encuentra definido
-				dentro de ningun diccionario y en consecuencia debera mandar un error lexico"""
-				if string.isdigit():
-					tokensList.append(Integer(string))
-				elif string != '':
-					return False
-				tokensList.append(simbols(code[x]))
-				string = ''
+	linea = 1
+
+	for line in code:
+		lexer(line.lstrip(), tokensList)
+		linea += 1
+
 	return tokensList
