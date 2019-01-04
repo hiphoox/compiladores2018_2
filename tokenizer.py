@@ -46,6 +46,7 @@ def tokenizer(file):
 			
 		
 	return tokensf
-	
-
+print("\n")	
+print("--------------------------------------------------Tokens-----------------------------------------------")
 print(tokenizer('tester.c'))
+print("\n")
