@@ -110,7 +110,6 @@ def iterate(l):
                 python_comp.write(' ret\n')
                 python_comp.close()
                 leaf.reverse()
-                print(leaf)
                 for t in leaf:
                     if isinstance(t, Literal_num):
                         n = t.num
