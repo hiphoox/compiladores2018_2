@@ -8,9 +8,10 @@ from tokenizer import *
 <unary_op> ::= "!" | "~" | "-"
 """
 
+
+
 def unOp(tokens):    
     un = []
-    print(tokens)
     l=tokens.pop(0).split(":")
     if l[1] == "-" or l[1] == "~" or l[1] == "!":
         un.append(l[1])
@@ -20,7 +21,6 @@ def unOp(tokens):
 
 def expresion(tokens):
     exp = []
-    print(tokens)
     l=tokens[0].split(":")
     if l[0] ==  "INT":
         exp.append(l[1])
@@ -33,11 +33,15 @@ def statement(tokens):
     sta = []
     l=tokens.pop(0).split(":")
     if l[0] ==  "Keyword" and l[1] == "return":
-        sta.append(l[1])
-        sta.append(expresion(tokens))
-    l=tokens.pop(0).split(":")
+        g=tokens[0].split(":")
+        if g[1] == ";":
+            return "Error: no hay valor de retorno"
+        else:
+            sta.append(l[1])
+            sta.append(expresion(tokens))
+    l=tokens[0].split(":")
     if l[0] ==  "Semicolon":
-        sta.append(l[1])
+        tokens.pop(0)
     return sta
     
 
@@ -46,19 +50,19 @@ def func(tokens):
     l=tokens.pop(0).split(":")
     if l[0] ==  "ID":
         aidi.append(l[1])
-    l=tokens.pop(0).split(":")
+    l=tokens[0].split(":")
     if l[0] ==  "OpenParen":
-        aidi.append(l[1])
-    l=tokens.pop(0).split(":")
+        tokens.pop(0)
+    l=tokens[0].split(":")    
     if l[0] ==  "CloseParen":
-        aidi.append(l[1])
-    l=tokens.pop(0).split(":")
+        tokens.pop(0)
+    l=tokens[0].split(":")
     if l[0] ==  "OpenBrace":
-        aidi.append(l[1])
+        tokens.pop(0)
         aidi.append(statement(tokens))
-    l=tokens.pop(0).split(":")
+    l=tokens[0].split(":")
     if l[0] ==  "CloseBrace":
-        aidi.append(l[1])
+        tokens.pop(0)
     return aidi
     
 
@@ -68,6 +72,8 @@ def programa(tokens):
     if l[0] ==  "Keyword" and l[1] == "int":
         fun.append(l[1])
         fun.append(func(tokens))
+    elif l[0] != "Keyword":
+        return("Error en keyword")
     return fun      
 
 
@@ -80,4 +86,4 @@ def parser(tokens):
 
 
     
-print(parser(tokenizer('tarea1.c')))
+print(parser(tokenizer('tester.c')))

@@ -4,7 +4,7 @@ def tokenizer(file):
 
 	tokenss=[]
 	#diccionario de simbolos
-	symbols = {'(':'OpenParen', ')': 'CloseParen', '{': 'OpenBrace', '}': 'CloseBrace', ';': 'Semicolon','-':'Negation','~':'Bitwise','!':'Logic_Neg'}
+	symbols = {'(':'OpenParen', ')': 'CloseParen', '{': 'OpenBrace', '}': 'CloseBrace', ';': 'Semicolon','-':'Negation','~':'Bitwise','!':'Logic_Neg','+':'Addition','*':'Multiplication','/':'Division'}
 
 	#set de palabras reservadas del lenguaje C
 	key={'auto','break','case','char','const','continue','default','do','double','else','enum','extern','float',
@@ -48,4 +48,4 @@ def tokenizer(file):
 	return tokensf
 	
 
-print(tokenizer('tarea1.c'))
+print(tokenizer('tester.c'))
