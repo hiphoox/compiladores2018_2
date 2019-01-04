@@ -40,9 +40,9 @@ for item in g:
 	f.write( item )
 f.close() 
 
-os.system( "gcc -m64 assembly.s -o out" )		
+#os.system( "gcc -m64 assembly.s -o out" )		
 
-os.system( "rm assembly.s" )
+#os.system( "rm assembly.s" )
 
 """	./out	
 	echo $? 
