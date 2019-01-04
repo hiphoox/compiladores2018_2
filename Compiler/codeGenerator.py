@@ -30,7 +30,6 @@ def integer(_integer):
 
 #Regresa la cadena correspondiente al nodo Return.
 def returN(_return):
-	print(_return.exp)
 	if _return:
 		if type(_return.exp) is BinOp:
 			return binOp(_return.exp)
