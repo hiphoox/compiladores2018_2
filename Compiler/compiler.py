@@ -1,6 +1,6 @@
 from lex import funcLeeArchivo
-from parse import parcer
 from codeGenerator import code_generator
+from parse import parcer
 
 def compiler(file):
 	_tokenList = []

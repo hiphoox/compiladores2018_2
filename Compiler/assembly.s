@@ -1,4 +1,7 @@
-.globl _main
-_main:
-  mov $0, %eax
-  ret
+.globl main
+main:
+	mov $2,%eax
+	push %eax
+	pop %ecx
+	imul %ecx, %eax
+ret
