@@ -32,4 +32,4 @@ def gen_code(node):
     return 
 print("\n")
 print("-------------------------- assembly instructions ------------------")
-get_node((parser(tokenizer('tester.c'))))
+get_node((parser(openFile('tester.c'))))

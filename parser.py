@@ -86,4 +86,4 @@ def parser(tokens):
 
 
 print("--------------------------------------------------AST-----------------------------------------------")    
-print(parser(tokenizer('tester.c')))
+print(parser(openFile('tester.c')))

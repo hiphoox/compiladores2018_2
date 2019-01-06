@@ -1,52 +1,60 @@
 import re
 
-def tokenizer(file):
+def symbolss(piece):
+	if piece == '(':
+		return 'OpenParen'
+	if piece == ')':
+		return 'CloseParen'
+	if piece == '{':
+		return 'OpenBrace'
+	if piece == '}':
+		return 'CloseBrace'
+	if piece == ';':
+		return 'Semicolon'
+	if piece == '-':
+		return 'Negation'
+	if piece == '~':
+		return 'Bitwise'
+	if piece == '!':
+		return 'Logic_Neg'
 
-	tokenss=[]
-	#diccionario de simbolos
-	symbols = {'(':'OpenParen', ')': 'CloseParen', '{': 'OpenBrace', '}': 'CloseBrace', ';': 'Semicolon','-':'Negation','~':'Bitwise','!':'Logic_Neg','+':'Addition','*':'Multiplication','/':'Division'}
+def words(piece):
+	if piece == 'int' or piece == 'return':
+		return 'Keyword'
+	else:
+		return 'ID'
 
-	#set de palabras reservadas del lenguaje C
-	key={'auto','break','case','char','const','continue','default','do','double','else','enum','extern','float',
-            'for','if','inline','int','long','register','restrict','return','sizeof','static','struct','switch',
-            'typedef','union','unsigned','void','volatile','while'}
+def tokenizer(line,tokens):	
+	if line != "":
+				symbol = re.compile('\(|\)|\{|\}|\;|\+|\-|\~|\!|\*|\/')
+				word1 = re.compile('[a-zA-Z]+')
+				integers = re.compile('[0-9]+')
 
-	
-	#Abre el archivo tarea1.c
-	"""
-	El primer for etiqueta los simbolos que se encuentren en el programa.
-
-	El segundo for etiqueta las keywords encontradas en el programa.
-
-	Tercer for busca las palabras que aun no estan etiquetadas, y con expresiones regulares
-	se etiquetan numeros y id's.
-	"""
-
+				token = symbol.search(line)
+				if token and token.start() == 0:
+					line = line.replace(token.group(),'',1)
+					tokens.append(symbolss(token.group())+':'+token.group())
+				token = word1.search(line)
+				if token and token.start() == 0:
+					line = line.replace(token.group(),'',1)
+					tokens.append(words(token.group())+':'+token.group())
+				token = word1.search(line)
+				if token and token.start() == 0:
+					line = line.replace(token.group(),'',1)
+					tokens.append(words(token.group())+':'+token.group())
+				token = integers.search(line)
+				if token and token.start() == 0:
+					line = line.replace(token.group(),'',1)
+					tokens.append('INT:'+token.group())
+				tokenizer(line.strip(),tokens)
+def openFile(file):
+	tokens=[]
 	with open(file) as fp:
 		for cnt, line in enumerate(fp):
-			line = line.replace("\n", "  ").replace("-","- ").replace("~","~ ").replace("!","! ")
-			for x in symbols:
-				line = line.replace(x, ' '+symbols[x]+':'+x)
-			for y in key:
-				line = line.replace(y,' Keyword'+':'+y)
-			tokens = [item for item in line.split(" ") if len(item) != 0]
-			tokenss.append(tokens)
-			
-			for i in tokens:
-				if ":" not in i:
-					digito=re.search(r'[0-9]+',i)
-					if digito:
-						tokens[tokens.index(i)]='INT:'+i
-					chain=re.search(r'[a-zA-Z]+',i)
-					if chain:
-						tokens[tokens.index(i)]='ID:'+i
-	tokensf = [val for sublist in tokenss for val in sublist]
-			
-
-			
-		
-	return tokensf
+			line = line.replace("\n", "  ").replace("-","- ").replace("~","~ ").replace("!","! ").strip()
+			tokenizer(line,tokens)	
+		return tokens
 print("\n")	
 print("--------------------------------------------------Tokens-----------------------------------------------")
-print(tokenizer('tester.c'))
+print(openFile('tester.c'))
 print("\n")
