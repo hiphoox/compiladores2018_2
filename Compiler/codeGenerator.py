@@ -6,12 +6,13 @@ from wrappers import Integer
 from wrappers import Operator 
 from wrappers import BinOp
 
-def binOp(_binOp):
+#Regresa la cadena correspondiente al nodo BinOp
+def binOp(_binOp):#Checar esta funcion porque no esta regresando el codigo como corresponde.
 	if _binOp:
 		if _binOp.operator.operator == 'addition' or _binOp.operator.operator == 'minus':
-			return returN(Return(_binOp.op1)) + '\n\tpush ' + chr(37) + 'eax\n\tpop ' + chr(37) + 'ecx\n\taddl ' + chr(37) + 'ecx, ' + chr(37) + 'eax'
+			return returN(Return(_binOp.op1)) + '\n\tpush ' + chr(37) + 'eax' + returN(Return(_binOp.op2)) + '\n\tpop ' + chr(37) + 'ecx\n\taddl ' + chr(37) + 'ecx, ' + chr(37) + 'eax'
 		if _binOp.operator.operator == 'multiplication' or _binOp.operator.operator == 'division':
-			return returN(Return(_binOp.op1)) + '\n\tpush ' + chr(37) + 'eax\n\tpop ' + chr(37) + 'ecx\n\timul ' + chr(37) + 'ecx, ' + chr(37) + 'eax'
+			return returN(Return(_binOp.op1)) + '\n\tpush ' + chr(37) + 'eax' + returN(Return(_binOp.op2)) + '\n\tpop ' + chr(37) + 'ecx\n\timul ' + chr(37) + 'ecx, ' + chr(37) + 'eax'
 
 #Regresa la cadena correspondiente al nodo UnOp.
 def unOp(_unOp):
