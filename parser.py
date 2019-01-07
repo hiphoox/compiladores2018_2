@@ -26,7 +26,7 @@ def expresion(tokens):
         exp.append(l[1])
         tokens.pop(0)
     else:
-        exp.append(unOp(tokens))            
+        exp.append(unOp(tokens))           
     return exp
 
 def statement(tokens):
@@ -53,6 +53,8 @@ def func(tokens):
     l=tokens[0].split(":")
     if l[0] ==  "OpenParen":
         tokens.pop(0)
+    else:
+        return "Error: Missing PAren"
     l=tokens[0].split(":")    
     if l[0] ==  "CloseParen":
         tokens.pop(0)
@@ -67,13 +69,14 @@ def func(tokens):
     
 
 def programa(tokens):
+    t = tokens[0].split(":")
+    if tokens == [] or t[0] != 'Keyword':
+        print("Error en keyword")
     fun = []
     l=tokens.pop(0).split(":")
     if l[0] ==  "Keyword" and l[1] == "int":
         fun.append(l[1])
         fun.append(func(tokens))
-    elif l[0] != "Keyword":
-        return("Error en keyword")
     return fun      
 
 

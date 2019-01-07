@@ -1,28 +1,6 @@
 import re
+from clases import *
 
-def symbolss(piece):
-	if piece == '(':
-		return 'OpenParen'
-	if piece == ')':
-		return 'CloseParen'
-	if piece == '{':
-		return 'OpenBrace'
-	if piece == '}':
-		return 'CloseBrace'
-	if piece == ';':
-		return 'Semicolon'
-	if piece == '-':
-		return 'Negation'
-	if piece == '~':
-		return 'Bitwise'
-	if piece == '!':
-		return 'Logic_Neg'
-
-def words(piece):
-	if piece == 'int' or piece == 'return':
-		return 'Keyword'
-	else:
-		return 'ID'
 
 def tokenizer(line,tokens):	
 	if line != "":
@@ -46,6 +24,7 @@ def tokenizer(line,tokens):
 				if token and token.start() == 0:
 					line = line.replace(token.group(),'',1)
 					tokens.append('INT:'+token.group())
+				
 				tokenizer(line.strip(),tokens)
 def openFile(file):
 	tokens=[]
