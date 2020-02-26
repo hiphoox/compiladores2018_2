@@ -1,0 +1,19 @@
+Regsitro AX
+El registro AX se usa para almacenar el resultado de las operaciones,
+debido a esto es el unico registro con el que se puede realizar operaciones
+como la división y multiplicación.
+Este registro esta compuesto por una parte alta (AH) y una parte baja (AL)
+ambas de 8 bits que en conjunto conforman a AX con 16 bits, ademas este registro 
+cuenta con dos extenciones EAX que es una extención de AX de 32 bits y RAX que es 
+una extención de AX de 64 bits.
+
+Little Endian
+En el formato Little Endian el byte de menor peso se almacena en la dirección más
+baja de memoria y el byte de mayor peso en la más alta, de forma general en este tipo
+de formato se lee empezando por el byte más significativo hasta el menos significativo.
+
+
+Big Endian 
+En el formato Big Endian el byte de mayor peso se alamcena en la dirección más baja
+de memoria y el byte de menor peso en la más alta, así en este formato se lee empezando 
+por el byte menos significativo al más significativo.

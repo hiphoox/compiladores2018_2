@@ -1,0 +1,17 @@
+﻿¿Por qué 1 byte es igual a 8 bits?
+Anteriormente no solo se utilizaban grupos de 8 bits para representar un byte, 
+si no que tambien habia computadoras que manejaban 6 bits o 12 bits, pero esto 
+cambio primeramente por la aparición del código ASCII el cual hacia uso de 7 bits
+para su representación, por lo que era necesario trabajar con códigos de 
+8 bits.
+Posteriormente con la aparición de la computadora IBM 5150, la cual era una computadora
+personal utilizaba un procesador de 8 bits y debido a que se convirtio en la predominante 
+en este tipo de computadoras el byte fue consolidado como de 8 bits, con lo que para las 
+siguientes computadoras y lenguajes de progremación al hacer uso del termino byte este era
+considerado como de 8 bits.
+
+Registro de desbordamiento (Over flow)
+Cuando el código alamcenado en un registro supera el valor máximo que este soporta, el registro 
+de desbordamiento almacena un valor de 1 lo cual indica que hubo un desbordamiento de un bit
+de orden alto después de una operación arimética.
+Este tipo de registro tambien es conocido como registro de bandera.
